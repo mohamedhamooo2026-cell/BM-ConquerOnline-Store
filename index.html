@@ -222,14 +222,13 @@ footer.owner{color:gold;font-weight:bold;font-size:14px;margin-bottom:5px}
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
 
-  // EmailJS - هنظبطه بعدين
+  // EmailJS - حط بياناتك هنا
   emailjs.init("YOUR_PUBLIC_KEY");
 
   const counterRef = ref(db, 'totalOrders');
   const commentsRef = ref(db, 'comments');
   const ordersRef = ref(db, 'orders');
 
-  // العداد
   onValue(counterRef, (snapshot) => {
     const count = snapshot.val() || 0;
     document.getElementById('orderCounter').innerText = count.toLocaleString('ar-EG');
@@ -241,7 +240,6 @@ footer.owner{color:gold;font-weight:bold;font-size:14px;margin-bottom:5px}
     });
   };
 
-  // تحميل الكومنتات الموافق عليها
   const approvedCommentsQuery = query(commentsRef, orderByChild('approved'), equalTo(true), limitToLast(10));
   onValue(approvedCommentsQuery, (snapshot) => {
     const reviewsList = document.getElementById('reviewsList');
@@ -262,7 +260,6 @@ footer.owner{color:gold;font-weight:bold;font-size:14px;margin-bottom:5px}
     });
   });
 
-  // اضافة كومنت
   let selectedRating = 5;
   document.querySelectorAll('.star').forEach(star => {
     star.addEventListener('click', function() {
@@ -302,13 +299,28 @@ footer.owner{color:gold;font-weight:bold;font-size:14px;margin-bottom:5px}
     });
   };
 
-  // حفظ الطلب
   window.saveOrder = function(orderData) {
     const newOrder = push(ordersRef);
     return set(newOrder, {
-    ...orderData,
+   ...orderData,
       timestamp: Date.now(),
       status: 'pending'
+    });
+  };
+
+  window.sendEmailNotification = function(orderData) {
+    // هيشتغل بعد ما تحط الـ Service ID و Template ID
+    emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+      to_name: "BABA MAZZIKA",
+      operation: orderData.operation == 'sell'? 'شراء من العميل' : 'بيع للعميل',
+      server: orderData.server,
+      service: orderData.service == 'gold'? 'Gold' : 'CPs',
+      amount: orderData.amount,
+      cash: orderData.cash,
+      payment: orderData.payment,
+      payment_number: orderData.paymentNumber,
+      player_id: orderData.playerID || 'غير محدد',
+      user_phone: orderData.userPhone || 'غير محدد'
     });
   };
 
@@ -335,13 +347,11 @@ footer.owner{color:gold;font-weight:bold;font-size:14px;margin-bottom:5px}
         }
     };
 
-    // حماية من السرقة
     Object.defineProperty(window,'_bmstore_auth',{
         writable:false,
         configurable:false
     });
 
-    // منع F12 و Ctrl+U و Ctrl+Shift+I
     document.addEventListener('contextmenu', e => {
         e.preventDefault();
         return false;
@@ -354,7 +364,6 @@ footer.owner{color:gold;font-weight:bold;font-size:14px;margin-bottom:5px}
         }
     });
 
-    // حماية من النسخ
     document.addEventListener('copy', e => {
         if(!e.target.matches('input,textarea')){
             e.preventDefault();
@@ -456,6 +465,7 @@ function send(){
   };
 
   saveOrder(orderData);
+  sendEmailNotification(orderData);
 
   const unitPrice=price().toFixed(2);
   let amountText=amount.value;
