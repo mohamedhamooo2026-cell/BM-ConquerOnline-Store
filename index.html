@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- اثبات الملكية -->
+<meta name="author" content="BABA MAZZIKA - BMSTORE">
+<meta name="copyright" content="BMSTORE © 2026 - All Rights Reserved">
+<meta name="description" content="BMSTORE - متجر BABA MAZZIKA الرسمي لبيع وشراء Gold و CPs كونكر اونلاين. التسليم فوري وثقة 100%">
+<meta name="keywords" content="BMSTORE, BABA MAZZIKA, Conquer Online, Gold, CPs, كونكر">
+<meta property="og:title" content="BMSTORE | BABA MAZZIKA">
+<meta property="og:description" content="المتجر الرسمي الموثوق لبيع وشراء كونكر اونلاين">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mohamedhamooo2026-cell.github.io/Conquer-Online-/">
+
+<!-- اثبات ملكية جوجل -->
+<meta name="google-site-verification" content="68d1d7a0f296b351" />
+
+<title>BMSTORE | BABA MAZZIKA - المتجر الرسمي</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Tahoma;
+color:white;
+background:
+radial-gradient(circle at top,#1a1a2e 0%,#000 60%),
+linear-gradient(135deg,#0f2027,#203a43,#000);
+min-height:100vh;
+background-attachment:fixed;
+}
+
+body:before{
+content:"";
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at 20% 20%,rgba(255,215,0,.08),transparent 40%),
+radial-gradient(circle at 80% 70%,rgba(255,120,0,.06),transparent 40%);
+pointer-events:none;
+}
+
+.container{
+width:95%;
+max-width:520px;
+margin:30px auto;
+background:rgba(10,10,10,.92);
+border:2px solid gold;
+border-radius:20px;
+padding:25px;
+box-shadow:0 0 40px rgba(255,215,0,.2);
+}
+
+h1,h2{
+text-align:center;
+color:gold;
+}
+
+.phone{
+background:linear-gradient(45deg,#d4af37,#ffd700);
+color:black;
+text-align:center;
+padding:15px;
+margin:15px 0;
+border-radius:15px;
+font-size:24px;
+font-weight:bold;
+}
+
+.verified-badge{
+background:rgba(0,255,0,0.1);
+border:2px solid #00ff00;
+color:#00ff00;
+text-align:center;
+padding:10px;
+border-radius:10px;
+margin:10px 0;
+font-weight:bold;
+font-size:14px;
+}
+
+label{
+display:block;
+margin-top:15px;
+color:gold;
+font-weight:bold;
+}
+
+.small-en{
+font-size:12px;
+color:#aaa;
+}
+
+input,select{
+width:100%;
+padding:12px;
+margin-top:5px;
+background:#111;
+color:white;
+border:1px solid #444;
+border-radius:10px;
+font-size:16px;
+}
+
+input:focus,select:focus{
+outline:none;
+border-color:#FFD700;
+box-shadow:0 0 15px rgba(255,215,0,0.3);
+}
+
+button{
+width:100%;
+padding:15px;
+margin-top:15px;
+background:linear-gradient(45deg,#ffcc00,#ff7b00);
+border:none;
+border-radius:10px;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.whatsapp{
+display:block;
+text-align:center;
+background:#25D366;
+color:white;
+padding:15px;
+border-radius:10px;
+margin-top:15px;
+text-decoration:none;
+font-weight:bold;
+}
+
+#phoneField{
+display:none;
+animation:slideDown 0.3s ease;
+}
+
+@keyframes slideDown{
+from{opacity:0;transform:translateY(-10px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+footer{
+text-align:center;
+margin-top:30px;
+padding-top:20px;
+border-top:1px solid #333;
+color:#888;
+font-size:12px;
+}
+
+footer .owner{
+color:gold;
+font-weight:bold;
+font-size:14px;
+margin-bottom:5px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>👑 BMSTORE 👑</h1>
+<h2>⚔ BABA MAZZIKA ⚔</h2>
+
+<div class="verified-badge">
+✅ المتجر الرسمي الموثق | Official Verified Store
+</div>
+
+<div class="phone">
+📞 01097583583
+</div>
+
+<label>
+العملية <span class="small-en">Operation</span>
+</label>
+<select id="o">
+<option value="sell">شراء - عايز اشتري من BMSTORE</option>
+<option value="buy">بيع - عايز ابيع لـ BMSTORE</option>
+</select>
+
+<label>
+الخدمة <span class="small-en">Service</span>
+</label>
+<select id="p">
+<option value="gold">Gold | ملايين</option>
+<option value="cps">CPs | سبس</option>
+</select>
+
+<label>
+السيرفر <span class="small-en">Server</span>
+</label>
+
+<select id="s">
+
+<optgroup label="⚡ MAIN SERVER ⚡">
+<option value="light">Lightning ⚡</option>
+<option value="storm">Storm 🌪</option>
+</optgroup>
+
+<optgroup label="🔥 NEW SERVER 🔥">
+<option value="fatalblow">FatalBlow</option>
+<option value="zenithzone_eu">ZenithZone_EU</option>
+<option value="futureenergy">FutureEnergy</option>
+<option value="legacy_eu">Legacy_EU</option>
+<option value="warringlands">WarringLands</option>
+<option value="echoingswords">EchoingSwords</option>
+<option value="tempeststrike">TempestStrike</option>
+<option value="voyage_eu">Voyage_EU</option>
+</optgroup>
+
+<optgroup label="⚔ CLASSIC SERVER ⚔">
+<option value="twincity">TwinCity</option>
+<option value="phoenixcastle_eu">PhoenixCastle_EU</option>
+<option value="apemount">ApeMount</option>
+<option value="dunewanderer">DuneWanderer</option>
+</optgroup>
+
+</select>
+
+<label>
+الكمية <span class="small-en" id="unitLabel">Amount</span>
+</label>
+<input id="amount" type="number" step="any" placeholder="اكتب الكمية">
+
+<label>
+الكاش <span class="small-en">Cash (EGP)</span>
+</label>
+<input id="cash" type="number" step="any" placeholder="اكتب المبلغ بالجنيه">
+
+<label>
+طريقة الدفع <span class="small-en">Payment Method</span>
+</label>
+<select id="payment">
+<option value="كاش">كاش</option>
+<option value="انستا">انستا</option>
+</select>
+
+<div id="phoneField">
+<label>
+📱 رقم الكاش/انستا بتاعك <span class="small-en">Your Number</span>
+</label>
+<input id="userPhone" type="tel" placeholder="010xxxxxxxx">
+</div>
+
+<button onclick="send()">
+إرسال الطلب على واتساب
+</button>
+
+<a class="whatsapp"
+href="https://wa.me/201097583583"
+target="_blank">
+WhatsApp
+</a>
+
+<footer>
+<div class="owner">👑 ملكية: BABA MAZZIKA - BMSTORE</div>
+<div>© 2026 BMSTORE - All Rights Reserved</div>
+<div>المتجر الرسمي الوحيد الموثوق</div>
+<div style="margin-top:10px;color:#666">للتواصل: 01097583583</div>
+</footer>
+
+</div>
+
+<script>
+
+const p=document.getElementById("p");
+const s=document.getElementById("s");
+const o=document.getElementById("o");
+const amount=document.getElementById("amount");
+const cash=document.getElementById("cash");
+const payment=document.getElementById("payment");
+const unitLabel=document.getElementById("unitLabel");
+const phoneField=document.getElementById("phoneField");
+const userPhone=document.getElementById("userPhone");
+
+let isUpdating = false;
+
+o.onchange = () => {
+  if(o.value == "buy") {
+    phoneField.style.display = "block";
+  } else {
+    phoneField.style.display = "none";
+    userPhone.value = "";
+  }
+  if(amount.value) amount.oninput();
+  else if(cash.value) cash.oninput();
+};
+
+function updateUnit(){
+  unitLabel.textContent = p.value=="gold"? "Amount (بالملايين)" : "Amount (بالسبس)";
+}
+
+p.addEventListener('change', updateUnit);
+updateUnit();
+
+function price(){
+
+const goldRates={
+
+light:{sell:3,buy:2.7},
+storm:{sell:2.95,buy:2.65},
+
+fatalblow:{sell:2.75,buy:2.25},
+zenithzone_eu:{sell:2.5,buy:1.5},
+futureenergy:{sell:2.5,buy:1.5},
+legacy_eu:{sell:2,buy:1.25},
+warringlands:{sell:2.5,buy:1.5},
+echoingswords:{sell:2.5,buy:1.5},
+tempeststrike:{sell:2.5,buy:1.5},
+voyage_eu:{sell:2.85,buy:2.25},
+
+twincity:{sell:0,buy:0},
+phoenixcastle_eu:{sell:0,buy:0},
+apemount:{sell:0,buy:0},
+dunewanderer:{sell:0,buy:0}
+
+};
+
+const cpsRates={
+
+light:{sell:115/215,buy:100/215},
+storm:{sell:115/215,buy:100/215},
+
+fatalblow:{sell:115/215,buy:95/215},
+
+zenithzone_eu:{sell:110/215,buy:90/215},
+futureenergy:{sell:110/215,buy:90/215},
+legacy_eu:{sell:110/215,buy:90/215},
+warringlands:{sell:110/215,buy:90/215},
+
+echoingswords:{sell:115/215,buy:100/215},
+tempeststrike:{sell:115/215,buy:100/215},
+voyage_eu:{sell:115/215,buy:100/215},
+
+twincity:{sell:0,buy:0},
+phoenixcastle_eu:{sell:0,buy:0},
+apemount:{sell:0,buy:0},
+dunewanderer:{sell:0,buy:0}
+
+};
+
+if(p.value=="gold"){
+
+let x=goldRates[s.value];
+
+if(x.sell==0&&x.buy==0){
+alert("⚔ Coming Soon");
+return 0;
+}
+
+return x[o.value];
+}
+
+let cp=cpsRates[s.value];
+
+if(cp.sell==0&&cp.buy==0){
+alert("⚔ Coming Soon");
+return 0;
+}
+
+return cp[o.value];
+}
+
+amount.oninput=()=>{
+  if(isUpdating) return;
+  isUpdating = true;
+
+  if(amount.value===""){
+    cash.value="";
+    isUpdating = false;
+    return;
+  }
+
+  const p = price();
+  if(p > 0) cash.value = (amount.value * p).toFixed(2);
+  
+  isUpdating = false;
+};
+
+cash.oninput=()=>{
+  if(isUpdating) return;
+  isUpdating = true;
+
+  if(cash.value===""){
+    amount.value="";
+    isUpdating = false;
+    return;
+  }
+
+  const p = price();
+  if(p > 0) amount.value = (cash.value / p).toFixed(2);
+  
+  isUpdating = false;
+};
+
+s.oninput=()=>{
+  if(amount.value) amount.oninput();
+  else if(cash.value) cash.oninput();
+};
+
+p.oninput=()=>{
+  if(amount.value) amount.oninput();
+  else if(cash.value) cash.oninput();
+};
+
+function send(){
+
+if(!amount.value || amount.value==0){
+  alert("اكتب الكمية او الكاش الاول");
+  return;
+}
+
+if(o.value == "buy" && !userPhone.value){
+  alert("اكتب رقم الكاش/انستا بتاعك عشان نبعتلك عليه");
+  return;
+}
+
+const unitPrice = price().toFixed(2);
+const unit = p.value=="gold"? "مليون" : "سبس";
+const serviceName = p.value=="gold"? "Gold" : "CPs";
+const serverName = s.options[s.selectedIndex].text;
+const operationText = o.value=="sell"? "طلب شراء منك" : "طلب بيع لك";
+const emoji = o.value=="sell"? "🔥" : "💵";
+const cashValue = parseFloat(cash.value).toFixed(2);
+
+let msg = `${emoji} ${operationText} - BMSTORE
+
+⚔ السيرفر: ${serverName}
+📦 الخدمة: ${serviceName}
+🔢 الكمية: ${amount.value} ${unit}
+💵 سعر ${unit}: ${unitPrice} جنيه
+💰 المطلوب للدفع: ${cashValue} جنيه
+💳 الدفع: ${payment.value}`;
+
+if(o.value == "buy") {
+  msg += `\n📱 رقم التحويل: ${userPhone.value}`;
+}
+
+msg += `\n\nوابعت سكرين التحويل هنا ✅
+التسليم فوري بعد التأكيد ⚡`;
+
+window.open(
+"https://wa.me/201097583583?text="+
+encodeURIComponent(msg)
+);
+
+}
+
+</script>
+
+</body>
+</html>
