@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMSTORE Admin - لوحة التحكم</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Tahoma;background:#0a0a0a;color:#fff;padding:20px}
+.login-box{max-width:400px;margin:100px auto;background:rgba(255,215,0,0.1);border:2px solid gold;padding:30px;border-radius:15px;text-align:center}
+.login-box h1{color:gold;margin-bottom:20px}
+.login-box input{width:100%;padding:12px;margin:10px 0;background:#111;border:1px solid #444;border-radius:8px;color:#fff;font-size:16px}
+.login-box button{width:100%;padding:12px;background:linear-gradient(45deg,#FFD700,#FF8C00);border:none;border-radius:8px;color:#000;font-weight:bold;font-size:16px;cursor:pointer}
+.admin-panel{display:none}
+.header{background:linear-gradient(45deg,#FFD700,#FF8C00);color:#000;padding:20px;border-radius:15px;margin-bottom:20px;text-align:center}
+.header h1{font-size:28px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin-bottom:30px}
+.stat-card{background:rgba(255,215,0,0.1);border:2px solid gold;padding:20px;border-radius:12px;text-align:center}
+.stat-card .num{font-size:36px;font-weight:bold;color:#FFD700}
+.stat-card .label{color:#ccc;margin-top:5px}
+.tabs{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.tab{padding:12px 25px;background:#111;border:2px solid #444;border-radius:8px;cursor:pointer;transition:all 0.3s}
+.tab.active{background:linear-gradient(45deg,#FFD700,#FF8C00);color:#000;border-color:#FFD700;font-weight:bold}
+.content-box{background:#111;border:2px solid #333;border-radius:12px;padding:20px}
+.item{background:rgba(255,215,0,0.05);border:1px solid #444;padding:15px;margin:10px 0;border-radius:8px;position:relative}
+.item-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:10px}
+.item-name{color:#FFD700;font-weight:bold;font-size:16px}
+.item-date{color:#888;font-size:12px}
+.item-details{color:#ddd;line-height:1.8;margin:10px 0}
+.item-details span{color:#FFD700;font-weight:bold}
+.item-actions{display:flex;gap:10px;margin-top:10px}
+.btn{padding:8px 20px;border:none;border-radius:6px;font-weight:bold;cursor:pointer;font-size:14px}
+.btn-approve{background:#00ff00;color:#000}
+.btn-delete{background:#ff4444;color:#fff}
+.btn-complete{background:#0088ff;color:#fff}
+.status-badge{display:inline-block;padding:4px 12px;border-radius:5px;font-size:12px;font-weight:bold}
+.status-pending{background:#ff8c00;color:#000}
+.status-approved{background:#00ff00;color:#000}
+.status-completed{background:#0088ff;color:#fff}
+.empty{text-align:center;color:#666;padding:40px}
+.logout{position:fixed;top:20px;left:20px;background:#ff4444;color:#fff;padding:10px 20px;border:none;border-radius:8px;cursor:pointer;font-weight:bold}
+</style>
+</head>
+<body>
+
+<div class="login-box" id="loginBox">
+  <h1>🔒 BMSTORE Admin</h1>
+  <input type="password" id="passwordInput" placeholder="كلمة السر">
+  <button onclick="login()">دخول</button>
+</div>
+
+<div class="admin-panel" id="adminPanel">
+  <button class="logout" onclick="logout()">تسجيل خروج</button>
+  
+  <div class="header">
+    <h1>👑 BMSTORE - لوحة التحكم</h1>
+    <p>BABA MAZZIKA</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat-card">
+      <div class="num" id="totalOrders">0</div>
+      <div class="label">اجمالي الطلبات</div>
+    </div>
+    <div class="stat-card">
+      <div class="num" id="pendingOrders">0</div>
+      <div class="label">طلبات معلقة</div>
+    </div>
+    <div class="stat-card">
+      <div class="num" id="totalComments">0</div>
+      <div class="label">اجمالي التعليقات</div>
+    </div>
+    <div class="stat-card">
+      <div class="num" id="pendingComments">0</div>
+      <div class="label">تعليقات منتظرة</div>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('orders')">📦 الطلبات</div>
+    <div class="tab" onclick="switchTab('comments')">💬 التعليقات</div>
+  </div>
+
+  <div class="content-box">
+    <div id="ordersTab"></div>
+    <div id="commentsTab" style="display:none"></div>
+  </div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+  import { getDatabase, ref, onValue, update, remove, query, orderByChild } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCiFo7DUunwnIPrH3MQZGy4aNiPx0L4JGQ",
+    authDomain: "bmstore-counter.firebaseapp.com",
+    databaseURL: "https://bmstore-counter-default-rtdb.firebaseio.com",
+    projectId: "bmstore-counter",
+    storageBucket: "bmstore-counter.firebasestorage.app",
+    messagingSenderId: "7876739667",
+    appId: "1:7876739667:web:505b27cd9047ec01b83ca6"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  const ADMIN_PASSWORD = "bmstore2026";
+
+  window.login = function() {
+    const pass = document.getElementById('passwordInput').value;
+    if(pass === ADMIN_PASSWORD) {
+      document.getElementById('loginBox').style.display = 'none';
+      document.getElementById('adminPanel').style.display = 'block';
+      loadData();
+    } else {
+      alert('كلمة السر غلط');
+    }
+  }
+
+  window.logout = function() {
+    document.getElementById('loginBox').style.display = 'block';
+    document.getElementById('adminPanel').style.display = 'none';
+    document.getElementById('passwordInput').value = '';
+  }
+
+  window.switchTab = function(tab) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('ordersTab').style.display = tab === 'orders' ? 'block' : 'none';
+    document.getElementById('commentsTab').style.display = tab === 'comments' ? 'block' : 'none';
+  }
+
+  function loadData() {
+    onValue(ref(db, 'totalOrders'), (snapshot) => {
+      document.getElementById('totalOrders').innerText = snapshot.val() || 0;
+    });
+
+    const ordersQuery = query(ref(db, 'orders'), orderByChild('timestamp'));
+    onValue(ordersQuery, (snapshot) => {
+      const ordersTab = document.getElementById('ordersTab');
+      const orders = [];
+      let pending = 0;
+      
+      snapshot.forEach((child) => {
+        const order = {id: child.key,...child.val()};
+        orders.push(order);
+        if(order.status === 'pending') pending++;
+      });
+
+      document.getElementById('pendingOrders').innerText = pending;
+      
+      orders.reverse();
+      if(orders.length === 0) {
+        ordersTab.innerHTML = '<div class="empty">مفيش طلبات لسه</div>';
+        return;
+      }
+
+      ordersTab.innerHTML = orders.map(order => {
+        const date = new Date(order.timestamp).toLocaleString('ar-EG');
+        const statusClass = order.status === 'pending' ? 'pending' : order.status === 'completed' ? 'completed' : 'approved';
+        const statusText = order.status === 'pending' ? 'معلق' : order.status === 'completed' ? 'تم التسليم' : 'موافق عليه';
+        
+        return `
+          <div class="item">
+            <div class="item-header">
+              <div class="item-name">${order.operation === 'sell' ? '🔥 شراء' : '💵 بيع'} - ${order.service === 'gold' ? 'Gold' : 'CPs'}</div>
+              <span class="status-badge status-${statusClass}">${statusText}</span>
+            </div>
+            <div class="item-date">${date}</div>
+            <div class="item-details">
+              <span>السيرفر:</span> ${order.server}<br>
+              <span>الكمية:</span> ${order.amount}<br>
+              <span>المبلغ:</span> ${order.cash} جنيه<br>
+              <span>الدفع:</span> ${order.payment} - ${order.paymentNumber}<br>
+              ${order.playerID ? `<span>ID:</span> ${order.playerID}<br>` : ''}
+              ${order.userPhone ? `<span>رقم العميل:</span> ${order.userPhone}<br>` : ''}
+            </div>
+            <div class="item-actions">
+              ${order.status === 'pending' ? `<button class="btn btn-complete" onclick="completeOrder('${order.id}')">✅ تم التسليم</button>` : ''}
+              <button class="btn btn-delete" onclick="deleteOrder('${order.id}')">🗑️ حذف</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    });
+
+    const commentsQuery = query(ref(db, 'comments'), orderByChild('timestamp'));
+    onValue(commentsQuery, (snapshot) => {
+      const commentsTab = document.getElementById('commentsTab');
+      const comments = [];
+      let pending = 0;
+      let total = 0;
+      
+      snapshot.forEach((child) => {
+        const comment = {id: child.key,...child.val()};
+        comments.push(comment);
+        total++;
+        if(!comment.approved) pending++;
+      });
+
+      document.getElementById('totalComments').innerText = total;
+      document.getElementById('pendingComments').innerText = pending;
+      
+      comments.reverse();
+      if(comments.length === 0) {
+        commentsTab.innerHTML = '<div class="empty">مفيش تعليقات لسه</div>';
+        return;
+      }
+
+      commentsTab.innerHTML = comments.map(comment => {
+        const date = new Date(comment.timestamp).toLocaleString('ar-EG');
+        const stars = '⭐'.repeat(comment.rating);
+        
+        return `
+          <div class="item">
+            <div class="item-header">
+              <div class="item-name">${comment.name}</div>
+              <span class="status-badge status-${comment.approved ? 'approved' : 'pending'}">${comment.approved ? 'منشور' : 'منتظر'}</span>
+            </div>
+            <div class="item-date">${date}</div>
+            <div class="item-details">
+              <div style="margin:10px 0">${comment.text}</div>
+              <div style="color:#FFD700">${stars}</div>
+            </div>
+            <div class="item-actions">
+              ${!comment.approved ? `<button class="btn btn-approve" onclick="approveComment('${comment.id}')">✅ نشر</button>` : ''}
+              <button class="btn btn-delete" onclick="deleteComment('${comment.id}')">🗑️ حذف</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    });
+  }
+
+  window.completeOrder = function(id) {
+    update(ref(db, `orders/${id}`), {status: 'completed'});
+  }
+
+  window.deleteOrder = function(id) {
+    if(confirm('متأكد عايز تمسح الطلب ده؟')) {
+      remove(ref(db, `orders/${id}`));
+    }
+  }
+
+  window.approveComment = function(id) {
+    update(ref(db, `comments/${id}`), {approved: true});
+  }
+
+  window.deleteComment = function(id) {
+    if(confirm('متأكد عايز تمسح التعليق ده؟')) {
+      remove(ref(db, `comments/${id}`));
+    }
+  }
+</script>
+</body>
+</html>
