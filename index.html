@@ -36,7 +36,7 @@ input:invalid{border-color:#ff4444}
 .error-text{color:#ff4444;font-size:12px;margin-top:5px;display:none}
 button{width:100%;padding:15px;margin-top:15px;background:linear-gradient(45deg,#ffcc00,#ff7b00);border:none;border-radius:10px;font-size:18px;font-weight:bold;cursor:pointer}
 .whatsapp{display:block;text-align:center;background:#25D366;color:white;padding:15px;border-radius:10px;margin-top:15px;text-decoration:none;font-weight:bold}
-#phoneField{display:none;animation:slideDown 0.3s ease}
+#phoneField,#idField{display:none;animation:slideDown 0.3s ease}
 @keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
 footer{text-align:center;margin-top:30px;padding-top:20px;border-top:1px solid #333;color:#888;font-size:12px}
 footer .owner{color:gold;font-weight:bold;font-size:14px;margin-bottom:5px}
@@ -88,6 +88,11 @@ footer .owner{color:gold;font-weight:bold;font-size:14px;margin-bottom:5px}
 <input id="amount" type="number" step="any" placeholder="اكتب الكمية">
 <label>الكاش <span class="small-en">Cash (EGP)</span> <span id="cashBadge" style="display:none" class="billion-badge">الف 💵</span></label>
 <input id="cash" type="number" step="any" placeholder="اكتب المبلغ بالجنيه">
+<div id="idField">
+<label>🎮 ID اللاعب / ايميل الاكونت <span class="small-en">Player ID</span></label>
+<input id="playerID" type="text" placeholder="اكتب الـ ID او ايميل الاكونت">
+<div class="error-text" id="idError">لازم تكتب الـ ID عشان التسليم</div>
+</div>
 <label>طريقة الدفع <span class="small-en">Payment Method</span></label>
 <select id="payment">
 <option value="كاش">كاش</option>
@@ -108,7 +113,27 @@ footer .owner{color:gold;font-weight:bold;font-size:14px;margin-bottom:5px}
 </footer>
 </div>
 <script>
-const p=document.getElementById("p");const s=document.getElementById("s");const o=document.getElementById("o");const amount=document.getElementById("amount");const cash=document.getElementById("cash");const payment=document.getElementById("payment");const unitLabel=document.getElementById("unitLabel");const phoneField=document.getElementById("phoneField");const userPhone=document.getElementById("userPhone");const phoneError=document.getElementById("phoneError");const billionBadge=document.getElementById("billionBadge");const cashBadge=document.getElementById("cashBadge");let isUpdating=false;o.onchange=()=>{if(o.value=="buy"){phoneField.style.display="block"}else{phoneField.style.display="none";userPhone.value="";phoneError.style.display="none"}if(amount.value)amount.oninput();else if(cash.value)cash.oninput()};function updateUnit(){unitLabel.textContent=p.value=="gold"?"Amount (بالملايين)":"Amount (بالسبس)"}p.addEventListener('change',updateUnit);updateUnit();
+const p=document.getElementById("p");const s=document.getElementById("s");const o=document.getElementById("o");const amount=document.getElementById("amount");const cash=document.getElementById("cash");const payment=document.getElementById("payment");const unitLabel=document.getElementById("unitLabel");const phoneField=document.getElementById("phoneField");const userPhone=document.getElementById("userPhone");const phoneError=document.getElementById("phoneError");const billionBadge=document.getElementById("billionBadge");const cashBadge=document.getElementById("cashBadge");const idField=document.getElementById("idField");const playerID=document.getElementById("playerID");const idError=document.getElementById("idError");let isUpdating=false;
+
+o.onchange=()=>{
+    if(o.value=="buy"){
+        phoneField.style.display="block";
+        idField.style.display="none";
+        playerID.value="";
+        idError.style.display="none";
+    }else{
+        phoneField.style.display="none";
+        userPhone.value="";
+        phoneError.style.display="none";
+        idField.style.display="block";
+    }
+    if(amount.value)amount.oninput();
+    else if(cash.value)cash.oninput()
+};
+
+function updateUnit(){unitLabel.textContent=p.value=="gold"?"Amount (بالملايين)":"Amount (بالسبس)"}
+p.addEventListener('change',updateUnit);updateUnit();
+idField.style.display="block";
 
 function formatBillion(num){
     const billions = Math.floor(num / 1000);
@@ -122,21 +147,18 @@ function formatBillion(num){
     }
 }
 
-// تحويل الكاش تفصيلي: الف + جنيه
 function formatCash(num){
     const millions = Math.floor(num / 1000000);
-    const thousands = Math.floor((num % 1000000) / 1000);
+    const remainderAfterMillion = num % 1000000;
+    const thousands = Math.floor(remainderAfterMillion / 1000);
     const remainder = Math.floor(num % 1000);
     
-    let result = [];
-    if(millions > 0) result.push(`${millions} مليون`);
-    if(thousands > 0) result.push(`${thousands} الف`);
-    if(remainder > 0) result.push(`${remainder} جنيه`);
+    let parts = [];
+    if(millions > 0) parts.push(`${millions} مليون`);
+    if(thousands > 0) parts.push(`${thousands} الف`);
+    if(remainder > 0) parts.push(`${remainder}`);
     
-    if(result.length === 0) return `${num} جنيه`;
-    if(result.length === 1 && millions === 0 && thousands === 0) return `${remainder} جنيه`;
-    
-    return result.join(' ');
+    return parts.length > 0 ? parts.join(' ') + ' جنيه' : `${num} جنيه`;
 }
 
 function checkBillion(){
@@ -151,14 +173,14 @@ function checkBillion(){
 
 function checkCash(){
     const cashVal = parseFloat(cash.value);
-    if(cashVal >= 1000){
+    if(cashVal >= 1000000){
         cashBadge.style.display="inline-block";
         cashBadge.textContent = `${formatCash(cashVal)} 💵`;
-        if(cashVal >= 1000000){
-            cashBadge.style.background="linear-gradient(45deg,#00ff00,#00cc00)";
-        } else {
-            cashBadge.style.background="linear-gradient(45deg,#FFD700,#FF8C00)";
-        }
+        cashBadge.style.background="linear-gradient(45deg,#00ff00,#00cc00)";
+    } else if(cashVal >= 1000){
+        cashBadge.style.display="inline-block";
+        cashBadge.textContent = `${formatCash(cashVal)} 💵`;
+        cashBadge.style.background="linear-gradient(45deg,#FFD700,#FF8C00)";
     } else {
         cashBadge.style.display="none";
     }
@@ -176,7 +198,14 @@ userPhone.addEventListener('input', function(e) {
     }
 });
 
-function price(){const goldRates={light:{sell:3,buy:2.7},storm:{sell:2.95,buy:2.65},fatalblow:{sell:2.75,buy:2.25},zenithzone_eu:{sell:2.5,buy:1.5},futureenergy:{sell:2.5,buy:1.5},legacy_eu:{sell:2,buy:1.25},warringlands:{sell:2.5,buy:1.5},echoingswords:{sell:2.5,buy:1.5},tempeststrike:{sell:2.5,buy:1.5},voyage_eu:{sell:2.85,buy:2.25},twincity:{sell:0,buy:0},phoenixcastle_eu:{sell:0,buy:0},apemount:{sell:0,buy:0},dunewanderer:{sell:0,buy:0}};const cpsRates={light:{sell:115/215,buy:100/215},storm:{sell:115/215,buy:100/215},fatalblow:{sell:115/215,buy:95/215},zenithzone_eu:{sell:110/215,buy:90/215},futureenergy:{sell:110/215,buy:90/215},legacy_eu:{sell:110/215,buy:90/215},warringlands:{sell:110/215,buy:90/215},echoingswords:{sell:115/215,buy:100/215},tempeststrike:{sell:115/215,buy:100/215},voyage_eu:{sell:115/215,buy:100/215},twincity:{sell:0,buy:0},phoenixcastle_eu:{sell:0,buy:0},apemount:{sell:0,buy:0},dunewanderer:{sell:0,buy:0}};if(p.value=="gold"){let x=goldRates[s.value];if(x.sell==0&&x.buy==0){alert("⚔ Coming Soon");return 0}return x[o.value]}let cp=cpsRates[s.value];if(cp.sell==0&&cp.buy==0){alert("⚔ Coming Soon");return 0}return cp[o.value]}amount.oninput=()=>{if(isUpdating)return;isUpdating=true;checkBillion();if(amount.value===""){cash.value="";cashBadge.style.display="none";isUpdating=false;return}const p=price();if(p>0)cash.value=(amount.value*p).toFixed(2);checkCash();isUpdating=false};cash.oninput=()=>{if(isUpdating)return;isUpdating=true;checkCash();if(cash.value===""){amount.value="";billionBadge.style.display="none";isUpdating=false;return}const p=price();if(p>0)amount.value=(cash.value/p).toFixed(2);checkBillion();isUpdating=false};s.oninput=()=>{if(amount.value)amount.oninput();else if(cash.value)cash.oninput()};p.oninput=()=>{if(amount.value)amount.oninput();else if(cash.value)cash.oninput()};function send(){if(!amount.value||amount.value==0){alert("اكتب الكمية او الكاش الاول");return}if(o.value=="buy"){const phoneRegex=/^(010|011|012|015)[0-9]{8}$/;if(!userPhone.value){alert("اكتب رقم الكاش/انستا بتاعك");return}if(!phoneRegex.test(userPhone.value)){alert("الرقم لازم 11 رقم ويبدأ بـ 010 أو 011 أو 012 أو 015");userPhone.focus();return}}const unitPrice=price().toFixed(2);let amountText=amount.value;let cashText=cash.value;if(p.value=="gold" && parseFloat(amount.value) >= 1000){amountText=`${amount.value} مليون (${formatBillion(parseFloat(amount.value))})`}const cashVal=parseFloat(cash.value);if(cashVal >= 1000){cashText=`${cash.value} جنيه (${formatCash(cashVal)})`}else{cashText=`${cash.value} جنيه`}const serviceName=p.value=="gold"?"Gold":"CPs";const serverName=s.options[s.selectedIndex].text;const operationText=o.value=="sell"?"طلب شراء منك":"طلب بيع لك";const emoji=o.value=="sell"?"🔥":"💵";let msg=`${emoji} ${operationText} - BMSTORE\n\n⚔ السيرفر: ${serverName}\n📦 الخدمة: ${serviceName}\n🔢 الكمية: ${amountText}\n💵 سعر المليون: ${unitPrice} جنيه\n💰 المطلوب للدفع: ${cashText}\n💳 الدفع: ${payment.value}`;if(o.value=="buy"){msg+=`\n📱 رقم التحويل: ${userPhone.value}`}msg+=`\n\nوابعت سكرين التحويل هنا ✅\nالتسليم فوري بعد التأكيد ⚡`;window.open("https://wa.me/201097583583?text="+encodeURIComponent(msg))}
+playerID.addEventListener('input', function(e) {
+    if(this.value.trim().length > 0){
+        idError.style.display="none";
+        this.style.borderColor="#444";
+    }
+});
+
+function price(){const goldRates={light:{sell:3,buy:2.7},storm:{sell:2.95,buy:2.65},fatalblow:{sell:2.75,buy:2.25},zenithzone_eu:{sell:2.5,buy:1.5},futureenergy:{sell:2.5,buy:1.5},legacy_eu:{sell:2,buy:1.25},warringlands:{sell:2.5,buy:1.5},echoingswords:{sell:2.5,buy:1.5},tempeststrike:{sell:2.5,buy:1.5},voyage_eu:{sell:2.85,buy:2.25},twincity:{sell:0,buy:0},phoenixcastle_eu:{sell:0,buy:0},apemount:{sell:0,buy:0},dunewanderer:{sell:0,buy:0}};const cpsRates={light:{sell:115/215,buy:100/215},storm:{sell:115/215,buy:100/215},fatalblow:{sell:115/215,buy:95/215},zenithzone_eu:{sell:110/215,buy:90/215},futureenergy:{sell:110/215,buy:90/215},legacy_eu:{sell:110/215,buy:90/215},warringlands:{sell:110/215,buy:90/215},echoingswords:{sell:115/215,buy:100/215},tempeststrike:{sell:115/215,buy:100/215},voyage_eu:{sell:115/215,buy:100/215},twincity:{sell:0,buy:0},phoenixcastle_eu:{sell:0,buy:0},apemount:{sell:0,buy:0},dunewanderer:{sell:0,buy:0}};if(p.value=="gold"){let x=goldRates[s.value];if(x.sell==0&&x.buy==0){alert("⚔ Coming Soon");return 0}return x[o.value]}let cp=cpsRates[s.value];if(cp.sell==0&&cp.buy==0){alert("⚔ Coming Soon");return 0}return cp[o.value]}amount.oninput=()=>{if(isUpdating)return;isUpdating=true;checkBillion();if(amount.value===""){cash.value="";cashBadge.style.display="none";isUpdating=false;return}const p=price();if(p>0)cash.value=(amount.value*p).toFixed(2);checkCash();isUpdating=false};cash.oninput=()=>{if(isUpdating)return;isUpdating=true;checkCash();if(cash.value===""){amount.value="";billionBadge.style.display="none";isUpdating=false;return}const p=price();if(p>0)amount.value=(cash.value/p).toFixed(2);checkBillion();isUpdating=false};s.oninput=()=>{if(amount.value)amount.oninput();else if(cash.value)cash.oninput()};p.oninput=()=>{if(amount.value)amount.oninput();else if(cash.value)cash.oninput()};function send(){if(!amount.value||amount.value==0){alert("اكتب الكمية او الكاش الاول");return}if(o.value=="sell"){if(!playerID.value.trim()){alert("لازم تكتب الـ ID بتاعك عشان التسليم");playerID.focus();idError.style.display="block";playerID.style.borderColor="#ff4444";return}}if(o.value=="buy"){const phoneRegex=/^(010|011|012|015)[0-9]{8}$/;if(!userPhone.value){alert("اكتب رقم الكاش/انستا بتاعك");return}if(!phoneRegex.test(userPhone.value)){alert("الرقم لازم 11 رقم ويبدأ بـ 010 أو 011 أو 012 أو 015");userPhone.focus();return}}const unitPrice=price().toFixed(2);let amountText=amount.value;let cashText=cash.value;if(p.value=="gold" && parseFloat(amount.value) >= 1000){amountText=`${amount.value} مليون (${formatBillion(parseFloat(amount.value))})`}const cashVal=parseFloat(cash.value);if(cashVal >= 1000){cashText=`${cash.value} جنيه (${formatCash(cashVal)})`}else{cashText=`${cash.value} جنيه`}const serviceName=p.value=="gold"?"Gold":"CPs";const serverName=s.options[s.selectedIndex].text;const operationText=o.value=="sell"?"طلب شراء منك":"طلب بيع لك";const emoji=o.value=="sell"?"🔥":"💵";let msg=`${emoji} ${operationText} - BMSTORE\n\n⚔ السيرفر: ${serverName}\n📦 الخدمة: ${serviceName}\n🔢 الكمية: ${amountText}\n💵 سعر المليون: ${unitPrice} جنيه\n💰 المبلغ المستحق: ${cashText}\n💳 طريقة الدفع: ${payment.value}`;if(o.value=="sell"){msg+=`\n🎮 ID اللاعب: ${playerID.value.trim()}`}if(o.value=="buy"){msg+=`\n📱 رقم التحويل: ${userPhone.value}\n\n✅ سيتم تحويل المبلغ لحسابك فور التأكيد\n⚡ الاستلام فوري خلال دقايق بعد استلام الجولد/السبس`}else{msg+=`\n\nوابعت سكرين التحويل هنا ✅\nالتسليم فوري بعد التأكيد ⚡`}window.open("https://wa.me/201097583583?text="+encodeURIComponent(msg))}
 </script>
 </body>
 </html>
