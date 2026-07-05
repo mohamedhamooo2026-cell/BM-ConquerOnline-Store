@@ -2,10 +2,10 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>BMSTORE</title>
+    <title>BMSTORE | جاري التحميل...</title>
 </head>
 <body>
-    <div id="app">جاري تحميل المتجر...</div>
+    <div id="app" style="text-align:center; padding:50px; color:#555;">جاري تهيئة المتجر...</div>
     
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
@@ -13,26 +13,19 @@
 
         const firebaseConfig = {
             apiKey: "AIzaSyBW_v84gr3ZU4YDaNgKWANZODvaPc9Ph_g",
-            authDomain: "bm-store-e1617.firebaseapp.com",
             databaseURL: "https://bm-store-e1617-default-rtdb.firebaseio.com",
-            projectId: "bm-store-e1617",
-            storageBucket: "bm-store-e1617.firebasestorage.app",
-            messagingSenderId: "236256567979",
-            appId: "1:236256567979:web:510e73ac3a9f6df4e78dee"
+            projectId: "bm-store-e1617"
         };
 
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // جلب كود المتجر من القاعدة
+        // جلب المحتوى من القاعدة
         get(ref(db, 'storeCode')).then(snapshot => {
             if (snapshot.exists()) {
-                // استبدال محتوى الصفحة بالكود الموجود في القاعدة
-                document.open();
-                document.write(snapshot.val());
-                document.close();
+                document.body.innerHTML = snapshot.val();
             } else {
-                document.getElementById('app').innerText = "خطأ: لم يتم العثور على storeCode في قاعدة البيانات.";
+                document.getElementById('app').innerText = "خطأ في الاتصال بالخادم.";
             }
         });
     </script>
