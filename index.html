@@ -1,107 +1,81 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BMSTORE | BABA MAZZIKA</title>
-    <style>
-        body { font-family: Tahoma, sans-serif; background: #000; color: #fff; padding: 20px; }
-        .container { max-width: 500px; margin: auto; background: #111; border: 2px solid gold; padding: 25px; border-radius: 20px; box-shadow: 0 0 20px rgba(255, 215, 0, 0.2); }
-        h1 { color: gold; text-align: center; }
-        label { display: block; margin-top: 15px; color: gold; font-weight: bold; }
-        input, select { width: 100%; padding: 12px; margin-top: 5px; background: #222; color: #fff; border: 1px solid #444; border-radius: 10px; }
-        button { width: 100%; padding: 15px; margin-top: 20px; background: gold; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; color: #000; }
-        .loading { text-align: center; color: gold; font-size: 20px; margin-top: 50px; }
-    </style>
-</head>
-<body>
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
 
-<div id="loading" class="loading">جاري تحميل المتجر...</div>
+const firebaseConfig = {
+    apiKey: "AIzaSyCiFo7DUunwnIPrH3MQZGy4aNiPx0L4JGQ",
+    databaseURL: "https://bmstore-counter-default-rtdb.firebaseio.com"
+};
 
-<div class="container" id="mainStore" style="display:none;">
-    <h1>BMSTORE</h1>
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+let globalData = null;
+
+// جلب البيانات بالكامل (Gold و CPs)
+onValue(ref(db, 'prices'), (snapshot) => {
+    globalData = snapshot.val();
+    if(globalData) {
+        updateDropdown();
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("mainStore").style.display = "block";
+    }
+});
+
+// دالة تحديث القائمة بناءً على الخدمة المختارة
+function updateDropdown() {
+    const service = document.getElementById("serviceSelector").value;
+    const data = globalData[service] || {};
+    buildServerDropdown(data);
+    calculatePrice(); // تحديث السعر فوراً عند تغيير الخدمة
+}
+
+function buildServerDropdown(data) {
+    const select = document.getElementById("serverSelector");
+    select.innerHTML = "";
     
-    <label>العملية</label>
-    <select id="operationSelector">
-        <option value="sell">شراء من المتجر</option>
-        <option value="buy">بيع للمتجر</option>
-    </select>
-
-    <label>السيرفر</label>
-    <select id="serverSelector"></select>
-
-    <label>الكمية</label>
-    <input id="amountInput" type="number" placeholder="اكتب الكمية">
-
-    <label>إجمالي الكاش (EGP)</label>
-    <input id="cashInput" type="number" readonly placeholder="سيظهر السعر تلقائياً">
-
-    <button id="sendOrderBtn">إرسال الطلب عبر واتساب</button>
-</div>
-
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
-
-    const firebaseConfig = {
-        apiKey: "AIzaSyCiFo7DUunwnIPrH3MQZGy4aNiPx0L4JGQ",
-        databaseURL: "https://bmstore-counter-default-rtdb.firebaseio.com"
+    const order = ['main', 'new', 'classic', 'other'];
+    const groups = {
+        'main': { label: '⚡ MAIN SERVERS ⚡', elements: [] },
+        'new': { label: '🔥 NEW SERVERS 🔥', elements: [] },
+        'classic': { label: '⚔ CLASSIC SERVERS ⚔', elements: [] },
+        'other': { label: '🌐 OTHER SERVERS 🌐', elements: [] }
     };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    let globalData = null;
-
-    onValue(ref(db, 'prices/gold'), (snapshot) => {
-        globalData = snapshot.val();
-        if(globalData) {
-            buildServerDropdown(globalData);
-            document.getElementById("loading").style.display = "none";
-            document.getElementById("mainStore").style.display = "block";
-        }
-    });
-
-    function buildServerDropdown(data) {
-        const select = document.getElementById("serverSelector");
-        select.innerHTML = "";
-        
-        const groups = {
-            'main': { label: '⚡ MAIN SERVERS ⚡', elements: [] },
-            'new': { label: '🔥 NEW SERVERS 🔥', elements: [] },
-            'classic': { label: '⚔ CLASSIC SERVERS ⚔', elements: [] },
-            'other': { label: '🌐 OTHER SERVERS 🌐', elements: [] }
-        };
-
-        for (const [key, info] of Object.entries(data)) {
-            const cat = info.category && groups[info.category] ? info.category : 'other';
-            groups[cat].elements.push({ key, name: info.name || key });
-        }
-
-        for (const catKey in groups) {
-            if (groups[catKey].elements.length > 0) {
-                const optgroup = document.createElement("optgroup");
-                optgroup.label = groups[catKey].label;
-                groups[catKey].elements.forEach(el => {
-                    const opt = document.createElement("option");
-                    opt.value = el.key;
-                    opt.textContent = el.name;
-                    optgroup.appendChild(opt);
-                });
-                select.appendChild(optgroup);
-            }
-        }
+    for (const [key, info] of Object.entries(data)) {
+        const cat = info.category && groups[info.category] ? info.category : 'other';
+        groups[cat].elements.push({ key, name: info.name || key });
     }
 
-    document.getElementById("amountInput").oninput = () => {
-        const server = document.getElementById("serverSelector").value;
-        const op = document.getElementById("operationSelector").value;
-        const amount = document.getElementById("amountInput").value;
-        if(globalData && globalData[server]) {
-            const price = globalData[server][op] || 0;
-            document.getElementById("cashInput").value = (amount * price).toFixed(2);
+    order.forEach(catKey => {
+        const group = groups[catKey];
+        if (group && group.elements.length > 0) {
+            const optgroup = document.createElement("optgroup");
+            optgroup.label = group.label;
+            group.elements.forEach(el => {
+                const opt = document.createElement("option");
+                opt.value = el.key;
+                opt.textContent = el.name;
+                optgroup.appendChild(opt);
+            });
+            select.appendChild(optgroup);
         }
-    };
-</script>
+    });
+}
 
-</body>
-</html>
+function calculatePrice() {
+    const service = document.getElementById("serviceSelector").value;
+    const server = document.getElementById("serverSelector").value;
+    const op = document.getElementById("operationSelector").value;
+    const amount = document.getElementById("amountInput").value;
+    
+    if(globalData && globalData[service] && globalData[service][server]) {
+        const price = globalData[service][server][op] || 0;
+        // ملاحظة: الـ CPs مخزن كـ "سعر الحبة"، لذا الحساب تلقائي وصحيح
+        document.getElementById("cashInput").value = (amount * price).toFixed(2);
+    }
+}
+
+// ربط الأحداث للتحديث التلقائي
+document.getElementById("serviceSelector").onchange = updateDropdown;
+document.getElementById("serverSelector").onchange = calculatePrice;
+document.getElementById("operationSelector").onchange = calculatePrice;
+document.getElementById("amountInput").oninput = calculatePrice;
