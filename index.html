@@ -3,15 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YOUR_STORE_NAME | المتجر الرسمي</title>
+    <title>المتجر الرسمي</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
         body {
-            font-family: Tahoma, Geneva, sans-serif;
-            color: white;
+            font-family: Tahoma, Geneva, sans-serif; color: white;
             background: radial-gradient(circle at top, #1a1a2e 0%, #000 60%), linear-gradient(135deg, #0f2027, #203a43, #000);
-            min-height: 100vh;
-            background-attachment: fixed;
+            min-height: 100vh; background-attachment: fixed;
+        }
+        body:before {
+            content: ""; position: fixed; inset: 0;
+            background: radial-gradient(circle at 20% 20%, rgba(255, 215, 0,.08), transparent 40%),
+                        radial-gradient(circle at 80% 70%, rgba(255, 120, 0,.06), transparent 40%);
+            pointer-events: none;
         }
        .container {
             width: 95%; max-width: 520px; margin: 30px auto;
@@ -23,6 +27,7 @@
             background: linear-gradient(45deg, #FFD700, #FF8C00, #FFD700);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             font-size: 42px; font-weight: 900; text-align: center;
+            letter-spacing: 2px;
         }
         h1, h2 { text-align: center; color: gold; }
         h1 { font-size: 22px; margin-top: 5px; }
@@ -32,6 +37,12 @@
             text-align: center; padding: 15px; margin: 15px 0;
             border-radius: 15px; font-size: 24px; font-weight: bold;
         }
+       .verified-badge {
+            background: rgba(0, 255, 0, 0.1); border: 2px solid #00ff00;
+            color: #00ff00; text-align: center; padding: 10px;
+            border-radius: 10px; margin: 10px 0; font-weight: bold; font-size: 14px;
+        }
+       .loading { text-align: center; color: gold; padding: 20px; font-size: 18px; }
         label { display: block; margin-top: 15px; color: gold; font-weight: bold; }
        .small-en { font-size: 12px; color: #aaa; }
         input, select {
@@ -71,7 +82,6 @@
             padding: 8px 20px; border-radius: 8px;
             font-weight: bold; cursor: pointer; margin-top: 5px;
         }
-       .loading { text-align: center; color: gold; padding: 20px; }
         footer {
             text-align: center; margin-top: 30px; padding-top: 20px;
             border-top: 1px solid #333; color: #888; font-size: 12px;
@@ -85,6 +95,7 @@
     <div class="logo-text" id="storeName">جار التحميل...</div>
     <h1>👑 المتجر الرسمي 👑</h1>
     <h2 id="ownerName">⚔ جار التحميل ⚔</h2>
+    <div class="verified-badge">✅ المتجر الرسمي الموثق</div>
 
     <div class="phone" id="phoneNumber">📞 جار التحميل...</div>
 
@@ -105,7 +116,7 @@
 
         <label>السيرفر <span class="small-en">Server</span></label>
         <select id="serverSelector">
-            <option value="">اختر السيرفر</option>
+            <option value="">جاري تحميل السيرفرات...</option>
         </select>
 
         <label>الكمية <span class="small-en" id="unitLabel">Amount</span></label>
@@ -143,63 +154,54 @@
     <footer>
         <div class="owner" id="footerOwner">👑 ملكية: جار التحميل</div>
         <div>© 2026 - All Rights Reserved</div>
-        <div>المتجر الرسمي الوحيد الموثوق</div>
     </footer>
 </div>
 
 <script type="module">
-    // استورد Firebase لو بتستخدمه
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+    // ===== هتجيب كل حاجة من الـ API/Database بتاعتك هنا =====
 
-    // 1. غير الكونفج ده بالكونفج بتاعك من Firebase
-    const firebaseConfig = {
-        apiKey: "YOUR_API_KEY",
-        authDomain: "YOUR_AUTH_DOMAIN",
-        databaseURL: "YOUR_DATABASE_URL",
-        projectId: "YOUR_PROJECT_ID",
-        storageBucket: "YOUR_STORAGE_BUCKET",
-        messagingSenderId: "YOUR_SENDER_ID",
-        appId: "YOUR_APP_ID"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    let storeData = {};
-    let serversData = {};
-    let ratesData = {};
+    let STORE_DATA = {}; // بيانات المتجر
+    let SERVERS_DATA = {}; // السيرفرات
+    let PRICES_DATA = {}; // الأسعار
     let currentPaymentNumber = "";
 
-    // 2. هنا بنجيب كل حاجة من الـ Database
-    // غيّر المسارات دي حسب هيكل الـ DB بتاعك
-    const storeRef = ref(db, 'store'); // بيانات المتجر: الاسم، الرقم، طرق الدفع
-    const serversRef = ref(db, 'servers'); // لستة السيرفرات
-    const ratesRef = ref(db, 'rates'); // الأسعار: rates/serverName/gold/sell وهكذا
+    // ===== غير الفانكشن دي بالـ API بتاعك =====
+    async function loadFromDatabase() {
+        // مثال لو بتستخدم Firebase:
+        // const storeSnap = await getDoc(doc(db, "config", "store"));
+        // STORE_DATA = storeSnap.data();
 
-    Promise.all([
-        new Promise(res => onValue(storeRef, snap => { storeData = snap.val() || {}; res(); }, {onlyOnce: true})),
-        new Promise(res => onValue(serversRef, snap => { serversData = snap.val() || {}; res(); }, {onlyOnce: true})),
-        new Promise(res => onValue(ratesRef, snap => { ratesData = snap.val() || {}; res(); }, {onlyOnce: true}))
-    ]).then(() => {
-        initStore();
-    });
+        // مثال لو بتستخدم API عادي:
+        // const res = await fetch('https://your-api.com/getStoreData');
+        // const data = await res.json();
+        // STORE_DATA = data.store;
+        // SERVERS_DATA = data.servers;
+        // PRICES_DATA = data.prices;
 
+        // دلوقتي هسيبها فاضية وانت املاها
+        console.log('لازم تحط كود جلب البيانات من الـ Database بتاعتك هنا');
+
+        // بعد ما تجيب البيانات، شغل initStore()
+        // initStore();
+    }
+
+    // ===== دي الفانكشن اللي بتبني الموقع بعد ما البيانات تيجي =====
     function initStore() {
-        // بيانات المتجر
-        document.getElementById('storeName').innerText = storeData.name || 'STORE';
-        document.getElementById('ownerName').innerText = `⚔ ${storeData.owner || 'المالك'} ⚔`;
-        document.getElementById('phoneNumber').innerText = `📞 ${storeData.phone || '00000000000'}`;
-        document.getElementById('footerOwner').innerText = `👑 ملكية: ${storeData.owner || 'المالك'}`;
-        document.getElementById('whatsappLink').href = `https://wa.me/${storeData.whatsapp || '201000000000'}`;
+        document.getElementById('storeName').innerText = STORE_DATA.name || 'STORE';
+        document.getElementById('ownerName').innerText = `⚔ ${STORE_DATA.owner || 'المالك'} ⚔`;
+        document.getElementById('phoneNumber').innerText = `📞 ${STORE_DATA.phone || '00000000000'}`;
+        document.getElementById('footerOwner').innerText = `👑 ملكية: ${STORE_DATA.owner || 'المالك'}`;
+        document.getElementById('whatsappLink').href = `https://wa.me/${STORE_DATA.whatsapp || '201000000000'}`;
 
-        // السيرفرات
+        // تحميل السيرفرات
         const serverSelector = document.getElementById('serverSelector');
         serverSelector.innerHTML = '<option value="">اختر السيرفر</option>';
-        Object.keys(serversData).forEach(key => {
+
+        // السيرفرات هتيجي من SERVERS_DATA
+        Object.keys(SERVERS_DATA).forEach(key => {
             const opt = document.createElement('option');
             opt.value = key;
-            opt.textContent = serversData[key].name || key;
+            opt.textContent = SERVERS_DATA[key].name || key;
             serverSelector.appendChild(opt);
         });
 
@@ -207,7 +209,7 @@
         document.getElementById('mainForm').style.display = 'block';
     }
 
-    // باقي اللوجيك
+    // ===== باقي اللوجيك =====
     const serviceSelector = document.getElementById("serviceSelector");
     const serverSelector = document.getElementById("serverSelector");
     const operationSelector = document.getElementById("operationSelector");
@@ -225,9 +227,13 @@
 
     let isUpdating = false;
 
+    function getRandomPaymentNumber(type) {
+        const numbers = STORE_DATA.paymentNumbers?.[type] || ['00000000000'];
+        return numbers[Math.floor(Math.random() * numbers.length)];
+    }
+
     paymentSelector.onchange = () => {
-        const numbers = storeData.paymentNumbers?.[paymentSelector.value] || [];
-        currentPaymentNumber = numbers[Math.floor(Math.random() * numbers.length)] || '00000000000';
+        currentPaymentNumber = getRandomPaymentNumber(paymentSelector.value);
         if(operationSelector.value == "sell"){
             paymentNumberBox.style.display = "block";
             payMethodLabel.innerText = `حول على ${paymentSelector.value == 'كاش'? 'فودافون كاش' : 'انستا باي'}:`;
@@ -264,8 +270,8 @@
         const server = serverSelector.value;
         const service = serviceSelector.value;
         const op = operationSelector.value;
-        if(!server ||!ratesData[server]) return 0;
-        return ratesData[server][service]?.[op] || 0;
+        if(!server ||!PRICES_DATA[service]?.[server]) return 0;
+        return PRICES_DATA[service][server][op] || 0;
     }
 
     amountInput.oninput = () => {
@@ -298,6 +304,8 @@
         if(amountInput.value) amountInput.oninput();
     };
 
+    paymentSelector.onchange();
+
     window.sendOrder = function(){
         if(!amountInput.value || amountInput.value == 0){
             alert("اكتب الكمية او الكاش الاول");
@@ -316,24 +324,28 @@
             return;
         }
 
-        const price = getPrice().toFixed(2);
+        const price = getPrice().toFixed(4);
         const serviceName = serviceSelector.value == "gold"? "Gold" : "CPs";
-        const serverName = serversData[serverSelector.value]?.name || serverSelector.value;
+        const serverName = SERVERS_DATA[serverSelector.value]?.name || serverSelector.value;
         const operationText = operationSelector.value == "sell"? "طلب شراء منك" : "طلب بيع لك";
         const emoji = operationSelector.value == "sell"? "🔥" : "💵";
         const paymentMethodText = paymentSelector.value == 'كاش'? 'فودافون كاش' : 'انستا باي';
 
-        let msg = `${emoji} ${operationText}\n\n⚔ السيرفر: ${serverName}\n📦 الخدمة: ${serviceName}\n🔢 الكمية: ${amountInput.value}\n💵 السعر: ${price} جنيه\n💰 المبلغ: ${cashInput.value} جنيه\n💳 الدفع: ${paymentMethodText}`;
+        let msg = `${emoji} ${operationText} - ${STORE_DATA.name}\n\n⚔ السيرفر: ${serverName}\n📦 الخدمة: ${serviceName}\n🔢 الكمية: ${amountInput.value}\n💵 السعر: ${price} جنيه\n💰 المبلغ المستحق: ${cashInput.value} جنيه\n💳 طريقة الدفع: ${paymentMethodText}`;
 
         if(operationSelector.value == "sell"){
-            msg += `\n\n📲 حول على: ${currentPaymentNumber}\n🎮 ID: ${playerID.value.trim()}`;
+            msg += `\n\n📲 حول على: ${currentPaymentNumber}\n🎮 ID اللاعب: ${playerID.value.trim()}`;
             msg += `\n\nوابعت سكرين التحويل هنا ✅`;
-        } else {
-            msg += `\n📱 رقمك: ${userPhone.value}\n\n✅ سيتم التحويل لحسابك فور التأكيد`;
+        }
+        if(operationSelector.value == "buy"){
+            msg += `\n📱 رقم التحويل: ${userPhone.value}\n\n✅ سيتم تحويل المبلغ لحسابك فور التأكيد`;
         }
 
-        window.open(`https://wa.me/${storeData.whatsapp || '201000000000'}?text=` + encodeURIComponent(msg));
+        window.open(`https://wa.me/${STORE_DATA.whatsapp}?text=` + encodeURIComponent(msg));
     }
+
+    // ===== شغل تحميل البيانات =====
+    loadFromDatabase();
 
     document.addEventListener('contextmenu', e => e.preventDefault());
 </script>
