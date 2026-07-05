@@ -1,26 +1,59 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>BMSTORE | المتجر الرسمي</title>
-</head>
-<body>
-    <div id="app" style="text-align:center; padding:100px; font-family:Tahoma; color:#555;">جاري تحميل المتجر...</div>
+<div id="bm-app" style="width:100%; max-width:500px; margin:0 auto; background:#050505; color:#fff; padding:20px; border-radius:20px; border:2px solid #FFD700; font-family:Tahoma; direction:rtl; box-sizing:border-box; min-height:90vh; display:flex; flex-direction:column;">
+    <h1 style="color:#FFD700; text-align:center; font-size:24px;">BMSTORE 👑</h1>
     
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
-        
-        const db = getDatabase(initializeApp({databaseURL: "https://bm-store-e1617-default-rtdb.firebaseio.com"}));
-        
-        get(ref(db, 'storeCode')).then(snapshot => {
-            if (snapshot.exists()) {
-                document.body.innerHTML = snapshot.val();
-                const script = document.createElement('script');
-                script.textContent = document.getElementById('logic').textContent;
-                document.body.appendChild(script);
-            }
-        });
-    </script>
-</body>
-</html>
+    <label>العملية</label>
+    <select id='o' onchange='updateUI()' style="width:100%; padding:12px; margin:5px 0 15px; background:#111; border:1px solid #444; color:white; border-radius:8px;">
+        <option value='sell'>شراء من المتجر (BMSTORE)</option>
+        <option value='buy'>بيع للمتجر</option>
+    </select>
+
+    <label>الخدمة</label>
+    <select id='p' onchange='updateUI()' style="width:100%; padding:12px; margin:5px 0 15px; background:#111; border:1px solid #444; color:white; border-radius:8px;"></select>
+
+    <label>السيرفر</label>
+    <select id='s' onchange='calc()' style="width:100%; padding:12px; margin:5px 0 15px; background:#111; border:1px solid #444; color:white; border-radius:8px;"></select>
+
+    <div style="display:flex; gap:10px;">
+        <div style="flex:1">
+            <label>الكمية</label>
+            <input type='number' id='amt' oninput='calc()' placeholder='0' style="width:100%; padding:12px; margin:5px 0 15px; background:#111; border:1px solid #444; color:white; border-radius:8px;">
+        </div>
+        <div style="flex:1">
+            <label>المبلغ (EGP)</label>
+            <input type='number' id='total' oninput='calcReverse()' placeholder='0' style="width:100%; padding:12px; margin:5px 0 15px; background:#111; border:1px solid #444; color:white; border-radius:8px;">
+        </div>
+    </div>
+
+    <button onclick='send()' style="width:100%; padding:15px; background:linear-gradient(45deg, #ffd700, #ff8c00); border:none; color:black; font-weight:bold; border-radius:10px; font-size:16px;">إتمام الطلب عبر واتساب 🚀</button>
+    
+    <div style="margin-top:auto; padding-top:20px; text-align:center; font-size:12px; color:#666;">
+        <p>BMSTORE © 2026 - Official Store</p>
+        <a href='https://www.facebook.com/mhmd.ghfr.allh.lh.902854' target='_blank' style="color:#FFD700; text-decoration:none;">📘 تابعنا على فيسبوك</a>
+    </div>
+</div>
+
+<script id='logic'>
+    const data={prices:{cps:{light:{sell:0.5349,buy:0.4651},storm:{sell:0.5349,buy:0.4651}},gold:{light:{sell:3.0,buy:2.7},storm:{sell:2.95,buy:2.65}}}};
+    const numbers=["01016882571","01097583583","01064542987","01096340085"];
+    function updateUI(){
+        const s=document.getElementById('s'); const p=document.getElementById('p').value;
+        s.innerHTML=''; for(let k in data.prices[p]){s.innerHTML+=`<option value='${k}'>${k}</option>`;}
+        calc();
+    }
+    function calc(){
+        const p=document.getElementById('p').value; const s=document.getElementById('s').value;
+        const o=document.getElementById('o').value; const amt=document.getElementById('amt').value;
+        document.getElementById('total').value=(amt*data.prices[p][s][o]).toFixed(2);
+    }
+    function calcReverse(){
+        const p=document.getElementById('p').value; const s=document.getElementById('s').value;
+        const o=document.getElementById('o').value; const total=document.getElementById('total').value;
+        document.getElementById('amt').value=(total/data.prices[p][s][o]).toFixed(2);
+    }
+    function send(){
+        const randNum = numbers[Math.floor(Math.random() * numbers.length)];
+        const msg=`🔥 طلب جديد BMSTORE\n العملية: ${document.getElementById('o').value}\n الخدمة: ${document.getElementById('p').value}\n المبلغ: ${document.getElementById('total').value} EGP\n رقم التحويل المخصص: ${randNum}`;
+        window.open('https://wa.me/201097583583?text='+encodeURIComponent(msg),'_blank');
+    }
+    updateUI();
+</script>
