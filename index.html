@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="BMSTORE_MAZZIKA">
+    <meta name="author" content="BMSTORE">
     <meta name="description" content="متجر رسمي لبيع وشراء Gold و CPs في Conquer Online">
-    <title>BMSTORE_MAZZIKA | المتجر الرسمي</title>
+    <title>BMSTORE | المتجر الرسمي</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
         body {
@@ -64,8 +64,6 @@
             outline: none; border-color: #FFD700;
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
         }
-        input.error { border-color: #ff0000!important; }
-       .error-msg { color: #ff0000; font-size: 12px; margin-top: 5px; display: none; }
         optgroup { color: gold; font-weight: bold; background: #000; }
         option { color: white; background: #111; }
         button {
@@ -117,7 +115,7 @@
 <body>
 
 <div class="container">
-    <div class="logo-text" id="storeName">BMSTORE_MAZZIKA</div>
+    <div class="logo-text" id="storeName">BMSTORE</div>
     <h1>👑 المتجر الرسمي 👑</h1>
     <h2 id="ownerName">⚔ BABA MAZZIKA ⚔</h2>
     <div class="verified-badge">✅ المتجر الرسمي الموثق</div>
@@ -174,7 +172,6 @@
     <div id="phoneField" style="display:none;">
         <label>📱 رقم الكاش/انستا بتاعك <span class="small-en">Your Number</span></label>
         <input id="userPhone" type="tel" placeholder="010xxxxxxxx" maxlength="11">
-        <div class="error-msg" id="phoneError">⚠️ الرقم لازم يبدأ بـ 010 أو 011 أو 012 أو 015 ويكون 11 رقم</div>
     </div>
 
     <button id="sendBtn" onclick="sendOrder()">إرسال الطلب على واتساب</button>
@@ -191,7 +188,7 @@
 <script>
 // ===== غير البيانات دي بس =====
 const STORE_CONFIG = {
-    name: "BMSTORE_MAZZIKA",
+    name: "BMSTORE",
     owner: "BABA MAZZIKA",
     phone: "01097583583",
     whatsapp: "201097583583",
@@ -252,6 +249,7 @@ function loadServers() {
     const servers = PRICES.gold;
     const mainServers = ['light', 'storm'];
 
+    // MAIN SERVER - Lightning + Storm فقط
     const mainGroup = document.createElement('optgroup');
     mainGroup.label = '⚡ MAIN SERVER ⚡';
     mainServers.forEach(key => {
@@ -264,6 +262,7 @@ function loadServers() {
     });
     serverSelector.appendChild(mainGroup);
 
+    // تجميع الباقي
     const groups = { new: [], classic: [] };
     Object.keys(servers).forEach(key => {
         if(!mainServers.includes(key)) {
@@ -271,6 +270,7 @@ function loadServers() {
         }
     });
 
+    // NEW SERVER - كل الباقي معادا الكلاسيك
     if(groups.new.length > 0) {
         const group = document.createElement('optgroup');
         group.label = '🔥 NEW SERVER 🔥';
@@ -283,6 +283,7 @@ function loadServers() {
         serverSelector.appendChild(group);
     }
 
+    // CLASSIC SERVER - لوحده
     if(groups.classic.length > 0) {
         const group = document.createElement('optgroup');
         group.label = '⚔ CLASSIC SERVER ⚔';
@@ -317,10 +318,9 @@ const comingSoonMsg = document.getElementById("comingSoonMsg");
 const sendBtn = document.getElementById("sendBtn");
 const billionBadge = document.getElementById("billionBadge");
 const cashBadge = document.getElementById("cashBadge");
-const phoneError = document.getElementById("phoneError");
 
-let isUpdating = false;
 let currentPaymentNumber = "";
+let updatingFrom = null; // عشان نعرف مين اللي بيحدث
 
 function getRandomPaymentNumber(type) {
     const numbers = STORE_CONFIG.paymentNumbers[type];
@@ -353,14 +353,19 @@ operationSelector.onchange = () => {
         idField.style.display = "block";
         paymentSelector.onchange();
     }
-    calculateAmountToCash();
+    calculateAll();
 };
 
 serviceSelector.addEventListener('change', () => {
     unitLabel.textContent = serviceSelector.value == "gold"? "Amount (بالملايين)" : "Amount (بالسبس)";
     checkServerAvailability();
-    calculateAmountToCash();
+    calculateAll();
 });
+
+serverSelector.onchange = () => {
+    checkServerAvailability();
+    calculateAll();
+};
 
 function getPrice(){
     const server = serverSelector.value;
@@ -414,29 +419,30 @@ function formatCash(num){
     return parts.length > 0? parts.join(' ') + ' جنيه' : `${num} جنيه`;
 }
 
-function calculateAmountToCash() {
-    if(isUpdating) return;
-    isUpdating = true;
+function calculateAll() {
+    const price = getPrice();
+    if(price == 0) return;
 
-    const amountVal = parseFloat(amountInput.value);
+    if(updatingFrom === 'amount') {
+        const amountVal = parseFloat(amountInput.value) || 0;
+        const cashVal = amountVal * price;
+        cashInput.value = cashVal.toFixed(2);
+        updateBadges(amountVal, cashVal);
+    } else if(updatingFrom === 'cash') {
+        const cashVal = parseFloat(cashInput.value) || 0;
+        const amountVal = cashVal / price;
+        amountInput.value = amountVal.toFixed(2);
+        updateBadges(amountVal, cashVal);
+    }
+}
 
+function updateBadges(amountVal, cashVal) {
     if(serviceSelector.value == "gold" && amountVal >= 1000){
         billionBadge.style.display = "inline-block";
         billionBadge.textContent = `${formatBillion(amountVal)} 💰`;
     } else {
         billionBadge.style.display = "none";
     }
-
-    if(amountInput.value === "" || amountInput.value == 0){
-        cashInput.value = "";
-        cashBadge.style.display = "none";
-        isUpdating = false;
-        return;
-    }
-
-    const price = getPrice();
-    const cashVal = price > 0? (amountVal * price) : 0;
-    cashInput.value = cashVal.toFixed(2);
 
     if(cashVal >= 1000){
         cashBadge.style.display = "inline-block";
@@ -445,67 +451,21 @@ function calculateAmountToCash() {
     } else {
         cashBadge.style.display = "none";
     }
-
-    isUpdating = false;
 }
 
-function calculateCashToAmount() {
-    if(isUpdating) return;
-    isUpdating = true;
+amountInput.addEventListener('input', () => {
+    updatingFrom = 'amount';
+    calculateAll();
+    updatingFrom = null;
+});
 
-    const cashVal = parseFloat(cashInput.value);
-
-    if(cashVal >= 1000){
-        cashBadge.style.display = "inline-block";
-        cashBadge.textContent = `${formatCash(cashVal)} 💵`;
-        cashBadge.style.background = cashVal >= 1000000? "linear-gradient(45deg,#00ff00,#00cc00)" : "linear-gradient(45deg,#FFD700,#FF8C00)";
-    } else {
-        cashBadge.style.display = "none";
-    }
-
-    if(cashInput.value === "" || cashInput.value == 0){
-        amountInput.value = "";
-        billionBadge.style.display = "none";
-        isUpdating = false;
-        return;
-    }
-
-    const price = getPrice();
-    const amountVal = price > 0? (cashVal / price) : 0;
-    amountInput.value = amountVal.toFixed(2);
-
-    if(serviceSelector.value == "gold" && amountVal >= 1000){
-        billionBadge.style.display = "inline-block";
-        billionBadge.textContent = `${formatBillion(amountVal)} 💰`;
-    } else {
-        billionBadge.style.display = "none";
-    }
-
-    isUpdating = false;
-}
-
-amountInput.addEventListener('input', calculateAmountToCash);
-cashInput.addEventListener('input', calculateCashToAmount);
-
-serverSelector.onchange = () => {
-    checkServerAvailability();
-    calculateAmountToCash();
-};
+cashInput.addEventListener('input', () => {
+    updatingFrom = 'cash';
+    calculateAll();
+    updatingFrom = null;
+});
 
 paymentSelector.onchange();
-
-// التحقق من رقم الموبايل
-userPhone.addEventListener('input', () => {
-    const val = userPhone.value;
-    const isValid = /^(010|011|012|015)\d{8}$/.test(val);
-    if(val.length > 0 &&!isValid) {
-        userPhone.classList.add('error');
-        phoneError.style.display = 'block';
-    } else {
-        userPhone.classList.remove('error');
-        phoneError.style.display = 'none';
-    }
-});
 
 function sendOrder(){
     if(!amountInput.value || amountInput.value == 0){
@@ -520,16 +480,9 @@ function sendOrder(){
         alert("لازم تكتب الـ ID بتاعك عشان التسليم");
         return;
     }
-    if(operationSelector.value == "buy"){
-        const phoneVal = userPhone.value;
-        if(!phoneVal){
-            alert("اكتب رقم الكاش/انستا بتاعك");
-            return;
-        }
-        if(!/^(010|011|012|015)\d{8}$/.test(phoneVal)){
-            alert("الرقم لازم يبدأ بـ 010 أو 011 أو 012 أو 015 ويكون 11 رقم");
-            return;
-        }
+    if(operationSelector.value == "buy" &&!userPhone.value){
+        alert("اكتب رقم الكاش/انستا بتاعك");
+        return;
     }
 
     const price = getPrice().toFixed(4);
