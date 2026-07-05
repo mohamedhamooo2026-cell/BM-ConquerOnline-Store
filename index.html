@@ -5,16 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="BABA MAZZIKA - BMSTORE">
     <meta name="copyright" content="BMSTORE © 2026 - All Rights Reserved">
-    <title>BMSTORE | BABA MAZZIKA - المتجر الرسمي</title>
+    <title>BMSTORE | BABA MAZZIKA</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; -webkit-user-select: none; }
         body { font-family: Tahoma, Geneva, sans-serif; color: white; background: #000; min-height: 100vh; }
         .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; display: flex; justify-content: center; align-items: center; z-index: 9999; font-size: 20px; color: gold; font-weight: bold; }
-        /* واجهة التنسيق سيتم تفعيلها فور التأكد من الأمان */
         .container { width: 95%; max-width: 520px; margin: 30px auto; background: rgba(10, 10, 10, .92); border: 2px solid gold; border-radius: 20px; padding: 25px; box-shadow: 0 0 40px rgba(255, 215, 0, .2); }
         .logo-text { background: linear-gradient(45deg, #FFD700, #FF8C00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 42px; font-weight: 900; text-align: center; }
-        h1, h2 { text-align: center; color: gold; }
-        h1 { font-size: 22px; margin-top: 5px; }
+        h1, h2 { text-align: center; color: gold; font-size: 22px; margin-top: 5px; }
         h2 { font-size: 18px; margin-bottom: 15px; }
         .phone { background: linear-gradient(45deg, #d4af37, #ffd700); color: black; text-align: center; padding: 15px; margin: 15px 0; border-radius: 15px; font-size: 24px; font-weight: bold; }
         .verified-badge { background: rgba(0, 255, 0, 0.1); border: 2px solid #00ff00; color: #00ff00; text-align: center; padding: 10px; border-radius: 10px; margin: 10px 0; font-weight: bold; }
@@ -43,9 +41,22 @@
 </head>
 <body>
 
+<!-- صفحة بيضاء فارغة تماماً أوفلاين ولن يظهر بها أي حرف مقروء -->
 <div id="secureAppRoot"></div>
 
 <script>
+    // ⚙️ [قسم التعديل السهل والسريع ليك] ⚙️
+    // هنا تقدر تعدل الأرقام والبيانات الأساسية بسهولة من غير ما تدور وسط الأكواد
+    window.BM_CONFIG = {
+        mainPhone: "01097583583", // الرقم الكبير المعروض في الواجهة
+        whatsappNumber: "201097583583", // رقم الواتساب الموجه إليه الطلبات (اكتبه بكود الدولة 20)
+        paymentNumbers: {
+            كاش: ["01097583583", "01064542987", "01096340085"], // أرقام فودافون كاش
+            انستا: ["01016882571"] // أرقام انستا باي
+        }
+    };
+
+    // 🔒 نظام الفحص الحديدي والتدمير الذاتي أوفلاين
     !function(){"use strict";if("file:"===window.location.protocol||window.location.hostname.includes("127.0.0.1")||window.location.hostname===""||window.location.href.startsWith("blob:")){window.stop?window.stop():window.navigate&&window.navigate("about:blank");document.documentElement.innerHTML="";return}document.addEventListener("contextmenu",(e=>e.preventDefault())),document.addEventListener("keydown",(e=>{if(123===e.keyCode||e.ctrlKey&&e.shiftKey&&(73===e.keyCode||74===e.keyCode||67===e.keyCode)||e.ctrlKey&&(85===e.keyCode||83===e.keyCode))return e.preventDefault(),!1}))}();
 </script>
 
@@ -56,33 +67,20 @@
     const m={apiKey:"AIzaSyCiFo7DUunwnIPrH3MQZGy4aNiPx0L4JGQ",authDomain:"bmstore-counter.firebaseapp.com",databaseURL:"https://bmstore-counter-default-rtdb.firebaseio.com",projectId:"bmstore-counter",storageBucket:"bmstore-counter.firebasestorage.app",messagingSenderId:"7876739667",appId:"1:7876739667:web:505b27cd9047ec01b83ca6"},
     u=e(m),p=t(u),f=n(p,"totalOrders"),v=n(p,"comments"),g=n(p,"orders"),livePricesRef=n(p,"prices");
 
-    let globalPricesData = null;
-
-    // حقن الواجهة برمجياً فقط إذا كان الرابط آمناً ورسمياً
+    // 🔬 فك تشفير الواجهة المحمية وحقنها ديناميكياً في ثانية واحدة أونلاين فقط
+    const secureRaw = "PGRpdiBjbGFzcz0ibG9hZGluZy1vdmVybGF5IiBpZD0ibG9hZGluZ092ZXJsYXkiPtisYQ DyeSBBdHRpc2FsIEFtZWVuIEJpbGtoYWRpbS4uLjwvZGl2PjxkaXYgY2xhc3M9ImNvbnRhaW5lciIgaWQ9Im1haW5TdG9yZUNvbnRhaW5lciIgc3R5bGU9ImRpc3BsYXk6bm9uZTsiPjxkaXYgY2xhc3M9ImxvZ28iPjxkaXYgY2xhc3M9ImxvZ28tdGV4dCI+Qk1TVE9SRTwvZGl2PjwvZGl2PjxoMT4👑IEJNU1RPUkUg👑PC9oMT48aDI+⚔IEJBQkEgTUFaWklLQSArIEJNU1RPUkUg⚔PC9oMj48ZGl2IGNsYXNzPSJ2ZXJpZmllZC1iYWRnZSI+qyDYp9mE2YXYqtmA2LEg2KfZhNix2LPZhdmKINin2YTZZtmZiNmCINacceptedPC9kaXY+PGRpdiBjbGFzcz0icGhvbmUiIGlkPSJibVBob25lQm94Ij48L2Rpdj48ZGl2IGNsYXNzPSJjb3VudGVyLWJveCI+PGRpdiBjbGFzcz0ibGFiZWwiPtimINiq2YUg2KrYs9mE2YrZhTwvZGl2PjxkaXYgY2xhc3M9Im51bWJlciIgaWQ9Im9yZGVyQ291bnRlciI+MDwvZGl2PGRpdiBjbGFzcz0ic3ViIj7Zt9mE2KlyINio2YbYrNin2K0g2YTYudmF2YTYp9im2YbYpyDYp9mE2YPYsdin2NmMPC9kaXY+PC9kaXY+PGxhYmVsPtin2YTYudmF2YTKVrkgPHNwYW4gY2xhc3M9InNtYWxsLWVuIj5PcGVyYXRpb248L3NwYW4+PC9sYWJlbD48c2VsZWN0IGlkPSJvcGVyYXRpb25TZWxlY3RvciI+PG9wdGlvbiB2YWx1ZT0ic2VsbCI+2LTYsdmF2KMgLSDYudin2YrYsiDYp9i02KrYsdmKINmF2YYgQk1TVE9SRTwvb3B0aW9uPjxvcHRpb24gdmFsdWU9ImJ1eSI+2KjZKmMgLSDYudin2YrYsiDYp9io2KValidMINmF2YYgQk1TVE9SRTwvb3B0aW9uPjwvc2VsZWN0PjtsYWJlbD7Zp9mE2K7Yrdiv2YXYpSA8c3BhbiBjbGFzcz0ic21hbGwtZW4iPlNlcnZpY2U8L3NwYW4+PC9sYWJlbD48c2VsZWN0IGlkPSJzZXJ2aWNlU2VsZWN0b3IiPjxvcHRpb24gdmFsdWU9ImdvbGQiPkdvbGQgfCDZhdmE2KfZK2mK2YY8L29wdGlvbj48b3B0aW9uIHZhbHVlPSJjcHMiPkNQcyB8INiz2KjZszwvb3B0aW9uPjwvc2VsZWN0PjtsYWJlbD7Zp9mE2LPZKnHYZHYgPHNwYW4gY2xhc3M9InNtYWxsLWVuIj5TZXJ2ZXI8L3NwYW4+PC9sYWJlbD48c2VsZWN0IGlkPSJzZXJ2ZXJTZWxlY3RvciI+PC9zZWxlY3Q+PGxhYmVsPtin2YTZg9mF2KpaINNwYW4gY2xhc3M9InNtYWxsLWVuIiBpZD0idW5pdExhYmVsIj5BbW91bnQ8L3NwYW4+IDxzcGFuIGlkPSJiaWxsaW9uQmFkZ2UiIHN0eWxlPSJkaXNwbGF5Om5vbmUiIGNsYXNzPSJiaWxsaW9uLWJhZGdlIj7ZhdmE2KzYp9ixINCfkjQ8L3NwYW4+PC9sYWJlbD48aW5wdXQgaWQ9ImFtb3VudElucHV0IiB0eXBlPSJudW1iZXIiIHN0ZXA9ImFueSIgcGxhY2Vob2xkZXI9Itin2YPYqtmioINin2YTZg9mF2KpaIj48bGFiZWw+2KfZhNmD2KrdpyA8c3BhbiBjbGFzcz0ic21hbGwtZW4iPkNhc2ggKEVHUCk8L3NwYW4+IDxzcGFuIGlkPSJjYXNoQmFkZ2UiIHN0eWxlPSJkaXNwbGF5Om5vbmUiIGNsYXNzPSJiaWxsaW9uLWJhZGdlIj7Zp9mE2KamINCfkLU8L3NwYW4+PC9sYWJlbD48aW5wdXQgaWQ9ImNhc2hJbnB1dCIgdHlwZT0ibnVtYmVyIiBzdGVwPSJhbnkiIHBsYWNlaG9sZGVyPSItin2YPYqtmioINin2YTZZdmF2YTZhyDYqNin2YTZairZKmbtitmIj48ZGl2IGlkPSJpZEZpZWxkIj48bGFiZWw+746uIElEINin2YTZhNin2LnYqSAvINin2YrZhdmK2YQg2KfZhNin2YPZiNmG2KogPHNwYW4gY2xhc3M9InNtYWxsLWVuIj5QbGF5ZXIgSUQ8L3NwYW4+PC9sYWJlbD48aW5wdXQgaWQ9InBsYXllcklEIiB0eXBlPSJ0ZXh0IiBwbGFjZWhvbGRlcj0i2KfZg9iq2KioINin2YTYpyBJRCBZiNin2YrZhdmK2YQg2KfZhNin2YPZiNmG2KoiPjxkaXYgY2xhc3M9ImVycm9yLXRleHQiIGlkPSJpZEVycm9yIiBzdHlsZT0iZGlzcGxheTpub25lO2NvbG9yOiNmZjQ0NDQ7Zm9udC1zaXplOjEycHg7Ij7ZhNin2KptINiq2YPYqtmioINin2YTYpyBJRCDZi2ta2KfZgiDYp9mE2KrYs9mE2YrZhTwvZGl2PjwvZGl2PjxsYWJlbD7Yt9ix2YrZKmthINin2YTZK2aq2LkgPHNwYW4gY2xhc3M9InNtYWxsLWVuIj5QYXltZW50IE1ldGhvZDwvc3Bhbi+PC9sYWJlbD48c2VsZWN0IGlkPSJwYXltZW50U2VsZWN0b3IiPjxvcHRpb24gdmFsdWU9ItmD2KrdpyI+745kINmB2YjYrdiv2KfZgdmI2Kog2YPYqrdpywvb3B0aW9uPjxvcHRpb24gdmFsdWU9Itin2YbYs9iq2KciPueTqyDYp9mG2LPZKmthINio2Krdakhvb3B0aW9uPjwvc2VsZWN0PjxkaXYgaWQ9InBheW1lbnROdW1iZXJCb3giIHN0eWxlPSJkaXNwbGF5Om5vbmU7Ij48ZGl2IGNsYXNzPSJwYXktbGFiZWwiIGlkPSJwYXlNZXRob2RMYWJlbCI+2K3ZiNmEINi52YTZpermINin2YTZG9aq2YUg2KebOjwvZGl2PjxkaXYgY2xhc3M9InBheS1udW1iZXIiIGlkPSJwYXlNZXRob2ROdW1iZXIiIHN0eWxlPSJjb2xvcjojZmZmO2ZvbnQtc2l6ZToyOHB4O2ZvbnQtd2VpZ2h0OmJvbGQ7YmFja2dyb3VuZDojMDAwO3BhZGRpbmc6MTJweDtib3JkZXItcmFkaXVzOzhweDttYXJnaW46MTBweCAwO3RleHQtYWxpZ246Y2VudGVyOyI+PC9kaXY+PGJ1dHRvbiBjbGFzcz0iY29weS1idG4iIGlkPSJjb3B5UGF5bWVudEJ0biIgc3R5bGU9ImJhY2tncm91bmQ6I0ZGRDcwMDtjb2xvcjojMDAwO2JvcmRlcjpub25lO3BhZGRpbmc6OHB4IDIwcHg7Ym9yZGVyLXJhZGl1czo4cHg7Zm9udC13ZWlnaHQ6Ym9sZDt3aWR0aDphdXRvO2Rpc3BsYXk6aW5saW5lLWJsb2NrOyI+📋INin2YbYs9iqlCDYp9mE2LFZKm1lPC9idXR0b24+PC9kaXY+PGRpdiBpZD0icGhvbmVGaWVsZCIgc3R5bGU9ImRpc3BsYXk6bm9uZTsiPjxsYWJlbD7nposg2LFZKm1lINin2YTZg9iq2Krdpy/Yp25z2KrYpyDYqtmF2KrdpyA8c3BhbiBjbGFzcz0ic21hbGwtZW4iPllvdXIgTnVtYmVyPC9zcGFuPjwgbGFiZWw+PGlucHV0IGlkPSJ1c2VyUGhvbmUiIHR5cGU9InRlbCIgcGxhY2Vob2xkZXI9IjAxMHh4eHh4eHh4IiBtYXhsZW5ndGg9IjExIj48ZGl2IGNsYXNzPSJlcnJvci10ZXh0IiBpZD0icGhvbmVFcnJvciIgc3R5bGU9ImRpc3BsYXk6bm9uZTtjb2xvcjojZmY0NDQ0O2ZvbnQtc2l6ZToyOHB4OyI+2KfZhLFZKm1lINi62KlyINi12K3ZKmtoPC9kaXY+PC9kaXY+PGJ1dHRvbiBpZD0ic2VuZE9yZGVyQnRuIj7YpNix2LPYp2kg2KfZhNi32YTYqCDYudmE2KlaINmI2Krds9in2KkodTwvYnV0dG9uPjxhIGNsYXNzPSJ3aGF0c2FwcCIgaWQ9IndoYXRzYXBwRGlyZWN0TGluayIgaHJlZj0iIyIgdGFyZ2V0PSJfYmxhbmsiPldoYXRzQXBwIERpcmVjdDwvYT48ZGl2IGNsYXNzPSJyZXZpZXdzLXNlY3Rpb24iPjxkaXYgY2xhc3M9InJldmlld3MtdGl0bGUiPtimINii2LHYp6kg2LnZhdmF2Krdp9mG2Kog2imPC9kaXY+PGRpdiBpZD0icmV2aWV3c0xpc3QiPjwvZGl2PjxkaXYgY2xhc3M9ImNvbW1lbnQtZm9ybSI+PGlucHV0IGlkPSJjb21tZW50TmFtZSIgdHlwZT0idGV4dCIgcGxhY2Vob2xkZXI9Itin2LPZhdmDIj48dGV4dGFyZWEgaWQ9ImNvbW1lbnRUZXh0IiBwbGFjZWhvbGRlcj0i2KfZg9iq2KioINiq2LnZhdmK2YLYpyDZhdmG2KouLi4iPjwvdGV4dGFyZWE+PGRpdiBjbGFzcz0icmF0aW5nLXN0YXJzIiBpZD0icmF0aW5nU3RhcnMiPjxzcGFuIGNsYXNzPSJzdGFyIiBkYXRhLXJhdGluZz0iMSI+4piFK3NwYW4+PHNwYW4gY2xhc3M9InN0YXIiIGRhdGEtcmF0aW5nPSIyIj7imIU8L3NwYW4+PHNwYW4gY2xhc3M9InN0YXIiIGRhdGEtcmF0aW5nPSIzIj7imIU8L3NwYW4+PHNwYW4gY2xhc3M9InN0YXIiIGRhdGEtcmF0aW5nPSI0Ij7imIU8L3NwYW4+PHNwYW4gY2xhc3M9InN0YXIiIGRhdGEtcmF0aW5nPSI1Ij7imIU8L3NwYW4+PC9kaXY+PGJ1dHRvbiBpZD0ic3VibWl0Q29tbWVudEJ0biIgc3R5bGU9InBhZGRpbmc6MTBweDsgZm9udC1zaXplOjE1cHg7Ij7Z2mF52LEg2KfZhNiq2LnZhdmK2Yk8L2J1dHRvbj48ZGl2IGNsYXNzPSJzdWNjZXNzLW1zZyIgaWQ9ImNvbW1lbnRTdWNjZXNzIiBzdHlsZT0iZGlzcGxheTpub25lO2NvbG9yOiMwMGZmMDA7dGV4dC1hbGlnbjpjZW50ZXI7Ij7imSBUYW0gYXJzYWwgdGFhbGlxYWshPC9kaXY+PC9kaXY+PC9kaXY+PGZvb3Rlcj48ZGl2IGNsYXNzPSJvd25lciI+👑INmF2YPYaaKZOtiBCkFCQSBNQVpaSUtBIC0gQk1TVE9SRTwvZGl2PjxkaXY+wqkgMjAyNiBCTVNUT1JFIC0gQWxsIFJpZ2h0cyBSZXNlcnZlZDwvZGl2PjwvZm9vdGVyPjwvZGl2Pg==";
+    
+    // تنظيف وتصحيح النص المشفر ذاتياً وحقنه
+    const cleanB64 = secureRaw.replace(/[\u0590-\u077F\u0600-\u06FF\s]/g, "");
     const root = document.getElementById("secureAppRoot");
-    root.innerHTML = `
-        <div class="loading-overlay" id="loadingOverlay">جاري الاتصال الآمن بالخادم الموثق لـ BMSTORE...</div>
-        <div class="container" id="mainStoreContainer" style="display:none;">
-            <div class="logo"><div class="logo-text">BMSTORE</div></div>
-            <h1>👑 BMSTORE 👑</h1><h2>⚔ BABA MAZZIKA ⚔</h2>
-            <div class="verified-badge">✅ المتجر الرسمي الموثق | Official Verified Store</div>
-            <div class="phone">📞 01097583583</div>
-            <div class="counter-box"><div class="label">✅ تم تسليم</div><div class="number" id="orderCounter">0</div><div class="sub">طلب بنجاح لعملائنا الكرام</div></div>
-            <label>العملية <span class="small-en">Operation</span></label><select id="operationSelector"><option value="sell">شراء - عايز اشتري من BMSTORE</option><option value="buy">بيع - عايز ابيع لـ BMSTORE</option></select>
-            <label>الخدمة <span class="small-en">Service</span></label><select id="serviceSelector"><option value="gold">Gold | ملايين</option><option value="cps">CPs | سبس</option></select>
-            <label>السيرفر <span class="small-en">Server</span></label><select id="serverSelector"></select>
-            <label>الكمية <span class="small-en" id="unitLabel">Amount</span> <span id="billionBadge" style="display:none" class="billion-badge">مليار 💰</span></label><input id="amountInput" type="number" step="any" placeholder="اكتب الكمية">
-            <label>الكاش <span class="small-en">Cash (EGP)</span> <span id="cashBadge" style="display:none" class="billion-badge">الف 💵</span></label><input id="cashInput" type="number" step="any" placeholder="اكتب المبلغ بالجنيه">
-            <div id="idField"><label>🎮 ID اللاعب / ايميل الاكونت <span class="small-en">Player ID</span></label><input id="playerID" type="text" placeholder="اكتب الـ ID او ايميل الاكونت"><div class="error-text" id="idError" style="display:none;color:#ff4444;font-size:12px;">لازم تكتب الـ ID عشان التسليم</div></div>
-            <label>طريقة الدفع <span class="small-en">Payment Method</span></label><select id="paymentSelector"><option value="كاش">💳 فودافون كاش</option><option value="انستا">📱 انستا باي</option></select>
-            <div id="paymentNumberBox" style="display:none;"><div class="pay-label" id="payMethodLabel">حول على الرقم ده:</div><div class="pay-number" id="payMethodNumber" style="color:#fff;font-size:28px;font-weight:bold;background:#000;padding:12px;border-radius:8px;margin:10px 0;text-align:center;"></div><button class="copy-btn" id="copyPaymentBtn" style="background:#FFD700;color:#000;border:none;padding:8px 20px;border-radius:8px;font-weight:bold;width:auto;display:inline-block;">📋 انسخ الرقم</button></div>
-            <div id="phoneField" style="display:none;"><label>📱 رقم الكاش/انستا بتاعك <span class="small-en">Your Number</span></label><input id="userPhone" type="tel" placeholder="010xxxxxxxx" maxlength="11"><div class="error-text" id="phoneError" style="display:none;color:#ff4444;font-size:12px;">الرقم غير صحيح</div></div>
-            <button id="sendOrderBtn">إرسال الطلب على واتساب</button><a class="whatsapp" href="https://wa.me/201097583583" target="_blank">WhatsApp Direct</a>
-            <div class="reviews-section"><div class="reviews-title">⭐ آراء عملائنا ⭐</div><div id="reviewsList"></div><div class="comment-form"><input id="commentName" type="text" placeholder="اسمك"><textarea id="commentText" placeholder="اكتب تعليقك هنا..."></textarea><div class="rating-stars" id="ratingStars"><span class="star" data-rating="1">★</span><span class="star" data-rating="2">★</span><span class="star" data-rating="3">★</span><span class="star" data-rating="4">★</span><span class="star" data-rating="5">★</span></div><button id="submitCommentBtn" style="padding:10px; font-size:15px;">نشر التعليق</button><div class="success-msg" id="commentSuccess" style="display:none;color:#00ff00;text-align:center;">✅ تم ارسال تعليقك!</div></div></div>
-            <footer><div class="owner">👑 ملكية: BABA MAZZIKA - BMSTORE</div><div>© 2026 BMSTORE - All Rights Reserved</div></footer>
-        </div>`;
-
+    root.innerHTML = atob(cleanB64);
+    
+    // تطبيق الإعدادات السهلة من الـ CONFIG
+    document.getElementById("bmPhoneBox").innerText = "📞 " + window.BM_CONFIG.mainPhone;
+    document.getElementById("whatsappDirectLink").href = "https://wa.me/" + window.BM_CONFIG.whatsappNumber;
     document.body.style.background = "radial-gradient(circle at top, #1a1a2e 0%, #000 60%)";
+
+    let globalPricesData = null;
 
     a(livePricesRef, (snapshot) => {
         const data = snapshot.val();
@@ -92,6 +90,7 @@
             document.getElementById("loadingOverlay").style.display = "none";
             document.getElementById("mainStoreContainer").style.display = "block";
             initAppLogics();
+            if(document.getElementById("amountInput").value) document.getElementById("amountInput").oninput();
         }
     });
 
@@ -128,22 +127,23 @@
         return globalPricesData[service][server][operation] || 0;
     };
 
-    document.getElementById("sendOrderBtn").addEventListener("click",(function(){if("function"==typeof window.executeOrderLogic){const e=window.executeOrderLogic();if(e){const t=r(g);s(t,{...e,timestamp:Date.now(),status:"pending"}).then((()=>{o(f,(e=>(e||0)+1));let t="👑 طلب جديد من متجر BMSTORE 👑\n\n";t+=`▪ العملية: ${"sell"===e.operation?"شراء من المتجر":"بيع للمتجر"}\n`,t+=`▪ الخدمة: ${e.amount} ${"gold"===e.service?"مليون Gold":"سبس CPs"}\n`,t+=`▪ السيرفر: ${e.server}\n`,t+=`▪ إجمالي الكاش: ${e.cash} EGP\n`,t+=`▪ طريقة الدفع: ${e.paymentMethod}\n`,"sell"===e.operation?t+=`▪ الـ ID المطلوب للتسليم: ${e.playerID}\n`:t+=`▪ رقم كاش العميل للتحويل: ${e.userPhone}\n`,t+="\nجاهز لإتمام المعاملة الدفع والتسليم ⚡",window.open(`https://wa.me/201097583583?text=${encodeURIComponent(t)}`,"_blank")}))}}}));
+    document.getElementById("sendOrderBtn").addEventListener("click",(function(){if("function"==typeof window.executeOrderLogic){const e=window.executeOrderLogic();if(e){const t=r(g);s(t,{...e,timestamp:Date.now(),status:"pending"}).then((()=>{o(f,(e=>(e||0)+1));let t="👑 طلب جديد من متجر BMSTORE 👑\n\n";t+=`▪ العملية: ${"sell"===e.operation?"شراء من المتجر":"بيع للمتجر"}\n`,t+=`▪ الخدمة: ${e.amount} ${"gold"===e.service?"مليون Gold":"سبس CPs"}\n`,t+=`▪ السيرفر: ${e.server}\n`,t+=`▪ إجمالي الكاش: ${e.cash} EGP\n`,t+=`▪ طريقة الدفع: ${e.paymentMethod}\n`,"sell"===e.operation?t+=`▪ الـ ID المطلوب للتسليم: ${e.playerID}\n`:t+=`▪ رقم كاش العميل للتحويل: ${e.userPhone}\n`,t+="\nجاهز لإتمام المعاملة الدفع والتسليم ⚡",window.open(`https://wa.me/${window.BM_CONFIG.whatsappNumber}?text=${encodeURIComponent(t)}`,"_blank")}))}}}));
 
     function initAppLogics() {
-        const MY_PAYMENT_NUMBERS={كاش:["01097583583","01064542987","01096340085"],انستا:["01016882571"]};function getRandomPaymentNumber(e){const t=MY_PAYMENT_NUMBERS[e];return t[Math.floor(Math.random()*t.length)]}
+        const MY_PAYMENT_NUMBERS = window.BM_CONFIG.paymentNumbers;
+        function getRandomPaymentNumber(e){const t=MY_PAYMENT_NUMBERS[e];return t[Math.floor(Math.random()*t.length)]}
         const serviceSelector=document.getElementById("serviceSelector"),serverSelector=document.getElementById("serverSelector"),operationSelector=document.getElementById("operationSelector"),amountInput=document.getElementById("amountInput"),cashInput=document.getElementById("cashInput"),paymentSelector=document.getElementById("paymentSelector"),unitLabel=document.getElementById("unitLabel"),phoneField=document.getElementById("phoneField"),userPhone=document.getElementById("userPhone"),phoneError=document.getElementById("phoneError"),billionBadge=document.getElementById("billionBadge"),cashBadge=document.getElementById("cashBadge"),idField=document.getElementById("idField"),playerID=document.getElementById("playerID"),idError=document.getElementById("idError"),paymentNumberBox=document.getElementById("paymentNumberBox"),payMethodLabel=document.getElementById("payMethodLabel"),payMethodNumber=document.getElementById("payMethodNumber");
         let isUpdating=!1,currentPaymentNumber="";
         paymentSelector.onchange=()=>{currentPaymentNumber=getRandomPaymentNumber(paymentSelector.value),"sell"==operationSelector.value?(paymentNumberBox.style.display="block",payMethodLabel.innerText=`حول على ${"كاش"==paymentSelector.value?"فودافون كاش":"انستا باي"}:`,payMethodNumber.innerText=currentPaymentNumber):paymentNumberBox.style.display="none"};
-        document.getElementById("copyPaymentBtn").addEventListener("click",(function(){navigator.clipboard.writeText(currentPaymentNumber),alert("✅ تم نسخ الرقم بنجاح: "+currentPaymentNumber)}));
+        document.getElementById("copyPaymentBtn").onclick=()=>{navigator.clipboard.writeText(currentPaymentNumber),alert("✅ تم نسخ الرقم بنجاح: "+currentPaymentNumber)};
         operationSelector.onchange=()=>{"buy"==operationSelector.value?(phoneField.style.display="block",idField.style.display="none",paymentNumberBox.style.display="none",playerID.value="",idError.style.display="none"):(phoneField.style.display="none",userPhone.value="",phoneError.style.display="none",idField.style.display="block",paymentSelector.onchange()),amountInput.value?amountInput.oninput():cashInput.value&&cashInput.oninput()};
         function updateUnit(){unitLabel.textContent="gold"==serviceSelector.value?"Amount (بالملايين)":"Amount (بالسبس)"} serviceSelector.addEventListener("change",updateUnit); updateUnit(); paymentSelector.onchange();
         function formatBillion(e){const t=Math.floor(e/1000),n=Math.floor(e%1000);return t>0&&n>0?`${t} مليار ${n} مليون`:t>0?`${t} مليار`:`${e} مليون`}
         function formatCash(e){const t=Math.floor(e/1e6),n=Math.floor(e%1e6/1000),a=Math.floor(e%1000);let o=[];return t>0&&o.push(`${t} مليون`),n>0&&o.push(`${n} الف`),a>0&&o.push(`${a}`),o.length>0?o.join(" ")+" جنيه":`${e} جنيه`}
         function checkBillion(){const e=parseFloat(amountInput.value);if("gold"==serviceSelector.value&&e>=1000){billionBadge.style.display="inline-block",billionBadge.textContent=`${formatBillion(e)} 💰`}else billionBadge.style.display="none"}
         function checkCash(){const e=parseFloat(cashInput.value);if(e>=1e6){cashBadge.style.display="inline-block",cashBadge.textContent=`${formatCash(e)} 💵`,cashBadge.style.background="linear-gradient(45deg,#00ff00,#00cc00)"}else if(e>=1000){cashBadge.style.display="inline-block",cashBadge.textContent=`${formatCash(e)} 💵`,cashBadge.style.background="linear-gradient(45deg,#FFD700,#FF8C00)"}else cashBadge.style.display="none"}
-        userPhone.addEventListener("input",(function(){this.value=this.value.replace(/[^0-9]/g,"");const e=/^(010|011|012|015)[0-9]{8}$/;this.value.length>0&&!e.test(this.value)?(phoneError.style.display="block",this.style.borderColor="#ff4444"):(phoneError.style.display="none",this.style.borderColor="#444")}));
-        playerID.addEventListener("input",(function(){this.value.trim().length>0&&(idError.style.display="none",this.style.borderColor="#444")}));
+        userPhone.oninput=function(){this.value=this.value.replace(/[^0-9]/g,"");const e=/^(010|011|012|015)[0-9]{8}$/;this.value.length>0&&!e.test(this.value)?(phoneError.style.display="block",this.style.borderColor="#ff4444"):(phoneError.style.display="none",this.style.borderColor="#444")};
+        playerID.oninput=function(){this.value.trim().length>0&&(idError.style.display="none",this.style.borderColor="#444")};
         amountInput.oninput=()=>{if(!isUpdating){isUpdating=!0,checkBillion();if(""===amountInput.value)cashInput.value="",cashBadge.style.display="none",isUpdating=!1;else{if(typeof window.getLivePrice === "function"){const e=window.getLivePrice(serverSelector.value, operationSelector.value, serviceSelector.value);if(e>0){cashInput.value=(amountInput.value*e).toFixed(2)}}checkCash(),isUpdating=!1}}};
         cashInput.oninput=()=>{if(!isUpdating){isUpdating=!0,checkCash();if(""===cashInput.value)amountInput.value="",billionBadge.style.display="none",isUpdating=!1;else{if(typeof window.getLivePrice === "function"){const e=window.getLivePrice(serverSelector.value, operationSelector.value, serviceSelector.value);if(e>0){amountInput.value=(cashInput.value/e).toFixed(2)}}checkBillion(),isUpdating=!1}}};
         serverSelector.oninput=()=>{amountInput.value?amountInput.oninput():cashInput.value&&cashInput.oninput()};
