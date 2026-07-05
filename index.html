@@ -5,327 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="BABA MAZZIKA - BMSTORE">
     <meta name="copyright" content="BMSTORE © 2026 - All Rights Reserved">
-    <meta name="bmstore-verify" content="BABA_MAZZIKA_OFFICIAL_01097583583">
-    <meta name="robots" content="index, follow">
-    <meta name="description" content="BMSTORE - المتجر الرسمي لـ BABA MAZZIKA لبيع وشراء Gold و CPs في Conquer Online. تسليم فوري وضمان كامل.">
     <title>BMSTORE | BABA MAZZIKA - المتجر الرسمي</title>
-
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-        }
-
-        body {
-            font-family: Tahoma, Geneva, sans-serif;
-            color: white;
-            background: radial-gradient(circle at top, #1a1a2e 0%, #000 60%), linear-gradient(135deg, #0f2027, #203a43, #000);
-            min-height: 100vh;
-            background-attachment: fixed;
-        }
-
-        body:before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at 20% 20%, rgba(255, 215, 0, .08), transparent 40%), radial-gradient(circle at 80% 70%, rgba(255, 120, 0, .06), transparent 40%);
-            pointer-events: none;
-        }
-
-        body:after {
-            content: "BMSTORE © BABA MAZZIKA 01097583583";
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            color: rgba(255, 215, 0, 0.1);
-            font-size: 8px;
-            pointer-events: none;
-            z-index: 9999;
-            transform: rotate(-45deg);
-        }
-
-        .container {
-            width: 95%;
-            max-width: 520px;
-            margin: 30px auto;
-            background: rgba(10, 10, 10, .92);
-            border: 2px solid gold;
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 0 40px rgba(255, 215, 0, .2);
-        }
-
-        .logo {
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .logo-text {
-            background: linear-gradient(45deg, #FFD700, #FF8C00, #FFD700);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 42px;
-            font-weight: 900;
-            letter-spacing: 2px;
-            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
-        }
-
-        h1, h2 {
-            text-align: center;
-            color: gold;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; -webkit-user-select: none; }
+        body { font-family: Tahoma, Geneva, sans-serif; color: white; background: radial-gradient(circle at top, #1a1a2e 0%, #000 60%); min-height: 100vh; }
+        .container { width: 95%; max-width: 520px; margin: 30px auto; background: rgba(10, 10, 10, .92); border: 2px solid gold; border-radius: 20px; padding: 25px; box-shadow: 0 0 40px rgba(255, 215, 0, .2); }
+        .logo-text { background: linear-gradient(45deg, #FFD700, #FF8C00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 42px; font-weight: 900; text-align: center; }
+        h1, h2 { text-align: center; color: gold; }
         h1 { font-size: 22px; margin-top: 5px; }
         h2 { font-size: 18px; margin-bottom: 15px; }
-
-        .phone {
-            background: linear-gradient(45deg, #d4af37, #ffd700);
-            color: black;
-            text-align: center;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 15px;
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .verified-badge {
-            background: rgba(0, 255, 0, 0.1);
-            border: 2px solid #00ff00;
-            color: #00ff00;
-            text-align: center;
-            padding: 10px;
-            border-radius: 10px;
-            margin: 10px 0;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .counter-box {
-            text-align: center;
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 140, 0, 0.1));
-            border: 2px solid gold;
-            border-radius: 15px;
-            padding: 20px;
-            margin: 20px 0;
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
-            animation: glow 2s infinite;
-        }
-
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
-            50% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.6); }
-        }
-
-        .counter-box .label { color: gold; font-size: 16px; font-weight: bold; }
-        .counter-box .number {
-            color: #fff;
-            font-size: 48px;
-            font-weight: 900;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
-            margin: 8px 0;
-        }
-        .counter-box .sub { color: #ccc; font-size: 14px; }
-
-        .reviews-section {
-            margin: 25px 0;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 15px;
-            border: 1px solid #333;
-        }
-
-        .reviews-title {
-            text-align: center;
-            color: gold;
-            font-size: 18px;
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
-
-        .review-item {
-            background: rgba(255, 215, 0, 0.05);
-            border-right: 3px solid gold;
-            padding: 12px;
-            margin: 10px 0;
-            border-radius: 8px;
-        }
-
-        .review-name { color: #FFD700; font-weight: bold; font-size: 14px; margin-bottom: 5px; }
-        .review-text { color: #ddd; font-size: 13px; line-height: 1.6; }
-        .review-stars { color: #FFD700; margin-top: 5px; font-size: 14px; }
-
-        .comment-form {
-            background: rgba(255, 215, 0, 0.05);
-            border: 1px solid #444;
-            padding: 15px;
-            border-radius: 12px;
-            margin-top: 15px;
-        }
-
-        .comment-form-title { color: gold; font-weight: bold; margin-bottom: 10px; text-align: center; }
-
-        .rating-stars {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin: 10px 0;
-            font-size: 28px;
-            cursor: pointer;
-        }
-
-        .star { color: #444; transition: all 0.2s; }
-        .star.active, .star:hover { color: #FFD700; }
-
+        .phone { background: linear-gradient(45deg, #d4af37, #ffd700); color: black; text-align: center; padding: 15px; margin: 15px 0; border-radius: 15px; font-size: 24px; font-weight: bold; }
+        .verified-badge { background: rgba(0, 255, 0, 0.1); border: 2px solid #00ff00; color: #00ff00; text-align: center; padding: 10px; border-radius: 10px; margin: 10px 0; font-weight: bold; }
+        .counter-box { text-align: center; border: 2px solid gold; border-radius: 15px; padding: 20px; margin: 20px 0; }
+        .counter-box .number { color: #fff; font-size: 48px; font-weight: 900; }
+        .reviews-section { margin: 25px 0; padding: 20px; background: rgba(0, 0, 0, 0.5); border-radius: 15px; border: 1px solid #333; }
+        .reviews-title { text-align: center; color: gold; font-size: 18px; margin-bottom: 15px; }
+        .review-item { background: rgba(255, 215, 0, 0.05); border-right: 3px solid gold; padding: 12px; margin: 10px 0; border-radius: 8px; }
+        .review-name { color: #FFD700; font-weight: bold; }
+        .review-text { color: #ddd; font-size: 13px; }
+        .review-stars { color: #FFD700; }
+        .comment-form { background: rgba(255, 215, 0, 0.05); border: 1px solid #444; padding: 15px; border-radius: 12px; }
+        .rating-stars { display: flex; justify-content: center; gap: 10px; margin: 10px 0; font-size: 28px; cursor: pointer; }
+        .star { color: #444; }
+        .star.active { color: #FFD700; }
         label { display: block; margin-top: 15px; color: gold; font-weight: bold; }
         .small-en { font-size: 12px; color: #aaa; }
-
-        .billion-badge {
-            display: inline-block;
-            background: linear-gradient(45deg, #FFD700, #FF8C00);
-            color: #000;
-            padding: 2px 8px;
-            border-radius: 5px;
-            font-size: 11px;
-            font-weight: bold;
-            margin-right: 5px;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 12px;
-            margin-top: 5px;
-            background: #111;
-            color: white;
-            border: 1px solid #444;
-            border-radius: 10px;
-            font-size: 16px;
-            user-select: text;
-            -webkit-user-select: text;
-            -moz-user-select: text;
-            font-family: Tahoma, Geneva, sans-serif;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: #FFD700;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
-        }
-
-        textarea { resize: vertical; min-height: 80px; }
-
-        button {
-            width: 100%;
-            padding: 15px;
-            margin-top: 15px;
-            background: linear-gradient(45deg, #ffcc00, #ff7b00);
-            border: none;
-            border-radius: 10px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            color: black;
-        }
-
-        button:hover { opacity: 0.9; transform: scale(1.02); }
-
-        .whatsapp {
-            display: block;
-            text-align: center;
-            background: #25D366;
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 15px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        #phoneField, #idField { display: none; animation: slideDown 0.3s ease; }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        #paymentNumberBox {
-            display: none;
-            background: rgba(255, 215, 0, 0.1);
-            border: 2px solid #FFD700;
-            border-radius: 12px;
-            padding: 15px;
-            margin-top: 15px;
-            text-align: center;
-            animation: slideDown 0.3s ease;
-        }
-
-        #paymentNumberBox .pay-label { color: #FFD700; font-size: 14px; margin-bottom: 8px; }
-        #paymentNumberBox .pay-number {
-            color: #fff;
-            font-size: 28px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            background: #000;
-            padding: 12px;
-            border-radius: 8px;
-            margin: 10px 0;
-        }
-        #paymentNumberBox .copy-btn {
-            background: #FFD700;
-            color: #000;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 5px;
-            width: auto;
-            display: inline-block;
-        }
-
+        .billion-badge { display: inline-block; background: linear-gradient(45deg, #FFD700, #FF8C00); color: #000; padding: 2px 8px; border-radius: 5px; font-size: 11px; font-weight: bold; }
+        input, select, textarea { width: 100%; padding: 12px; margin-top: 5px; background: #111; color: white; border: 1px solid #444; border-radius: 10px; font-size: 16px; font-family: Tahoma; }
+        button { width: 100%; padding: 15px; margin-top: 15px; background: linear-gradient(45deg, #ffcc00, #ff7b00); border: none; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; color: black; }
+        .whatsapp { display: block; text-align: center; background: #25D366; color: white; padding: 15px; border-radius: 10px; margin-top: 15px; text-decoration: none; font-weight: bold; }
+        #phoneField, #idField { display: none; }
+        #paymentNumberBox { display: none; background: rgba(255, 215, 0, 0.1); border: 2px solid #FFD700; border-radius: 12px; padding: 15px; margin-top: 15px; text-align: center; }
+        #paymentNumberBox .pay-number { color: #fff; font-size: 28px; font-weight: bold; background: #000; padding: 12px; border-radius: 8px; margin: 10px 0; }
+        #paymentNumberBox .copy-btn { background: #FFD700; color: #000; border: none; padding: 8px 20px; border-radius: 8px; font-weight: bold; width: auto; display: inline-block; }
         .error-text { color: #ff4444; font-size: 12px; margin-top: 5px; display: none; }
-        .success-msg {
-            background: rgba(0, 255, 0, 0.2);
-            border: 2px solid #00ff00;
-            color: #00ff00;
-            padding: 10px;
-            border-radius: 8px;
-            text-align: center;
-            margin: 10px 0;
-            display: none;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #333;
-            color: #888;
-            font-size: 12px;
-        }
-
-        footer .owner { color: gold; font-weight: bold; font-size: 14px; margin-bottom: 5px; }
+        .success-msg { background: rgba(0, 255, 0, 0.2); border: 2px solid #00ff00; color: #00ff00; padding: 10px; border-radius: 8px; text-align: center; display: none; }
+        footer { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #333; color: #888; font-size: 12px; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="logo">
-        <div class="logo-text">BMSTORE</div>
-    </div>
+<div class="container" id="mainStoreContainer">
+    <div class="logo"><div class="logo-text">BMSTORE</div></div>
     <h1>👑 BMSTORE 👑</h1>
     <h2>⚔ BABA MAZZIKA ⚔</h2>
     <div class="verified-badge">✅ المتجر الرسمي الموثق | Official Verified Store</div>
-
     <div class="phone">📞 01097583583</div>
 
     <div class="counter-box">
@@ -392,13 +116,12 @@
         <div class="pay-label" id="payMethodLabel">حول على الرقم ده:</div>
         <div class="pay-number" id="payMethodNumber"></div>
         <button class="copy-btn" id="copyPaymentBtn">📋 انسخ الرقم</button>
-        <div style="color:#ccc;font-size:12px;margin-top:8px;">حول المبلغ وابعت سكرين شوت على الواتساب</div>
     </div>
 
     <div id="phoneField">
         <label>📱 رقم الكاش/انستا بتاعك <span class="small-en">Your Number</span></label>
         <input id="userPhone" type="tel" placeholder="010xxxxxxxx" maxlength="11">
-        <div class="error-text" id="phoneError">الرقم لازم 11 رقم ويبدأ بـ 010 أو 011 أو 012 أو 015</div>
+        <div class="error-text" id="phoneError">الرقم غير صحيح</div>
     </div>
 
     <button id="sendOrderBtn">إرسال الطلب على واتساب</button>
@@ -407,398 +130,34 @@
     <div class="reviews-section">
         <div class="reviews-title">⭐ آراء عملائنا ⭐</div>
         <div id="reviewsList"></div>
-
         <div class="comment-form">
-            <div class="comment-form-title">✍️ اكتب رأيك</div>
             <input id="commentName" type="text" placeholder="اسمك">
             <textarea id="commentText" placeholder="اكتب تعليقك هنا..."></textarea>
             <div class="rating-stars" id="ratingStars">
-                <span class="star" data-rating="1">★</span>
-                <span class="star" data-rating="2">★</span>
-                <span class="star" data-rating="3">★</span>
-                <span class="star" data-rating="4">★</span>
-                <span class="star" data-rating="5">★</span>
+                <span class="star" data-rating="1">★</span><span class="star" data-rating="2">★</span><span class="star" data-rating="3">★</span><span class="star" data-rating="4">★</span><span class="star" data-rating="5">★</span>
             </div>
             <button id="submitCommentBtn" style="padding:10px; font-size:15px;">نشر التعليق</button>
-            <div class="success-msg" id="commentSuccess">✅ تم ارسال تعليقك! هيظهر بعد موافقة الادمن</div>
+            <div class="success-msg" id="commentSuccess">✅ تم ارسال تعليقك!</div>
         </div>
     </div>
 
     <footer>
         <div class="owner">👑 ملكية: BABA MAZZIKA - BMSTORE</div>
         <div>© 2026 BMSTORE - All Rights Reserved</div>
-        <div>المتجر الرسمي الوحيد الموثوق</div>
     </footer>
 </div>
 
-<!-- حماية السكربت من الفحص والنسخ -->
+<!-- نظام الحماية الذاتي ومنع التشغيل المحلي والـ DevTools -->
 <script>
-    (function(){
-        'use strict';
-        const _0xanti = function() {
-            function de(i) {
-                if (Function('return this')().console) {
-                    if ((['🔥', '🔒'].join('')).length !== 2 || i % 20 === 0) {
-                        (function(){return false;}).constructor('debugger')();
-                    } else { debugger; }
-                    de(++i);
-                }
-            }
-            try { de(0); } catch(e) { setTimeout(_0xanti, 50); }
-        };
-        setInterval(_0xanti, 250);
-
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.addEventListener('keydown', e => {
-            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) || (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83))) {
-                e.preventDefault();
-                return false;
-            }
-        });
-        document.addEventListener('copy', e => { if(!e.target.matches('input, textarea')) e.preventDefault(); });
-    })();
+    !function(){"use strict";if("file:"===window.location.protocol){document.getElementById("mainStoreContainer").innerHTML="<div style='color:red;text-align:center;padding:50px;font-weight:bold;font-size:20px;'>🔒 خطأ أمني: لا يمكن تشغيل هذا الموقع محلياً أو سرقته!</div>";window.location.href="about:blank";return;}const e=function(){function t(e){Function("return this")().console&&(2===[..."🔥🔒"].length&&e%20!==0?function(){return!1}.constructor("debugger")():debugger),t(++e)}try{t(0)}catch(n){setTimeout(e,50)}};setInterval(e,250),document.addEventListener("contextmenu",(e=>e.preventDefault())),document.addEventListener("keydown",(e=>{if(123===e.keyCode||e.ctrlKey&&e.shiftKey&&(73===e.keyCode||74===e.keyCode||67===e.keyCode)||e.ctrlKey&&(85===e.keyCode||83===e.keyCode))return e.preventDefault(),!1})),window.addEventListener("keydown",(function(e){if((e.ctrlKey||e.metaKey)&&83===e.keyCode){e.preventDefault();e.stopPropagation();alert("🔒 هذا المحتوى محمي بالكامل وضد الحفظ المباشر!");return!1}}),!0)}();
 </script>
 
-<!-- سكربت Firebase والمنطق الخاص بالعمليات والواتساب -->
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-    import { getDatabase, ref, onValue, runTransaction, push, set, query, orderByChild, limitToLast, equalTo } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
-
-    const firebaseConfig = {
-        apiKey: "AIzaSyCiFo7DUunwnIPrH3MQZGy4aNiPx0L4JGQ",
-        authDomain: "bmstore-counter.firebaseapp.com",
-        databaseURL: "https://bmstore-counter-default-rtdb.firebaseio.com",
-        projectId: "bmstore-counter",
-        storageBucket: "bmstore-counter.firebasestorage.app",
-        messagingSenderId: "7876739667",
-        appId: "1:7876739667:web:505b27cd9047ec01b83ca6"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    const counterRef = ref(db, 'totalOrders');
-    const commentsRef = ref(db, 'comments');
-    const ordersRef = ref(db, 'orders');
-
-    // جلب العداد
-    onValue(counterRef, (snapshot) => {
-        const count = snapshot.val() || 0;
-        document.getElementById('orderCounter').innerText = count.toLocaleString('ar-EG');
-    });
-
-    // جلب الآراء المعتمدة
-    const approvedCommentsQuery = query(commentsRef, orderByChild('approved'), equalTo(true), limitToLast(10));
-    onValue(approvedCommentsQuery, (snapshot) => {
-        const reviewsList = document.getElementById('reviewsList');
-        reviewsList.innerHTML = '';
-        const comments = [];
-        snapshot.forEach((child) => { comments.push(child.val()); });
-        comments.reverse().forEach(comment => {
-            const stars = '⭐'.repeat(comment.rating);
-            reviewsList.innerHTML += `
-                <div class="review-item">
-                    <div class="review-name">${comment.name}</div>
-                    <div class="review-text">${comment.text}</div>
-                    <div class="review-stars">${stars}</div>
-                </div>
-            `;
-        });
-    });
-
-    // إرسال التعليق
-    let selectedRating = 5;
-    document.querySelectorAll('.star').forEach(star => {
-        star.addEventListener('click', function() {
-            selectedRating = parseInt(this.dataset.rating);
-            document.querySelectorAll('.star').forEach(s => {
-                s.classList.toggle('active', parseInt(s.dataset.rating) <= selectedRating);
-            });
-        });
-    });
-    document.querySelectorAll('.star').forEach(s => { if(parseInt(s.dataset.rating) <= 5) s.classList.add('active'); });
-
-    document.getElementById('submitCommentBtn').addEventListener('click', function() {
-        const name = document.getElementById('commentName').value.trim();
-        const text = document.getElementById('commentText').value.trim();
-        if(!name || !text) { alert('اكتب اسمك والتعليق أولاً!'); return; }
-
-        const newComment = push(commentsRef);
-        set(newComment, { name, text, rating: selectedRating, timestamp: Date.now(), approved: false })
-        .then(() => {
-            document.getElementById('commentSuccess').style.display = 'block';
-            document.getElementById('commentName').value = '';
-            document.getElementById('commentText').value = '';
-            setTimeout(() => { document.getElementById('commentSuccess').style.display = 'none'; }, 3000);
-        });
-    });
-
-    // معالجة وإرسال الطلب (Firebase + الواتساب)
-    document.getElementById('sendOrderBtn').addEventListener('click', function() {
-        if (typeof window.executeOrderLogic === "function") {
-            const orderData = window.executeOrderLogic();
-            if (orderData) {
-                const newOrderRef = push(ordersRef);
-                set(newOrderRef, { ...orderData, timestamp: Date.now(), status: 'pending' })
-                .then(() => {
-                    // زيادة عداد الطلبات بنجاح
-                    runTransaction(counterRef, (curr) => (curr || 0) + 1);
-
-                    // بناء وتوجيه لرسالة الواتساب المنسقة
-                    let text = `👑 طلب جديد من متجر BMSTORE 👑\n\n`;
-                    text += `▪ العملية: ${orderData.operation === 'sell' ? 'شراء من المتجر' : 'بيع للمتجر'}\n`;
-                    text += `▪ الخدمة: ${orderData.amount} ${orderData.service === 'gold' ? 'مليون Gold' : 'سبس CPs'}\n`;
-                    text += `▪ السيرفر: ${orderData.server}\n`;
-                    text += `▪ إجمالي الكاش: ${orderData.cash} EGP\n`;
-                    text += `▪ طريقة الدفع: ${orderData.paymentMethod}\n`;
-                    if(orderData.operation === 'sell') {
-                        text += `▪ الـ ID المطلوب للتسليم: ${orderData.playerID}\n`;
-                    } else {
-                        text += `▪ رقم كاش العميل للتحويل: ${orderData.userPhone}\n`;
-                    }
-                    text += `\nجاهز لإتمام المعاملة الدفع والتسليم ⚡`;
-
-                    window.open(`https://wa.me/201097583583?text=${encodeURIComponent(text)}`, '_blank');
-                });
-            }
-        }
-    });
+    import{initializeApp as e}from"https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";import{getDatabase as t,ref as n,onValue as a,runTransaction as o,push as r,set as s,query as c,orderByChild as d,limitToLast as i,equalTo as l}from"https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";const m={apiKey:"AIzaSyCiFo7DUunwnIPrH3MQZGy4aNiPx0L4JGQ",authDomain:"bmstore-counter.firebaseapp.com",databaseURL:"https://bmstore-counter-default-rtdb.firebaseio.com",projectId:"bmstore-counter",storageBucket:"bmstore-counter.firebasestorage.app",messagingSenderId:"7876739667",appId:"1:7876739667:web:505b27cd9047ec01b83ca6"},u=e(m),p=t(u),f=n(p,"totalOrders"),v=n(p,"comments"),g=n(p,"orders");a(f,(e=>{const t=e.val()||0;document.getElementById("orderCounter").innerText=t.toLocaleString("ar-EG")}));const h=c(v,d("approved"),l(!0),i(10));a(h,(e=>{const t=document.getElementById("reviewsList");t.innerHTML="";const n=[];e.forEach((e=>{n.push(e.val())})),n.reverse().forEach((e=>{const n="⭐".repeat(e.rating);t.innerHTML+=`\n                <div class="review-item">\n                    <div class="review-name">${e.name}</div>\n                    <div class="review-text">${e.text}</div>\n                    <div class="review-stars">${n}</div>\n                </div>\n            `}))}));let y=5;document.querySelectorAll(".star").forEach((e=>{e.addEventListener("click",(function(){y=parseInt(this.dataset.rating),document.querySelectorAll(".star").forEach((e=>{e.classList.toggle("active",parseInt(e.dataset.rating)<=y)}))}))})),document.querySelectorAll(".star").forEach((e=>{parseInt(e.dataset.rating)<=5&&e.classList.add("active")})),document.getElementById("submitCommentBtn").addEventListener("click",(function(){const e=document.getElementById("commentName").value.trim(),t=document.getElementById("commentText").value.trim();if(!e||!t)return void alert("اكتب اسمك والتعليق أولاً!");const n=r(v);s(n,{name:e,text:t,rating:y,timestamp:Date.now(),approved:!1}).then((()=>{document.getElementById("commentSuccess").style.display="block",document.getElementById("commentName").value="",document.getElementById("commentText").value="",setTimeout((()=>{document.getElementById("commentSuccess").style.display="none"}),3000)}))})),document.getElementById("sendOrderBtn").addEventListener("click",(function(){if("function"==typeof window.executeOrderLogic){const e=window.executeOrderLogic();if(e){const t=r(g);s(t,{...e,timestamp:Date.now(),status:"pending"}).then((()=>{o(f,(e=>(e||0)+1));let t="👑 طلب جديد من متجر BMSTORE 👑\n\n";t+=`▪ العملية: ${"sell"===e.operation?"شراء من المتجر":"بيع للمتجر"}\n`,t+=`▪ الخدمة: ${e.amount} ${"gold"===e.service?"مليون Gold":"سبس CPs"}\n`,t+=`▪ السيرفر: ${e.server}\n`,t+=`▪ إجمالي الكاش: ${e.cash} EGP\n`,t+=`▪ طريقة الدفع: ${e.paymentMethod}\n`,"sell"===e.operation?t+=`▪ الـ ID المطلوب للتسليم: ${e.playerID}\n`:t+=`▪ رقم كاش العميل للتحويل: ${e.userPhone}\n`,t+="\nجاهز لإتمام المعاملة الدفع والتسليم ⚡",window.open(`https://wa.me/201097583583?text=${encodeURIComponent(t)}`,"_blank")}))}}}));
 </script>
 
 <script>
-    const MY_PAYMENT_NUMBERS = {
-        كاش: ["01097583583", "01064542987", "01096340085"],
-        انستا: ["01016882571"]
-    };
-
-    function getRandomPaymentNumber(type) {
-        const numbers = MY_PAYMENT_NUMBERS[type];
-        return numbers[Math.floor(Math.random() * numbers.length)];
-    }
-
-    const serviceSelector = document.getElementById("serviceSelector");
-    const serverSelector = document.getElementById("serverSelector");
-    const operationSelector = document.getElementById("operationSelector");
-    const amountInput = document.getElementById("amountInput");
-    const cashInput = document.getElementById("cashInput");
-    const paymentSelector = document.getElementById("paymentSelector");
-    const unitLabel = document.getElementById("unitLabel");
-    const phoneField = document.getElementById("phoneField");
-    const userPhone = document.getElementById("userPhone");
-    const phoneError = document.getElementById("phoneError");
-    const billionBadge = document.getElementById("billionBadge");
-    const cashBadge = document.getElementById("cashBadge");
-    const idField = document.getElementById("idField");
-    const playerID = document.getElementById("playerID");
-    const idError = document.getElementById("idError");
-    const paymentNumberBox = document.getElementById("paymentNumberBox");
-    const payMethodLabel = document.getElementById("payMethodLabel");
-    const payMethodNumber = document.getElementById("payMethodNumber");
-    
-    let isUpdating = false;
-    let currentPaymentNumber = "";
-
-    paymentSelector.onchange = () => {
-        currentPaymentNumber = getRandomPaymentNumber(paymentSelector.value);
-        if(operationSelector.value == "sell"){
-            paymentNumberBox.style.display = "block";
-            payMethodLabel.innerText = `حول على ${paymentSelector.value == 'كاش'? 'فودافون كاش' : 'انستا باي'}:`;
-            payMethodNumber.innerText = currentPaymentNumber;
-        } else {
-            paymentNumberBox.style.display = "none";
-        }
-    };
-
-    document.getElementById('copyPaymentBtn').addEventListener('click', function(){
-        navigator.clipboard.writeText(currentPaymentNumber);
-        alert('✅ تم نسخ الرقم بنجاح: ' + currentPaymentNumber);
-    });
-
-    operationSelector.onchange = () => {
-        if(operationSelector.value == "buy"){
-            phoneField.style.display = "block";
-            idField.style.display = "none";
-            paymentNumberBox.style.display = "none";
-            playerID.value = "";
-            idError.style.display = "none";
-        } else {
-            phoneField.style.display = "none";
-            userPhone.value = "";
-            phoneError.style.display = "none";
-            idField.style.display = "block";
-            paymentSelector.onchange();
-        }
-        if(amountInput.value) amountInput.oninput();
-        else if(cashInput.value) cashInput.oninput();
-    };
-
-    function updateUnit(){
-        unitLabel.textContent = serviceSelector.value == "gold" ? "Amount (بالملايين)" : "Amount (بالسبس)";
-    }
-    
-    serviceSelector.addEventListener('change', updateUnit);
-    updateUnit();
-    idField.style.display = "block";
-    paymentSelector.onchange();
-
-    function formatBillion(num){
-        const billions = Math.floor(num / 1000);
-        const millions = Math.floor(num % 1000);
-        if(billions > 0 && millions > 0) return `${billions} مليار ${millions} مليون`;
-        return billions > 0 ? `${billions} مليار` : `${num} مليون`;
-    }
-
-    function formatCash(num){
-        const millions = Math.floor(num / 1000000);
-        const thousands = Math.floor((num % 1000000) / 1000);
-        const remainder = Math.floor(num % 1000);
-        let parts = [];
-        if(millions > 0) parts.push(`${millions} مليون`);
-        if(thousands > 0) parts.push(`${thousands} الف`);
-        if(remainder > 0) parts.push(`${remainder}`);
-        return parts.length > 0 ? parts.join(' ') + ' جنيه' : `${num} جنيه`;
-    }
-
-    function checkBillion(){
-        const amountVal = parseFloat(amountInput.value);
-        if(serviceSelector.value == "gold" && amountVal >= 1000){
-            billionBadge.style.display = "inline-block";
-            billionBadge.textContent = `${formatBillion(amountVal)} 💰`;
-        } else { billionBadge.style.display = "none"; }
-    }
-
-    function checkCash(){
-        const cashVal = parseFloat(cashInput.value);
-        if(cashVal >= 1000000){
-            cashBadge.style.display = "inline-block";
-            cashBadge.textContent = `${formatCash(cashVal)} 💵`;
-            cashBadge.style.background = "linear-gradient(45deg,#00ff00,#00cc00)";
-        } else if(cashVal >= 1000){
-            cashBadge.style.display = "inline-block";
-            cashBadge.textContent = `${formatCash(cashVal)} 💵`;
-            cashBadge.style.background = "linear-gradient(45deg,#FFD700,#FF8C00)";
-        } else { cashBadge.style.display = "none"; }
-    }
-
-    userPhone.addEventListener('input', function(){
-        this.value = this.value.replace(/[^0-9]/g,'');
-        const phoneRegex = /^(010|011|012|015)[0-9]{8}$/;
-        if(this.value.length > 0 && !phoneRegex.test(this.value)){
-            phoneError.style.display = "block";
-            this.style.borderColor = "#ff4444";
-        } else {
-            phoneError.style.display = "none";
-            this.style.borderColor = "#444";
-        }
-    });
-
-    playerID.addEventListener('input', function(){
-        if(this.value.trim().length > 0) {
-            idError.style.display = "none";
-            this.style.borderColor = "#444";
-        }
-    });
-
-    function calculatePrice(){
-        const goldRates = {
-            light: {sell: 3, buy: 2.7}, storm: {sell: 2.95, buy: 2.65}, fatalblow: {sell: 2.75, buy: 2.25},
-            zenithzone_eu: {sell: 2.5, buy: 1.5}, futureenergy: {sell: 2.5, buy: 1.5}, legacy_eu: {sell: 2, buy: 1.25},
-            warringlands: {sell: 2.5, buy: 1.5}, echoingswords: {sell: 2.5, buy: 1.5}, tempeststrike: {sell: 2.5, buy: 1.5},
-            voyage_eu: {sell: 2.85, buy: 2.25}, twincity: {sell: 0, buy: 0}, phoenixcastle_eu: {sell: 0, buy: 0},
-            apemount: {sell: 0, buy: 0}, dunewanderer: {sell: 0, buy: 0}
-        };
-
-        const cpsRates = {
-            light: {sell: 115/215, buy: 100/215}, storm: {sell: 115/215, buy: 100/215}, fatalblow: {sell: 115/215, buy: 95/215},
-            zenithzone_eu: {sell: 110/215, buy: 90/215}, futureenergy: {sell: 110/215, buy: 90/215}, legacy_eu: {sell: 110/215, buy: 90/215},
-            warringlands: {sell: 110/215, buy: 90/215}, echoingswords: {sell: 115/215, buy: 100/215}, tempeststrike: {sell: 115/215, buy: 100/215},
-            voyage_eu: {sell: 115/215, buy: 100/215}, twincity: {sell: 0, buy: 0}, phoenixcastle_eu: {sell: 0, buy: 0},
-            apemount: {sell: 0, buy: 0}, dunewanderer: {sell: 0, buy: 0}
-        };
-
-        if(serviceSelector.value == "gold"){
-            let targetRate = goldRates[serverSelector.value];
-            if(targetRate.sell == 0 && targetRate.buy == 0){ alert("⚔ Coming Soon"); return 0; }
-            return targetRate[operationSelector.value];
-        }
-        let targetCpRate = cpsRates[serverSelector.value];
-        if(targetCpRate.sell == 0 && targetCpRate.buy == 0){ alert("⚔ Coming Soon"); return 0; }
-        return targetCpRate[operationSelector.value];
-    }
-
-    amountInput.oninput = () => {
-        if(isUpdating) return;
-        isUpdating = true;
-        checkBillion();
-        if(amountInput.value === ""){
-            cashInput.value = "";
-            cashBadge.style.display = "none";
-            isUpdating = false;
-            return;
-        }
-        const currentPrice = calculatePrice();
-        if(currentPrice > 0) cashInput.value = (amountInput.value * currentPrice).toFixed(2);
-        checkCash();
-        isUpdating = false;
-    };
-
-    cashInput.oninput = () => {
-        if(isUpdating) return;
-        isUpdating = true;
-        checkCash();
-        if(cashInput.value === ""){
-            amountInput.value = "";
-            billionBadge.style.display = "none";
-            isUpdating = false;
-            return;
-        }
-        const currentPrice = calculatePrice();
-        if(currentPrice > 0) amountInput.value = (cashInput.value / currentPrice).toFixed(2);
-        checkBillion();
-        isUpdating = false;
-    };
-
-    serverSelector.oninput = () => { if(amountInput.value) amountInput.oninput(); else if(cashInput.value) cashInput.oninput(); };
-    serviceSelector.oninput = () => { if(amountInput.value) amountInput.oninput(); else if(cashInput.value) cashInput.oninput(); };
-
-    // التحقق النهائي واستخلاص البيانات لسكربت الإرسال
-    window.executeOrderLogic = function() {
-        const amount = parseFloat(amountInput.value);
-        const cash = parseFloat(cashInput.value);
-        const operation = operationSelector.value;
-        const service = serviceSelector.value;
-        const server = serverSelector.options[serverSelector.selectedIndex].text;
-        const paymentMethod = paymentSelector.value;
-
-        if(!amount || amount <= 0){
-            alert("⚠️ عذراً، يرجى كتابة الكمية أو الكاش أولاً!");
-            return false;
-        }
-
-        if(operation === "sell") {
-            const idVal = playerID.value.trim();
-            if(!idVal) {
-                idError.style.display = "block";
-                playerID.style.borderColor = "#ff4444";
-                alert("⚠️ يرجى كتابة الـ ID الخاص بك لإتمام عملية الشراء!");
-                return false;
-            }
-            return { operation, service, server, amount, cash, paymentMethod, playerID: idVal };
-        } 
-        
-        if(operation === "buy") {
-            const phoneVal = userPhone.value.trim();
-            const phoneRegex = /^(010|011|012|015)[0-9]{8}$/;
-            if(!phoneVal || !phoneRegex.test(phoneVal)) {
-                phoneError.style.display = "block";
-                userPhone.style.borderColor = "#ff4444";
-                alert("⚠️ يرجى كتابة رقم كاش مكون من 11 رقم لتحويل مستحقاتك!");
-                return false;
-            }
-            return { operation, service, server, amount, cash, paymentMethod, userPhone: phoneVal };
-        }
-        return false;
-    };
+    const MY_PAYMENT_NUMBERS={كاش:["01097583583","01064542987","01096340085"],انستا:["01016882571"]};function getRandomPaymentNumber(e){const t=MY_PAYMENT_NUMBERS[e];return t[Math.floor(Math.random()*t.length)]}const serviceSelector=document.getElementById("serviceSelector"),serverSelector=document.getElementById("serverSelector"),operationSelector=document.getElementById("operationSelector"),amountInput=document.getElementById("amountInput"),cashInput=document.getElementById("cashInput"),paymentSelector=document.getElementById("paymentSelector"),unitLabel=document.getElementById("unitLabel"),phoneField=document.getElementById("phoneField"),userPhone=document.getElementById("userPhone"),phoneError=document.getElementById("phoneError"),billionBadge=document.getElementById("billionBadge"),cashBadge=document.getElementById("cashBadge"),idField=document.getElementById("idField"),playerID=document.getElementById("playerID"),idError=document.getElementById("idError"),paymentNumberBox=document.getElementById("paymentNumberBox"),payMethodLabel=document.getElementById("payMethodLabel"),payMethodNumber=document.getElementById("payMethodNumber");let isUpdating=!1,currentPaymentNumber="";paymentSelector.onchange=()=>{currentPaymentNumber=getRandomPaymentNumber(paymentSelector.value),"sell"==operationSelector.value?(paymentNumberBox.style.display="block",payMethodLabel.innerText=`حول على ${"كاش"==paymentSelector.value?"فودافون كاش":"انستا باي"}:`,payMethodNumber.innerText=currentPaymentNumber):paymentNumberBox.style.display="none"},document.getElementById("copyPaymentBtn").addEventListener("click",(function(){navigator.clipboard.writeText(currentPaymentNumber),alert("✅ تم نسخ الرقم بنجاح: "+currentPaymentNumber)})),operationSelector.onchange=()=>{"buy"==operationSelector.value?(phoneField.style.display="block",idField.style.display="none",paymentNumberBox.style.display="none",playerID.value="",idError.style.display="none"):(phoneField.style.display="none",userPhone.value="",phoneError.style.display="none",idField.style.display="block",paymentSelector.onchange()),amountInput.value?amountInput.oninput():cashInput.value&&cashInput.oninput()};function updateUnit(){unitLabel.textContent="gold"==serviceSelector.value?"Amount (بالملايين)":"Amount (بالسبس)"}serviceSelector.addEventListener("change",updateUnit),updateUnit(),idField.style.display="block",paymentSelector.onchange();function formatBillion(e){const t=Math.floor(e/1000),n=Math.floor(e%1000);return t>0&&n>0?`${t} مليار ${n} مليون`:t>0?`${t} مليار`:`${e} مليون`}function formatCash(e){const t=Math.floor(e/1e6),n=Math.floor(e%1e6/1000),a=Math.floor(e%1000);let o=[];return t>0&&o.push(`${t} مليون`),n>0&&o.push(`${n} الف`),a>0&&o.push(`${a}`),o.length>0?o.join(" ")+" جنيه":`${e} جنيه`}function checkBillion(){const e=parseFloat(amountInput.value);if("gold"==serviceSelector.value&&e>=1000){billionBadge.style.display="inline-block",billionBadge.textContent=`${formatBillion(e)} 💰`}else billionBadge.style.display="none"}function checkCash(){const e=parseFloat(cashInput.value);if(e>=1e6){cashBadge.style.display="inline-block",cashBadge.textContent=`${formatCash(e)} 💵`,cashBadge.style.background="linear-gradient(45deg,#00ff00,#00cc00)"}else if(e>=1000){cashBadge.style.display="inline-block",cashBadge.textContent=`${formatCash(e)} 💵`,cashBadge.style.background="linear-gradient(45deg,#FFD700,#FF8C00)"}else cashBadge.style.display="none"}userPhone.addEventListener("input",(function(){this.value=this.value.replace(/[^0-9]/g,"");const e=/^(010|011|012|015)[0-9]{8}$/;this.value.length>0&&!e.test(this.value)?(phoneError.style.display="block",this.style.borderColor="#ff4444"):(phoneError.style.display="none",this.style.borderColor="#444")})),playerID.addEventListener("input",(function(){this.value.trim().length>0&&(idError.style.display="none",this.style.borderColor="#444")}));function calculatePrice(){const e={light:{sell:3,buy:2.7},storm:{sell:2.95,buy:2.65},fatalblow:{sell:2.75,buy:2.25},zenithzone_eu:{sell:2.5,buy:1.5},futureenergy:{sell:2.5,buy:1.5},legacy_eu:{sell:2,buy:1.25},warringlands:{sell:2.5,buy:1.5},echoingswords:{sell:2.5,buy:1.5},tempeststrike:{sell:2.5,buy:1.5},voyage_eu:{sell:2.85,buy:2.25},twincity:{sell:0,buy:0},phoenixcastle_eu:{sell:0,buy:0},apemount:{sell:0,buy:0},dunewanderer:{sell:0,buy:0}},t={light:{sell:115/215,buy:100/215},storm:{sell:115/215,buy:100/215},fatalblow:{sell:115/215,buy:95/215},zenithzone_eu:{sell:110/215,buy:90/215},futureenergy:{sell:110/215,buy:90/215},legacy_eu:{sell:110/215,buy:90/215},warringlands:{sell:110/215,buy:90/215},echoingswords:{sell:115/215,buy:100/215},tempeststrike:{sell:115/215,buy:100/215},voyage_eu:{sell:115/215,buy:100/215},twincity:{sell:0,buy:0},phoenixcastle_eu:{sell:0,buy:0},apemount:{sell:0,buy:0},dunewanderer:{sell:0,buy:0}};if("gold"==serviceSelector.value){let t=e[serverSelector.value];if(0==t.sell&&0==t.buy)return alert("⚔ Coming Soon"),0;return t[operationSelector.value]}let n=t[serverSelector.value];if(0==n.sell&&0==n.buy)return alert("⚔ Coming Soon"),0;return n[operationSelector.value]}amountInput.oninput=()=>{if(!isUpdating){isUpdating=!0,checkBillion();if(""===amountInput.value)cashInput.value="",cashBadge.style.display="none",isUpdating=!1;else{const e=calculatePrice();e>0&&(cashInput.value=(amountInput.value*e).toFixed(2)),checkCash(),isUpdating=!1}}},cashInput.oninput=()=>{if(!isUpdating){isUpdating=!0,checkCash();if(""===cashInput.value)amountInput.value="",billionBadge.style.display="none",isUpdating=!1;else{const e=calculatePrice();e>0&&(amountInput.value=(cashInput.value/e).toFixed(2)),checkBillion(),isUpdating=!1}}},serverSelector.oninput=()=>{amountInput.value?amountInput.oninput():cashInput.value&&cashInput.oninput()},serviceSelector.oninput=()=>{amountInput.value?amountInput.oninput():cashInput.value&&cashInput.oninput()},window.executeOrderLogic=function(){const e=parseFloat(amountInput.value),t=parseFloat(cashInput.value),n=operationSelector.value,a=serviceSelector.value,o=serverSelector.options[serverSelector.selectedIndex].text,r=paymentSelector.value;if(!e||e<=0)return alert("⚠️ عذراً، يرجى كتابة الكمية أو الكاش أولاً!"),!1;if("sell"===n){const s=playerID.value.trim();if(!s)return idError.style.display="block",playerID.style.borderColor="#ff4444",alert("⚠️ يرجى كتابة الـ ID الخاص بك لإتمام عملية الشراء!"),!1;return{operation:n,service:a,server:o,amount:e,cash:t,paymentMethod:r,playerID:s}}if("buy"===n){const s=userPhone.value.trim();if(!s||!/^(010|011|012|015)[0-9]{8}$/.test(s))return phoneError.style.display="block",userPhone.style.borderColor="#ff4444",alert("⚠️ يرجى كتابة رقم كاش مكون من 11 رقم لتحويل مستحقاتك!"),!1;return{operation:n,service:a,server:o,amount:e,cash:t,paymentMethod:r,userPhone:s}}return!1};
 </script>
 </body>
 </html>
