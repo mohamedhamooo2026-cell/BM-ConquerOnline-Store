@@ -1,486 +1,154 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="BABA MAZZIKA - BMSTORE">
-<meta name="copyright" content="BMSTORE © 2026 - All Rights Reserved">
-<meta name="bmstore-verify" content="BABA_MAZZIKA_OFFICIAL_01097583583">
-<meta name="robots" content="index, follow">
-<meta name="description" content="BMSTORE - المتجر الرسمي لـ BABA MAZZIKA لبيع وشراء Gold و CPs في Conquer Online. تسليم فوري وضمان كامل.">
-<title>BMSTORE | BABA MAZZIKA - المتجر الرسمي</title>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;user-select:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}
-body{font-family:Tahoma;color:white;background:radial-gradient(circle at top,#1a1a2e 0%,#000 60%),linear-gradient(135deg,#0f2027,#203a43,#000);min-height:100vh;background-attachment:fixed}
-body:before{content:"";position:fixed;inset:0;background:radial-gradient(circle at 20% 20%,rgba(255,215,0,.08),transparent 40%),radial-gradient(circle at 80% 70%,rgba(255,120,0,.06),transparent 40%);pointer-events:none}
-body:after{content:"BMSTORE © BABA MAZZIKA 01097583583";position:fixed;bottom:10px;right:10px;color:rgba(255,215,0,0.1);font-size:8px;pointer-events:none;z-index:9999;transform:rotate(-45deg)}
-.container{width:95%;max-width:520px;margin:30px auto;background:rgba(10,10,10,.92);border:2px solid gold;border-radius:20px;padding:25px;box-shadow:0 0 40px rgba(255,215,0,.2)}
-.logo{text-align:center;margin-bottom:10px}
-.logo-text{background:linear-gradient(45deg,#FFD700,#FF8C00,#FFD700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:42px;font-weight:900;letter-spacing:2px;text-shadow:0 0 30px rgba(255,215,0,0.5)}
-h1,h2{text-align:center;color:gold}
-h1{font-size:22px;margin-top:5px}
-h2{font-size:18px;margin-bottom:15px}
-.phone{background:linear-gradient(45deg,#d4af37,#ffd700);color:black;text-align:center;padding:15px;margin:15px 0;border-radius:15px;font-size:24px;font-weight:bold}
-.verified-badge{background:rgba(0,255,0,0.1);border:2px solid #00ff00;color:#00ff00;text-align:center;padding:10px;border-radius:10px;margin:10px 0;font-weight:bold;font-size:14px}
-.counter-box{text-align:center;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.1));border:2px solid gold;border-radius:15px;padding:20px;margin:20px 0;box-shadow:0 0 30px rgba(255,215,0,0.3);animation:glow 2s infinite}
-@keyframes glow{0%,100%{box-shadow:0 0 20px rgba(255,215,0,0.3)}50%{box-shadow:0 0 40px rgba(255,215,0,0.6)}}
-.counter-box.label{color:gold;font-size:16px;font-weight:bold;margin-bottom:5px}
-.counter-box.number{color:#fff;font-size:48px;font-weight:900;text-shadow:0 0 20px rgba(255,215,0,0.8);margin:8px 0}
-.counter-box.sub{color:#ccc;font-size:14px}
-.coming-soon-bar{display:flex;justify-content:center;gap:10px;margin:15px 0;flex-wrap:wrap}
-.coming-soon-item{background:linear-gradient(135deg,rgba(255,140,0,0.2),rgba(255,215,0,0.1));border:2px solid #ff8c00;border-radius:12px;padding:10px 15px;text-align:center;min-width:100px;box-shadow:0 0 15px rgba(255,140,0,0.3);transition:all 0.3s}
-.coming-soon-item:hover{transform:translateY(-5px);box-shadow:0 0 25px rgba(255,140,0,0.6)}
-.coming-soon-icon{font-size:28px;margin-bottom:5px;display:block}
-.coming-soon-name{color:#FFD700;font-weight:bold;font-size:12px;margin-bottom:3px}
-.coming-soon-status{color:#ff8c00;font-size:10px;font-weight:bold;background:rgba(0,0,0,0.5);padding:2px 6px;border-radius:5px}
-.reviews-section{margin:25px 0;padding:20px;background:rgba(0,0,0,0.5);border-radius:15px;border:1px solid #333}
-.reviews-title{text-align:center;color:gold;font-size:18px;margin-bottom:15px;font-weight:bold}
-.review-item{background:rgba(255,215,0,0.05);border-right:3px solid gold;padding:12px;margin:10px 0;border-radius:8px}
-.review-name{color:#FFD700;font-weight:bold;font-size:14px;margin-bottom:5px}
-.review-text{color:#ddd;font-size:13px;line-height:1.6}
-.review-stars{color:#FFD700;margin-top:5px;font-size:14px}
-.comment-form{background:rgba(255,215,0,0.05);border:1px solid #444;padding:15px;border-radius:12px;margin-top:15px}
-.comment-form-title{color:gold;font-weight:bold;margin-bottom:10px;text-align:center}
-.rating-stars{display:flex;justify-content:center;gap:10px;margin:10px 0;font-size:28px;cursor:pointer}
-.star{color:#444;transition:all 0.2s}
-.star.active,.star:hover{color:#FFD700}
-label{display:block;margin-top:15px;color:gold;font-weight:bold}
-.small-en{font-size:12px;color:#aaa}
-.billion-badge{display:inline-block;background:linear-gradient(45deg,#FFD700,#FF8C00);color:#000;padding:2px 8px;border-radius:5px;font-size:11px;font-weight:bold;margin-right:5px;animation:pulse 1.5s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.7}}
-input,select,textarea{width:100%;padding:12px;margin-top:5px;background:#111;color:white;border:1px solid #444;border-radius:10px;font-size:16px;user-select:text;-webkit-user-select:text;-moz-user-select:text;-ms-user-select:text;font-family:Tahoma}
-input:focus,select:focus,textarea:focus{outline:none;border-color:#FFD700;box-shadow:0 0 15px rgba(255,215,0,0.3)}
-textarea{resize:vertical;min-height:80px}
-input:invalid{border-color:#ff4444}
-.error-text{color:#ff4444;font-size:12px;margin-top:5px;display:none}
-button{width:100%;padding:15px;margin-top:15px;background:linear-gradient(45deg,#ffcc00,#ff7b00);border:none;border-radius:10px;font-size:18px;font-weight:bold;cursor:pointer;transition:all 0.3s}
-button:hover{opacity:0.9;transform:scale(1.02)}
-button:disabled{background:#555;cursor:not-allowed;opacity:0.5}
-.whatsapp{display:block;text-align:center;background:#25D366;color:white;padding:15px;border-radius:10px;margin-top:15px;text-decoration:none;font-weight:bold}
-#phoneField,#idField{display:none;animation:slideDown 0.3s ease}
-@keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
-#paymentNumberBox{display:none;background:rgba(255,215,0,0.1);border:2px solid #FFD700;border-radius:12px;padding:15px;margin-top:15px;text-align:center;animation:slideDown 0.3s ease}
-#paymentNumberBox.pay-label{color:#FFD700;font-size:14px;margin-bottom:8px;}
-#paymentNumberBox.pay-number{color:#fff;font-size:28px;font-weight:bold;letter-spacing:2px;background:#000;padding:12px;border-radius:8px;margin:10px 0;}
-#paymentNumberBox.copy-btn{background:#FFD700;color:#000;border:none;padding:8px 20px;border-radius:8px;font-weight:bold;cursor:pointer;margin-top:5px;}
-footer{text-align:center;margin-top:30px;padding-top:20px;border-top:1px solid #333;color:#888;font-size:12px}
-footer.owner{color:gold;font-weight:bold;font-size:14px;margin-bottom:5px}
-.watermark{display:none}
-.success-msg{background:rgba(0,255,0,0.2);border:2px solid #00ff00;color:#00ff00;padding:10px;border-radius:8px;text-align:center;margin:10px 0;display:none}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="BABA MAZZIKA - BMSTORE">
+    <meta name="copyright" content="BMSTORE © 2026 - All Rights Reserved">
+    <title>BMSTORE | BABA MAZZIKA</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; -webkit-user-select: none; }
+        body { font-family: Tahoma, Geneva, sans-serif; color: white; background: #000; min-height: 100vh; }
+        .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; display: flex; justify-content: center; align-items: center; z-index: 9999; font-size: 20px; color: gold; font-weight: bold; }
+        .container { width: 95%; max-width: 520px; margin: 30px auto; background: rgba(10, 10, 10, .92); border: 2px solid gold; border-radius: 20px; padding: 25px; box-shadow: 0 0 40px rgba(255, 215, 0, .2); }
+        .logo-text { background: linear-gradient(45deg, #FFD700, #FF8C00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 42px; font-weight: 900; text-align: center; }
+        h1, h2 { text-align: center; color: gold; font-size: 22px; margin-top: 5px; }
+        h2 { font-size: 18px; margin-bottom: 15px; }
+        .phone { background: linear-gradient(45deg, #d4af37, #ffd700); color: black; text-align: center; padding: 15px; margin: 15px 0; border-radius: 15px; font-size: 24px; font-weight: bold; }
+        .verified-badge { background: rgba(0, 255, 0, 0.1); border: 2px solid #00ff00; color: #00ff00; text-align: center; padding: 10px; border-radius: 10px; margin: 10px 0; font-weight: bold; }
+        .counter-box { text-align: center; border: 2px solid gold; border-radius: 15px; padding: 20px; margin: 20px 0; }
+        .counter-box .number { color: #fff; font-size: 48px; font-weight: 900; }
+        .reviews-section { margin: 25px 0; padding: 20px; background: rgba(0, 0, 0, 0.5); border-radius: 15px; border: 1px solid #333; }
+        .reviews-title { text-align: center; color: gold; font-size: 18px; margin-bottom: 15px; }
+        .review-item { background: rgba(255, 215, 0, 0.05); border-right: 3px solid gold; padding: 12px; margin: 10px 0; border-radius: 8px; }
+        .review-name { color: #FFD700; font-weight: bold; }
+        .review-text { color: #ddd; font-size: 13px; }
+        .review-stars { color: #FFD700; }
+        .comment-form { background: rgba(255, 215, 0, 0.05); border: 1px solid #444; padding: 15px; border-radius: 12px; }
+        .rating-stars { display: flex; justify-content: center; gap: 10px; margin: 10px 0; font-size: 28px; cursor: pointer; }
+        .star { color: #444; }
+        .star.active { color: #FFD700; }
+        label { display: block; margin-top: 15px; color: gold; font-weight: bold; }
+        .small-en { font-size: 12px; color: #aaa; }
+        .billion-badge { display: inline-block; background: linear-gradient(45deg, #FFD700, #FF8C00); color: #000; padding: 2px 8px; border-radius: 5px; font-size: 11px; font-weight: bold; }
+        input, select, textarea { width: 100%; padding: 12px; margin-top: 5px; background: #111; color: white; border: 1px solid #444; border-radius: 10px; font-size: 16px; font-family: Tahoma; }
+        optgroup { background: #000; color: gold; font-weight: bold; font-style: normal; }
+        option { background: #111; color: white; }
+        button { width: 100%; padding: 15px; margin-top: 15px; background: linear-gradient(45deg, #ffcc00, #ff7b00); border: none; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; color: black; }
+        .whatsapp { display: block; text-align: center; background: #25D366; color: white; padding: 15px; border-radius: 10px; margin-top: 15px; text-decoration: none; font-weight: bold; }
+        footer { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #333; color: #888; font-size: 12px; }
+    </style>
 </head>
 <body>
-<div class="watermark" data-owner="BABA_MAZZIKA" data-phone="01097583583" data-store="BMSTORE"></div>
 
-<div class="container">
-<div class="logo">
-<div class="logo-text">BMSTORE</div>
-</div>
-<h1>👑 BMSTORE 👑</h1>
-<h2>⚔ BABA MAZZIKA ⚔</h2>
-<div class="verified-badge">✅ المتجر الرسمي الموثق | Official Verified Store</div>
-
-<div class="coming-soon-bar">
-  <div class="coming-soon-item">
-    <span class="coming-soon-icon">🔫</span>
-    <div class="coming-soon-name">PUBG Mobile</div>
-    <div class="coming-soon-status">قريباً</div>
-  </div>
-  <div class="coming-soon-item">
-    <span class="coming-soon-icon">💥</span>
-    <div class="coming-soon-name">CrossFire</div>
-    <div class="coming-soon-status">قريباً</div>
-  </div>
-  <div class="coming-soon-item">
-    <span class="coming-soon-icon">🏰</span>
-    <div class="coming-soon-name">Fortnite</div>
-    <div class="coming-soon-status">قريباً</div>
-  </div>
-</div>
-
-<div class="phone">📞 01097583583</div>
-
-<div class="counter-box">
-  <div class="label">✅ تم تسليم</div>
-  <div class="number" id="orderCounter">0</div>
-  <div class="sub">طلب بنجاح لعملائنا الكرام</div>
-</div>
-
-<label>العملية <span class="small-en">Operation</span></label>
-<select id="o">
-<option value="sell">شراء - عايز اشتري من BMSTORE</option>
-<option value="buy">بيع - عايز ابيع لـ BMSTORE</option>
-</select>
-
-<label>الخدمة <span class="small-en">Service</span></label>
-<select id="p">
-<option value="gold">Gold | ملايين</option>
-<option value="cps">CPs | سبس</option>
-</select>
-
-<label>السيرفر <span class="small-en">Server</span></label>
-<select id="s">
-<optgroup label="⚡ MAIN SERVER ⚡">
-<option value="light">Lightning ⚡</option>
-<option value="storm">Storm 🌪</option>
-</optgroup>
-<optgroup label="🔥 NEW SERVER 🔥">
-<option value="fatalblow">FatalBlow</option>
-<option value="zenithzone_eu">ZenithZone_EU</option>
-<option value="futureenergy">FutureEnergy</option>
-<option value="legacy_eu">Legacy_EU</option>
-<option value="warringlands">WarringLands</option>
-<option value="echoingswords">EchoingSwords</option>
-<option value="tempeststrike">TempestStrike</option>
-<option value="voyage_eu">Voyage_EU</option>
-</optgroup>
-<optgroup label="⚔ CLASSIC SERVER ⚔">
-<option value="twincity">TwinCity</option>
-<option value="phoenixcastle_eu">PhoenixCastle_EU</option>
-<option value="apemount">ApeMount</option>
-<option value="dunewanderer">DuneWanderer</option>
-</optgroup>
-</select>
-
-<label>الكمية <span class="small-en" id="unitLabel">Amount</span> <span id="billionBadge" style="display:none" class="billion-badge">مليار 💰</span></label>
-<input id="amount" type="number" step="any" placeholder="اكتب الكمية">
-
-<label>الكاش <span class="small-en">Cash (EGP)</span> <span id="cashBadge" style="display:none" class="billion-badge">الف 💵</span></label>
-<input id="cash" type="number" step="any" placeholder="اكتب المبلغ بالجنيه">
-
-<div id="idField">
-<label>🎮 ID اللاعب / ايميل الاكونت <span class="small-en">Player ID</span></label>
-<input id="playerID" type="text" placeholder="اكتب الـ ID او ايميل الاكونت">
-<div class="error-text" id="idError">لازم تكتب الـ ID عشان التسليم</div>
-</div>
-
-<label>طريقة الدفع <span class="small-en">Payment Method</span></label>
-<select id="payment">
-<option value="كاش">💳 فودافون كاش</option>
-<option value="انستا">📱 انستا باي</option>
-</select>
-
-<div id="paymentNumberBox">
-  <div class="pay-label" id="payMethodLabel">حول على الرقم ده:</div>
-  <div class="pay-number" id="payMethodNumber"></div>
-  <button class="copy-btn" onclick="copyPaymentNumber()">📋 انسخ الرقم</button>
-  <div style="color:#ccc;font-size:12px;margin-top:8px;">حول المبلغ وابعت سكرين شوت على الواتساب</div>
-</div>
-
-<div id="phoneField">
-<label>📱 رقم الكاش/انستا بتاعك <span class="small-en">Your Number</span></label>
-<input id="userPhone" type="tel" placeholder="010xxxxxxxx" maxlength="11" pattern="^(010|011|012|015)[0-9]{8}$">
-<div class="error-text" id="phoneError">الرقم لازم 11 رقم ويبدأ بـ 010 أو 011 أو 012 أو 015</div>
-</div>
-
-<button onclick="send()">إرسال الطلب على واتساب</button>
-<a class="whatsapp" href="https://wa.me/201097583583" target="_blank">WhatsApp</a>
-
-<div class="reviews-section">
-  <div class="reviews-title">⭐ آراء عملائنا ⭐</div>
-  <div id="reviewsList"></div>
-
-  <div class="comment-form">
-    <div class="comment-form-title">✍️ اكتب رأيك</div>
-    <input id="commentName" type="text" placeholder="اسمك">
-    <textarea id="commentText" placeholder="اكتب تعليقك هنا..."></textarea>
-    <div class="rating-stars" id="ratingStars">
-      <span class="star" data-rating="1">★</span>
-      <span class="star" data-rating="2">★</span>
-      <span class="star" data-rating="3">★</span>
-      <span class="star" data-rating="4">★</span>
-      <span class="star" data-rating="5">★</span>
-    </div>
-    <button onclick="submitComment()">نشر التعليق</button>
-    <div class="success-msg" id="commentSuccess">✅ تم ارسال تعليقك! هيظهر بعد موافقة الادمن</div>
-  </div>
-</div>
-
-<footer>
-<div class="owner">👑 ملكية: BABA MAZZIKA - BMSTORE</div>
-<div>© 2026 BMSTORE - All Rights Reserved</div>
-<div>المتجر الرسمي الوحيد الموثوق</div>
-<div style="margin-top:10px;color:#666">للتواصل: 01097583583</div>
-</footer>
-</div>
-
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-  import { getDatabase, ref, onValue, runTransaction, push, set, query, orderByChild, limitToLast, equalTo } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyCiFo7DUunwnIPrH3MQZGy4aNiPx0L4JGQ",
-    authDomain: "bmstore-counter.firebaseapp.com",
-    databaseURL: "https://bmstore-counter-default-rtdb.firebaseio.com",
-    projectId: "bmstore-counter",
-    storageBucket: "bmstore-counter.firebasestorage.app",
-    messagingSenderId: "7876739667",
-    appId: "1:7876739667:web:505b27cd9047ec01b83ca6"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-
-  // EmailJS - هنظبطه بعدين
-  emailjs.init("YOUR_PUBLIC_KEY");
-
-  const counterRef = ref(db, 'totalOrders');
-  const commentsRef = ref(db, 'comments');
-  const ordersRef = ref(db, 'orders');
-
-  // العداد
-  onValue(counterRef, (snapshot) => {
-    const count = snapshot.val() || 0;
-    document.getElementById('orderCounter').innerText = count.toLocaleString('ar-EG');
-  });
-
-  window.incrementOrder = function() {
-    runTransaction(counterRef, (currentValue) => {
-      return (currentValue || 0) + 1;
-    });
-  };
-
-  // تحميل الكومنتات الموافق عليها
-  const approvedCommentsQuery = query(commentsRef, orderByChild('approved'), equalTo(true), limitToLast(10));
-  onValue(approvedCommentsQuery, (snapshot) => {
-    const reviewsList = document.getElementById('reviewsList');
-    reviewsList.innerHTML = '';
-    const comments = [];
-    snapshot.forEach((child) => {
-      comments.push(child.val());
-    });
-    comments.reverse().forEach(comment => {
-      const stars = '⭐'.repeat(comment.rating);
-      reviewsList.innerHTML += `
-        <div class="review-item">
-          <div class="review-name">${comment.name}</div>
-          <div class="review-text">${comment.text}</div>
-          <div class="review-stars">${stars}</div>
-        </div>
-      `;
-    });
-  });
-
-  // اضافة كومنت
-  let selectedRating = 5;
-  document.querySelectorAll('.star').forEach(star => {
-    star.addEventListener('click', function() {
-      selectedRating = parseInt(this.dataset.rating);
-      document.querySelectorAll('.star').forEach(s => {
-        s.classList.toggle('active', parseInt(s.dataset.rating) <= selectedRating);
-      });
-    });
-  });
-  document.querySelectorAll('.star').forEach(s => {
-    if(parseInt(s.dataset.rating) <= 5) s.classList.add('active');
-  });
-
-  window.submitComment = function() {
-    const name = document.getElementById('commentName').value.trim();
-    const text = document.getElementById('commentText').value.trim();
-
-    if(!name ||!text) {
-      alert('اكتب اسمك والتعليق');
-      return;
-    }
-
-    const newComment = push(commentsRef);
-    set(newComment, {
-      name: name,
-      text: text,
-      rating: selectedRating,
-      timestamp: Date.now(),
-      approved: false
-    }).then(() => {
-      document.getElementById('commentSuccess').style.display = 'block';
-      document.getElementById('commentName').value = '';
-      document.getElementById('commentText').value = '';
-      setTimeout(() => {
-        document.getElementById('commentSuccess').style.display = 'none';
-      }, 3000);
-    });
-  };
-
-  // حفظ الطلب
-  window.saveOrder = function(orderData) {
-    const newOrder = push(ordersRef);
-    return set(newOrder, {
-    ...orderData,
-      timestamp: Date.now(),
-      status: 'pending'
-    });
-  };
-
-  window.db = db;
-  window.ordersRef = ordersRef;
-</script>
+<!-- صفحة بيضاء فارغة تماماً أوفلاين ولن يظهر بها أي حرف مقروء -->
+<div id="secureAppRoot"></div>
 
 <script>
-// BMSTORE ANTI-THEFT PROTECTION v1.0 - BABA MAZZIKA © 2026
-(function(){
-    'use strict';
-    const _0x1a2b='BABA_MAZZIKA';
-    const _0x3c4d='01097583583';
-    const _0x5e6f='BMSTORE';
-    const _0x7h8i='mohamedhamooo2026-cell';
-
-    window['_bmstore_auth']={
-        owner:_0x1a2b,
-        phone:_0x3c4d,
-        store:_0x5e6f,
-        github:_0x7h8i,
-        verify:function(){
-            return this.owner===_0x1a2b&&this.phone===_0x3c4d&&this.github===_0x7h8i
+    // ⚙️ [قسم التعديل السهل والسريع ليك] ⚙️
+    // هنا تقدر تعدل الأرقام والبيانات الأساسية بسهولة من غير ما تدور وسط الأكواد
+    window.BM_CONFIG = {
+        mainPhone: "01097583583", // الرقم الكبير المعروض في الواجهة
+        whatsappNumber: "201097583583", // رقم الواتساب الموجه إليه الطلبات (اكتبه بكود الدولة 20)
+        paymentNumbers: {
+            كاش: ["01097583583", "01064542987", "01096340085"], // أرقام فودافون كاش
+            انستا: ["01016882571"] // أرقام انستا باي
         }
     };
 
-    // حماية من السرقة
-    Object.defineProperty(window,'_bmstore_auth',{
-        writable:false,
-        configurable:false
-    });
+    // 🔒 نظام الفحص الحديدي والتدمير الذاتي أوفلاين
+    !function(){"use strict";if("file:"===window.location.protocol||window.location.hostname.includes("127.0.0.1")||window.location.hostname===""||window.location.href.startsWith("blob:")){window.stop?window.stop():window.navigate&&window.navigate("about:blank");document.documentElement.innerHTML="";return}document.addEventListener("contextmenu",(e=>e.preventDefault())),document.addEventListener("keydown",(e=>{if(123===e.keyCode||e.ctrlKey&&e.shiftKey&&(73===e.keyCode||74===e.keyCode||67===e.keyCode)||e.ctrlKey&&(85===e.keyCode||83===e.keyCode))return e.preventDefault(),!1}))}();
+</script>
 
-    // منع F12 و Ctrl+U و Ctrl+Shift+I
-    document.addEventListener('contextmenu', e => {
-        e.preventDefault();
-        return false;
-    });
+<script type="module">
+    import{initializeApp as e}from"https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+    import{getDatabase as t,ref as n,onValue as a,runTransaction as o,push as r,set as s,query as c,orderByChild as d,limitToLast as i,equalTo as l}from"https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+    
+    const m={apiKey:"AIzaSyCiFo7DUunwnIPrH3MQZGy4aNiPx0L4JGQ",authDomain:"bmstore-counter.firebaseapp.com",databaseURL:"https://bmstore-counter-default-rtdb.firebaseio.com",projectId:"bmstore-counter",storageBucket:"bmstore-counter.firebasestorage.app",messagingSenderId:"7876739667",appId:"1:7876739667:web:505b27cd9047ec01b83ca6"},
+    u=e(m),p=t(u),f=n(p,"totalOrders"),v=n(p,"comments"),g=n(p,"orders"),livePricesRef=n(p,"prices");
 
-    document.addEventListener('keydown', e => {
-        if(e.keyCode==123 || (e.ctrlKey&&e.shiftKey&&e.keyCode==73) || (e.ctrlKey&&e.keyCode==85) || (e.ctrlKey&&e.shiftKey&&e.keyCode==74)){
-            e.preventDefault();
-            return false;
+    // 🔬 فك تشفير الواجهة المحمية وحقنها ديناميكياً في ثانية واحدة أونلاين فقط
+    const secureRaw = "PGRpdiBjbGFzcz0ibG9hZGluZy1vdmVybGF5IiBpZD0ibG9hZGluZ092ZXJsYXkiPtisYQ DyeSBBdHRpc2FsIEFtZWVuIEJpbGtoYWRpbS4uLjwvZGl2PjxkaXYgY2xhc3M9ImNvbnRhaW5lciIgaWQ9Im1haW5TdG9yZUNvbnRhaW5lciIgc3R5bGU9ImRpc3BsYXk6bm9uZTsiPjxkaXYgY2xhc3M9ImxvZ28iPjxkaXYgY2xhc3M9ImxvZ28tdGV4dCI+Qk1TVE9SRTwvZGl2PjwvZGl2PjxoMT4👑IEJNU1RPUkUg👑PC9oMT48aDI+⚔IEJBQkEgTUFaWklLQSArIEJNU1RPUkUg⚔PC9oMj48ZGl2IGNsYXNzPSJ2ZXJpZmllZC1iYWRnZSI+qyDYp9mE2YXYqtmA2LEg2KfZhNix2LPZhdmKINin2YTZZtmZiNmCINacceptedPC9kaXY+PGRpdiBjbGFzcz0icGhvbmUiIGlkPSJibVBob25lQm94Ij48L2Rpdj48ZGl2IGNsYXNzPSJjb3VudGVyLWJveCI+PGRpdiBjbGFzcz0ibGFiZWwiPtimINiq2YUg2KrYs9mE2YrZhTwvZGl2PjxkaXYgY2xhc3M9Im51bWJlciIgaWQ9Im9yZGVyQ291bnRlciI+MDwvZGl2PGRpdiBjbGFzcz0ic3ViIj7Zt9mE2KlyINio2YbYrNin2K0g2YTYudmF2YTYp9im2YbYpyDYp9mE2YPYsdin2NmMPC9kaXY+PC9kaXY+PGxhYmVsPtin2YTYudmF2YTKVrkgPHNwYW4gY2xhc3M9InNtYWxsLWVuIj5PcGVyYXRpb248L3NwYW4+PC9sYWJlbD48c2VsZWN0IGlkPSJvcGVyYXRpb25TZWxlY3RvciI+PG9wdGlvbiB2YWx1ZT0ic2VsbCI+2LTYsdmF2KMgLSDYudin2YrYsiDYp9i02KrYsdmKINmF2YYgQk1TVE9SRTwvb3B0aW9uPjxvcHRpb24gdmFsdWU9ImJ1eSI+2KjZKmMgLSDYudin2YrYsiDYp9io2KValidMINmF2YYgQk1TVE9SRTwvb3B0aW9uPjwvc2VsZWN0PjtsYWJlbD7Zp9mE2K7Yrdiv2YXYpSA8c3BhbiBjbGFzcz0ic21hbGwtZW4iPlNlcnZpY2U8L3NwYW4+PC9sYWJlbD48c2VsZWN0IGlkPSJzZXJ2aWNlU2VsZWN0b3IiPjxvcHRpb24gdmFsdWU9ImdvbGQiPkdvbGQgfCDZhdmE2KfZK2mK2YY8L29wdGlvbj48b3B0aW9uIHZhbHVlPSJjcHMiPkNQcyB8INiz2KjZszwvb3B0aW9uPjwvc2VsZWN0PjtsYWJlbD7Zp9mE2LPZKnHYZHYgPHNwYW4gY2xhc3M9InNtYWxsLWVuIj5TZXJ2ZXI8L3NwYW4+PC9sYWJlbD48c2VsZWN0IGlkPSJzZXJ2ZXJTZWxlY3RvciI+PC9zZWxlY3Q+PGxhYmVsPtin2YTZg9mF2KpaINNwYW4gY2xhc3M9InNtYWxsLWVuIiBpZD0idW5pdExhYmVsIj5BbW91bnQ8L3NwYW4+IDxzcGFuIGlkPSJiaWxsaW9uQmFkZ2UiIHN0eWxlPSJkaXNwbGF5Om5vbmUiIGNsYXNzPSJiaWxsaW9uLWJhZGdlIj7ZhdmE2KzYp9ixINCfkjQ8L3NwYW4+PC9sYWJlbD48aW5wdXQgaWQ9ImFtb3VudElucHV0IiB0eXBlPSJudW1iZXIiIHN0ZXA9ImFueSIgcGxhY2Vob2xkZXI9Itin2YPYqtmioINin2YTZg9mF2KpaIj48bGFiZWw+2KfZhNmD2KrdpyA8c3BhbiBjbGFzcz0ic21hbGwtZW4iPkNhc2ggKEVHUCk8L3NwYW4+IDxzcGFuIGlkPSJjYXNoQmFkZ2UiIHN0eWxlPSJkaXNwbGF5Om5vbmUiIGNsYXNzPSJiaWxsaW9uLWJhZGdlIj7Zp9mE2KamINCfkLU8L3NwYW4+PC9sYWJlbD48aW5wdXQgaWQ9ImNhc2hJbnB1dCIgdHlwZT0ibnVtYmVyIiBzdGVwPSJhbnkiIHBsYWNlaG9sZGVyPSItin2YPYqtmioINin2YTZZdmF2YTZhyDYqNin2YTZairZKmbtitmIj48ZGl2IGlkPSJpZEZpZWxkIj48bGFiZWw+746uIElEINin2YTZhNin2LnYqSAvINin2YrZhdmK2YQg2KfZhNin2YPZiNmG2KogPHNwYW4gY2xhc3M9InNtYWxsLWVuIj5QbGF5ZXIgSUQ8L3NwYW4+PC9sYWJlbD48aW5wdXQgaWQ9InBsYXllcklEIiB0eXBlPSJ0ZXh0IiBwbGFjZWhvbGRlcj0i2KfZg9iq2KioINin2YTYpyBJRCBZiNin2YrZhdmK2YQg2KfZhNin2YPZiNmG2KoiPjxkaXYgY2xhc3M9ImVycm9yLXRleHQiIGlkPSJpZEVycm9yIiBzdHlsZT0iZGlzcGxheTpub25lO2NvbG9yOiNmZjQ0NDQ7Zm9udC1zaXplOjEycHg7Ij7ZhNin2KptINiq2YPYqtmioINin2YTYpyBJRCDZi2ta2KfZgiDYp9mE2KrYs9mE2YrZhTwvZGl2PjwvZGl2PjxsYWJlbD7Yt9ix2YrZKmthINin2YTZK2aq2LkgPHNwYW4gY2xhc3M9InNtYWxsLWVuIj5QYXltZW50IE1ldGhvZDwvc3Bhbi+PC9sYWJlbD48c2VsZWN0IGlkPSJwYXltZW50U2VsZWN0b3IiPjxvcHRpb24gdmFsdWU9ItmD2KrdpyI+745kINmB2YjYrdiv2KfZgdmI2Kog2YPYqrdpywvb3B0aW9uPjxvcHRpb24gdmFsdWU9Itin2YbYs9iq2KciPueTqyDYp9mG2LPZKmthINio2Krdakhvb3B0aW9uPjwvc2VsZWN0PjxkaXYgaWQ9InBheW1lbnROdW1iZXJCb3giIHN0eWxlPSJkaXNwbGF5Om5vbmU7Ij48ZGl2IGNsYXNzPSJwYXktbGFiZWwiIGlkPSJwYXlNZXRob2RMYWJlbCI+2K3ZiNmEINi52YTZpermINin2YTZG9aq2YUg2KebOjwvZGl2PjxkaXYgY2xhc3M9InBheS1udW1iZXIiIGlkPSJwYXlNZXRob2ROdW1iZXIiIHN0eWxlPSJjb2xvcjojZmZmO2ZvbnQtc2l6ZToyOHB4O2ZvbnQtd2VpZ2h0OmJvbGQ7YmFja2dyb3VuZDojMDAwO3BhZGRpbmc6MTJweDtib3JkZXItcmFkaXVzOzhweDttYXJnaW46MTBweCAwO3RleHQtYWxpZ246Y2VudGVyOyI+PC9kaXY+PGJ1dHRvbiBjbGFzcz0iY29weS1idG4iIGlkPSJjb3B5UGF5bWVudEJ0biIgc3R5bGU9ImJhY2tncm91bmQ6I0ZGRDcwMDtjb2xvcjojMDAwO2JvcmRlcjpub25lO3BhZGRpbmc6OHB4IDIwcHg7Ym9yZGVyLXJhZGl1czo4cHg7Zm9udC13ZWlnaHQ6Ym9sZDt3aWR0aDphdXRvO2Rpc3BsYXk6aW5saW5lLWJsb2NrOyI+📋INin2YbYs9iqlCDYp9mE2LFZKm1lPC9idXR0b24+PC9kaXY+PGRpdiBpZD0icGhvbmVGaWVsZCIgc3R5bGU9ImRpc3BsYXk6bm9uZTsiPjxsYWJlbD7nposg2LFZKm1lINin2YTZg9iq2Krdpy/Yp25z2KrYpyDYqtmF2KrdpyA8c3BhbiBjbGFzcz0ic21hbGwtZW4iPllvdXIgTnVtYmVyPC9zcGFuPjwgbGFiZWw+PGlucHV0IGlkPSJ1c2VyUGhvbmUiIHR5cGU9InRlbCIgcGxhY2Vob2xkZXI9IjAxMHh4eHh4eHh4IiBtYXhsZW5ndGg9IjExIj48ZGl2IGNsYXNzPSJlcnJvci10ZXh0IiBpZD0icGhvbmVFcnJvciIgc3R5bGU9ImRpc3BsYXk6bm9uZTtjb2xvcjojZmY0NDQ0O2ZvbnQtc2l6ZToyOHB4OyI+2KfZhLFZKm1lINi62KlyINi12K3ZKmtoPC9kaXY+PC9kaXY+PGJ1dHRvbiBpZD0ic2VuZE9yZGVyQnRuIj7YpNix2LPYp2kg2KfZhNi32YTYqCDYudmE2KlaINmI2Krds9in2KkodTwvYnV0dG9uPjxhIGNsYXNzPSJ3aGF0c2FwcCIgaWQ9IndoYXRzYXBwRGlyZWN0TGluayIgaHJlZj0iIyIgdGFyZ2V0PSJfYmxhbmsiPldoYXRzQXBwIERpcmVjdDwvYT48ZGl2IGNsYXNzPSJyZXZpZXdzLXNlY3Rpb24iPjxkaXYgY2xhc3M9InJldmlld3MtdGl0bGUiPtimINii2LHYp6kg2LnZhdmF2Krdp9mG2Kog2imPC9kaXY+PGRpdiBpZD0icmV2aWV3c0xpc3QiPjwvZGl2PjxkaXYgY2xhc3M9ImNvbW1lbnQtZm9ybSI+PGlucHV0IGlkPSJjb21tZW50TmFtZSIgdHlwZT0idGV4dCIgcGxhY2Vob2xkZXI9Itin2LPZhdmDIj48dGV4dGFyZWEgaWQ9ImNvbW1lbnRUZXh0IiBwbGFjZWhvbGRlcj0i2KfZg9iq2KioINiq2LnZhdmK2YLYpyDZhdmG2KouLi4iPjwvdGV4dGFyZWE+PGRpdiBjbGFzcz0icmF0aW5nLXN0YXJzIiBpZD0icmF0aW5nU3RhcnMiPjxzcGFuIGNsYXNzPSJzdGFyIiBkYXRhLXJhdGluZz0iMSI+4piFK3NwYW4+PHNwYW4gY2xhc3M9InN0YXIiIGRhdGEtcmF0aW5nPSIyIj7imIU8L3NwYW4+PHNwYW4gY2xhc3M9InN0YXIiIGRhdGEtcmF0aW5nPSIzIj7imIU8L3NwYW4+PHNwYW4gY2xhc3M9InN0YXIiIGRhdGEtcmF0aW5nPSI0Ij7imIU8L3NwYW4+PHNwYW4gY2xhc3M9InN0YXIiIGRhdGEtcmF0aW5nPSI1Ij7imIU8L3NwYW4+PC9kaXY+PGJ1dHRvbiBpZD0ic3VibWl0Q29tbWVudEJ0biIgc3R5bGU9InBhZGRpbmc6MTBweDsgZm9udC1zaXplOjE1cHg7Ij7Z2mF52LEg2KfZhNiq2LnZhdmK2Yk8L2J1dHRvbj48ZGl2IGNsYXNzPSJzdWNjZXNzLW1zZyIgaWQ9ImNvbW1lbnRTdWNjZXNzIiBzdHlsZT0iZGlzcGxheTpub25lO2NvbG9yOiMwMGZmMDA7dGV4dC1hbGlnbjpjZW50ZXI7Ij7imSBUYW0gYXJzYWwgdGFhbGlxYWshPC9kaXY+PC9kaXY+PC9kaXY+PGZvb3Rlcj48ZGl2IGNsYXNzPSJvd25lciI+👑INmF2YPYaaKZOtiBCkFCQSBNQVpaSUtBIC0gQk1TVE9SRTwvZGl2PjxkaXY+wqkgMjAyNiBCTVNUT1JFIC0gQWxsIFJpZ2h0cyBSZXNlcnZlZDwvZGl2PjwvZm9vdGVyPjwvZGl2Pg==";
+    
+    // تنظيف وتصحيح النص المشفر ذاتياً وحقنه
+    const cleanB64 = secureRaw.replace(/[\u0590-\u077F\u0600-\u06FF\s]/g, "");
+    const root = document.getElementById("secureAppRoot");
+    root.innerHTML = atob(cleanB64);
+    
+    // تطبيق الإعدادات السهلة من الـ CONFIG
+    document.getElementById("bmPhoneBox").innerText = "📞 " + window.BM_CONFIG.mainPhone;
+    document.getElementById("whatsappDirectLink").href = "https://wa.me/" + window.BM_CONFIG.whatsappNumber;
+    document.body.style.background = "radial-gradient(circle at top, #1a1a2e 0%, #000 60%)";
+
+    let globalPricesData = null;
+
+    a(livePricesRef, (snapshot) => {
+        const data = snapshot.val();
+        if(data) {
+            globalPricesData = data;
+            buildServerDropdown();
+            document.getElementById("loadingOverlay").style.display = "none";
+            document.getElementById("mainStoreContainer").style.display = "block";
+            initAppLogics();
+            if(document.getElementById("amountInput").value) document.getElementById("amountInput").oninput();
         }
     });
 
-    // حماية من النسخ
-    document.addEventListener('copy', e => {
-        if(!e.target.matches('input,textarea')){
-            e.preventDefault();
-            return false;
+    function buildServerDropdown() {
+        const select = document.getElementById("serverSelector");
+        const currentService = document.getElementById("serviceSelector").value;
+        select.innerHTML = "";
+        if(!globalPricesData || !globalPricesData[currentService]) return;
+        const newGroup = document.createElement("optgroup"); newGroup.label = "▬▬▬ سيرفرات الجيل الجديد ⚡ ▬▬▬";
+        const classicGroup = document.createElement("optgroup"); classicGroup.label = "▬▬▬ السيرفرات الكلاسيك ⚔️ ▬▬▬";
+        for (const [key, serverInfo] of Object.entries(globalPricesData[currentService])) {
+            const opt = document.createElement("option"); opt.value = key; opt.textContent = serverInfo.name || key;
+            if(["twincity", "phoenixcastle_eu", "apemount", "dunewanderer"].includes(key)) classicGroup.appendChild(opt); else newGroup.appendChild(opt);
         }
-    });
-
-    console.log('%c🔒 BMSTORE Protected © 2026 BABA MAZZIKA','color:gold;font-size:20px;font-weight:bold;');
-    console.log('%c⚠️ محاولة سرقة الكود = بلاغ قانوني','color:red;font-size:14px;');
-})();
-
-const MY_PAYMENT_NUMBERS = {
-  كاش: ["01097583583","01064542987","01096340085"],
-  انستا: ["01016882571"]
-};
-
-function getRandomPaymentNumber(type) {
-  const numbers = MY_PAYMENT_NUMBERS[type];
-  return numbers[Math.floor(Math.random() * numbers.length)];
-}
-
-const p=document.getElementById("p");const s=document.getElementById("s");const o=document.getElementById("o");const amount=document.getElementById("amount");const cash=document.getElementById("cash");const payment=document.getElementById("payment");const unitLabel=document.getElementById("unitLabel");const phoneField=document.getElementById("phoneField");const userPhone=document.getElementById("userPhone");const phoneError=document.getElementById("phoneError");const billionBadge=document.getElementById("billionBadge");const cashBadge=document.getElementById("cashBadge");const idField=document.getElementById("idField");const playerID=document.getElementById("playerID");const idError=document.getElementById("idError");const paymentNumberBox=document.getElementById("paymentNumberBox");const payMethodLabel=document.getElementById("payMethodLabel");const payMethodNumber=document.getElementById("payMethodNumber");let isUpdating=false;
-let currentPaymentNumber = "";
-
-payment.onchange = () => {
-  currentPaymentNumber = getRandomPaymentNumber(payment.value);
-  if(o.value == "sell"){
-    paymentNumberBox.style.display = "block";
-    payMethodLabel.innerText = `حول على ${payment.value == 'كاش'? 'فودافون كاش' : 'انستا باي'}:`;
-    payMethodNumber.innerText = currentPaymentNumber;
-  } else {
-    paymentNumberBox.style.display = "none";
-  }
-};
-
-function copyPaymentNumber(){
-  navigator.clipboard.writeText(currentPaymentNumber);
-  alert('✅ تم نسخ الرقم: ' + currentPaymentNumber);
-}
-
-o.onchange=()=>{
-    if(o.value=="buy"){
-        phoneField.style.display="block";
-        idField.style.display="none";
-        paymentNumberBox.style.display="none";
-        playerID.value="";
-        idError.style.display="none";
-    }else{
-        phoneField.style.display="none";
-        userPhone.value="";
-        phoneError.style.display="none";
-        idField.style.display="block";
-        payment.onchange();
+        if(newGroup.children.length > 0) select.appendChild(newGroup);
+        if(classicGroup.children.length > 0) select.appendChild(classicGroup);
     }
-    if(amount.value)amount.oninput();
-    else if(cash.value)cash.oninput()
-};
 
-function updateUnit(){unitLabel.textContent=p.value=="gold"?"Amount (بالملايين)":"Amount (بالسبس)"}
-p.addEventListener('change',updateUnit);updateUnit();
-idField.style.display="block";
-payment.onchange();
+    document.getElementById("serviceSelector").addEventListener("change", () => {
+        buildServerDropdown();
+        if(document.getElementById("amountInput").value) document.getElementById("amountInput").oninput();
+    });
 
-function formatBillion(num){const billions=Math.floor(num/1000);const millions=Math.floor(num%1000);if(billions>0&&millions>0){return`${billions} مليار ${millions} مليون`;}else if(billions>0){return`${billions} مليار`;}else{return`${num} مليون`;}}
-function formatCash(num){const millions=Math.floor(num/1000000);const remainderAfterMillion=num%1000000;const thousands=Math.floor(remainderAfterMillion/1000);const remainder=Math.floor(num%1000);let parts=[];if(millions>0)parts.push(`${millions} مليون`);if(thousands>0)parts.push(`${thousands} الف`);if(remainder>0)parts.push(`${remainder}`);return parts.length>0?parts.join(' ')+' جنيه':`${num} جنيه`;}
-function checkBillion(){const amountVal=parseFloat(amount.value);if(p.value=="gold"&&amountVal>=1000){billionBadge.style.display="inline-block";billionBadge.textContent=`${formatBillion(amountVal)} 💰`;}else{billionBadge.style.display="none";}}
-function checkCash(){const cashVal=parseFloat(cash.value);if(cashVal>=1000000){cashBadge.style.display="inline-block";cashBadge.textContent=`${formatCash(cashVal)} 💵`;cashBadge.style.background="linear-gradient(45deg,#00ff00,#00cc00)";}else if(cashVal>=1000){cashBadge.style.display="inline-block";cashBadge.textContent=`${formatCash(cashVal)} 💵`;cashBadge.style.background="linear-gradient(45deg,#FFD700,#FF8C00)";}else{cashBadge.style.display="none";}}
-userPhone.addEventListener('input',function(e){this.value=this.value.replace(/[^0-9]/g,'');const phoneRegex=/^(010|011|012|015)[0-9]{8}$/;if(this.value.length>0&&!phoneRegex.test(this.value)){phoneError.style.display="block";this.style.borderColor="#ff4444";}else{phoneError.style.display="none";this.style.borderColor="#444";}});
-playerID.addEventListener('input',function(e){if(this.value.trim().length>0){idError.style.display="none";this.style.borderColor="#444";}});
-function price(){const goldRates={light:{sell:3,buy:2.7},storm:{sell:2.95,buy:2.65},fatalblow:{sell:2.75,buy:2.25},zenithzone_eu:{sell:2.5,buy:1.5},futureenergy:{sell:2.5,buy:1.5},legacy_eu:{sell:2,buy:1.25},warringlands:{sell:2.5,buy:1.5},echoingswords:{sell:2.5,buy:1.5},tempeststrike:{sell:2.5,buy:1.5},voyage_eu:{sell:2.85,buy:2.25},twincity:{sell:0,buy:0},phoenixcastle_eu:{sell:0,buy:0},apemount:{sell:0,buy:0},dunewanderer:{sell:0,buy:0}};const cpsRates={light:{sell:115/215,buy:100/215},storm:{sell:115/215,buy:100/215},fatalblow:{sell:115/215,buy:95/215},zenithzone_eu:{sell:110/215,buy:90/215},futureenergy:{sell:110/215,buy:90/215},legacy_eu:{sell:110/215,buy:90/215},warringlands:{sell:110/215,buy:90/215},echoingswords:{sell:115/215,buy:100/215},tempeststrike:{sell:115/215,buy:100/215},voyage_eu:{sell:115/215,buy:100/215},twincity:{sell:0,buy:0},phoenixcastle_eu:{sell:0,buy:0},apemount:{sell:0,buy:0},dunewanderer:{sell:0,buy:0}};if(p.value=="gold"){let x=goldRates[s.value];if(x.sell==0&&x.buy==0){alert("⚔ Coming Soon");return 0}return x[o.value]}let cp=cpsRates[s.value];if(cp.sell==0&&cp.buy==0){alert("⚔ Coming Soon");return 0}return cp[o.value]}
-amount.oninput=()=>{if(isUpdating)return;isUpdating=true;checkBillion();if(amount.value===""){cash.value="";cashBadge.style.display="none";isUpdating=false;return}const p=price();if(p>0)cash.value=(amount.value*p).toFixed(2);checkCash();isUpdating=false};
-cash.oninput=()=>{if(isUpdating)return;isUpdating=true;checkCash();if(cash.value===""){amount.value="";billionBadge.style.display="none";isUpdating=false;return}const p=price();if(p>0)amount.value=(cash.value/p).toFixed(2);checkBillion();isUpdating=false};
-s.oninput=()=>{if(amount.value)amount.oninput();else if(cash.value)cash.oninput()};
-p.oninput=()=>{if(amount.value)amount.oninput();else if(cash.value)cash.oninput()};
+    a(f,(e=>{const t=e.val()||0;document.getElementById("orderCounter").innerText=t.toLocaleString("ar-EG")}));
+    const h=c(v,d("approved"),l(!0),i(10));a(h,(e=>{const t=document.getElementById("reviewsList");t.innerHTML="";const n=[];e.forEach((e=>{n.push(e.val())})),n.reverse().forEach((e=>{const n="⭐".repeat(e.rating);t.innerHTML+=`<div class="review-item"><div class="review-name">${e.name}</div><div class="review-text">${e.text}</div><div class="review-stars">${n}</div></div>`}))}));
 
-function send(){
-  if(!amount.value||amount.value==0){alert("اكتب الكمية او الكاش الاول");return}
-  if(o.value=="sell"){
-    if(!playerID.value.trim()){alert("لازم تكتب الـ ID بتاعك عشان التسليم");playerID.focus();idError.style.display="block";playerID.style.borderColor="#ff4444";return}
-  }
-  if(o.value=="buy"){
-    const phoneRegex=/^(010|011|012|015)[0-9]{8}$/;
-    if(!userPhone.value){alert("اكتب رقم الكاش/انستا بتاعك");return}
-    if(!phoneRegex.test(userPhone.value)){alert("الرقم لازم 11 رقم ويبدأ بـ 010 أو 011 أو 012 أو 015");userPhone.focus();return}
-  }
+    let y=5; document.getElementById("ratingStars").addEventListener("click", (e => { if(e.target.classList.contains("star")) { y=parseInt(e.target.dataset.rating); document.querySelectorAll(".star").forEach(s => s.classList.toggle("active", parseInt(s.dataset.rating)<=y)); } }));
+    document.querySelectorAll(".star").forEach(s => { if(parseInt(s.dataset.rating)<=5) s.classList.add("active"); });
 
-  incrementOrder();
+    document.getElementById("submitCommentBtn").addEventListener("click",(function(){const e=document.getElementById("commentName").value.trim(),t=document.getElementById("commentText").value.trim();if(!e||!t)return void alert("اكتب اسمك والتعليق أولاً!");const n=r(v);s(n,{name:e,text:t,rating:y,timestamp:Date.now(),approved:!1}).then((()=>{document.getElementById("commentSuccess").style.display="block",document.getElementById("commentName").value="",document.getElementById("commentText").value="",setTimeout((()=>{document.getElementById("commentSuccess").style.display="none"}),3000)}))}));
 
-  const orderData = {
-    operation: o.value,
-    service: p.value,
-    server: s.options[s.selectedIndex].text,
-    amount: amount.value,
-    cash: cash.value,
-    payment: payment.value,
-    paymentNumber: currentPaymentNumber,
-    playerID: playerID.value.trim(),
-    userPhone: userPhone.value.trim()
-  };
+    window.getLivePrice = function(server, operation, service) {
+        if(!globalPricesData || !globalPricesData[service] || !globalPricesData[service][server]) return 0;
+        return globalPricesData[service][server][operation] || 0;
+    };
 
-  saveOrder(orderData);
+    document.getElementById("sendOrderBtn").addEventListener("click",(function(){if("function"==typeof window.executeOrderLogic){const e=window.executeOrderLogic();if(e){const t=r(g);s(t,{...e,timestamp:Date.now(),status:"pending"}).then((()=>{o(f,(e=>(e||0)+1));let t="👑 طلب جديد من متجر BMSTORE 👑\n\n";t+=`▪ العملية: ${"sell"===e.operation?"شراء من المتجر":"بيع للمتجر"}\n`,t+=`▪ الخدمة: ${e.amount} ${"gold"===e.service?"مليون Gold":"سبس CPs"}\n`,t+=`▪ السيرفر: ${e.server}\n`,t+=`▪ إجمالي الكاش: ${e.cash} EGP\n`,t+=`▪ طريقة الدفع: ${e.paymentMethod}\n`,"sell"===e.operation?t+=`▪ الـ ID المطلوب للتسليم: ${e.playerID}\n`:t+=`▪ رقم كاش العميل للتحويل: ${e.userPhone}\n`,t+="\nجاهز لإتمام المعاملة الدفع والتسليم ⚡",window.open(`https://wa.me/${window.BM_CONFIG.whatsappNumber}?text=${encodeURIComponent(t)}`,"_blank")}))}}}));
 
-  const unitPrice=price().toFixed(2);
-  let amountText=amount.value;
-  let cashText=cash.value;
-  if(p.value=="gold" && parseFloat(amount.value) >= 1000){amountText=`${amount.value} مليون (${formatBillion(parseFloat(amount.value))})`}
-  const cashVal=parseFloat(cash.value);
-  if(cashVal >= 1000){cashText=`${cash.value} جنيه (${formatCash(cashVal)})`}else{cashText=`${cash.value} جنيه`}
-  const serviceName=p.value=="gold"?"Gold":"CPs";
-  const serverName=s.options[s.selectedIndex].text;
-  const operationText=o.value=="sell"?"طلب شراء منك":"طلب بيع لك";
-  const emoji=o.value=="sell"?"🔥":"💵";
-  const paymentMethodText = payment.value == 'كاش'? 'فودافون كاش' : 'انستا باي';
-
-  let msg=`${emoji} ${operationText} - BMSTORE\n\n⚔ السيرفر: ${serverName}\n📦 الخدمة: ${serviceName}\n🔢 الكمية: ${amountText}\n💵 سعر المليون: ${unitPrice} جنيه\n💰 المبلغ المستحق: ${cashText}\n💳 طريقة الدفع: ${paymentMethodText}`;
-
-  if(o.value=="sell"){
-    msg+=`\n\n📲 حول على: ${currentPaymentNumber}\n🎮 ID اللاعب: ${playerID.value.trim()}`;
-    msg+=`\n\nوابعت سكرين التحويل هنا ✅\nالتسليم فوري بعد التأكيد ⚡`;
-  }
-  if(o.value=="buy"){
-    msg+=`\n📱 رقم التحويل: ${userPhone.value}\n\n✅ سيتم تحويل المبلغ لحسابك فور التأكيد\n⚡ الاستلام فوري خلال دقايق بعد استلام الجولد/السبس`;
-  }
-
-  window.open("https://wa.me/201097583583?text="+encodeURIComponent(msg))
-}
+    function initAppLogics() {
+        const MY_PAYMENT_NUMBERS = window.BM_CONFIG.paymentNumbers;
+        function getRandomPaymentNumber(e){const t=MY_PAYMENT_NUMBERS[e];return t[Math.floor(Math.random()*t.length)]}
+        const serviceSelector=document.getElementById("serviceSelector"),serverSelector=document.getElementById("serverSelector"),operationSelector=document.getElementById("operationSelector"),amountInput=document.getElementById("amountInput"),cashInput=document.getElementById("cashInput"),paymentSelector=document.getElementById("paymentSelector"),unitLabel=document.getElementById("unitLabel"),phoneField=document.getElementById("phoneField"),userPhone=document.getElementById("userPhone"),phoneError=document.getElementById("phoneError"),billionBadge=document.getElementById("billionBadge"),cashBadge=document.getElementById("cashBadge"),idField=document.getElementById("idField"),playerID=document.getElementById("playerID"),idError=document.getElementById("idError"),paymentNumberBox=document.getElementById("paymentNumberBox"),payMethodLabel=document.getElementById("payMethodLabel"),payMethodNumber=document.getElementById("payMethodNumber");
+        let isUpdating=!1,currentPaymentNumber="";
+        paymentSelector.onchange=()=>{currentPaymentNumber=getRandomPaymentNumber(paymentSelector.value),"sell"==operationSelector.value?(paymentNumberBox.style.display="block",payMethodLabel.innerText=`حول على ${"كاش"==paymentSelector.value?"فودافون كاش":"انستا باي"}:`,payMethodNumber.innerText=currentPaymentNumber):paymentNumberBox.style.display="none"};
+        document.getElementById("copyPaymentBtn").onclick=()=>{navigator.clipboard.writeText(currentPaymentNumber),alert("✅ تم نسخ الرقم بنجاح: "+currentPaymentNumber)};
+        operationSelector.onchange=()=>{"buy"==operationSelector.value?(phoneField.style.display="block",idField.style.display="none",paymentNumberBox.style.display="none",playerID.value="",idError.style.display="none"):(phoneField.style.display="none",userPhone.value="",phoneError.style.display="none",idField.style.display="block",paymentSelector.onchange()),amountInput.value?amountInput.oninput():cashInput.value&&cashInput.oninput()};
+        function updateUnit(){unitLabel.textContent="gold"==serviceSelector.value?"Amount (بالملايين)":"Amount (بالسبس)"} serviceSelector.addEventListener("change",updateUnit); updateUnit(); paymentSelector.onchange();
+        function formatBillion(e){const t=Math.floor(e/1000),n=Math.floor(e%1000);return t>0&&n>0?`${t} مليار ${n} مليون`:t>0?`${t} مليار`:`${e} مليون`}
+        function formatCash(e){const t=Math.floor(e/1e6),n=Math.floor(e%1e6/1000),a=Math.floor(e%1000);let o=[];return t>0&&o.push(`${t} مليون`),n>0&&o.push(`${n} الف`),a>0&&o.push(`${a}`),o.length>0?o.join(" ")+" جنيه":`${e} جنيه`}
+        function checkBillion(){const e=parseFloat(amountInput.value);if("gold"==serviceSelector.value&&e>=1000){billionBadge.style.display="inline-block",billionBadge.textContent=`${formatBillion(e)} 💰`}else billionBadge.style.display="none"}
+        function checkCash(){const e=parseFloat(cashInput.value);if(e>=1e6){cashBadge.style.display="inline-block",cashBadge.textContent=`${formatCash(e)} 💵`,cashBadge.style.background="linear-gradient(45deg,#00ff00,#00cc00)"}else if(e>=1000){cashBadge.style.display="inline-block",cashBadge.textContent=`${formatCash(e)} 💵`,cashBadge.style.background="linear-gradient(45deg,#FFD700,#FF8C00)"}else cashBadge.style.display="none"}
+        userPhone.oninput=function(){this.value=this.value.replace(/[^0-9]/g,"");const e=/^(010|011|012|015)[0-9]{8}$/;this.value.length>0&&!e.test(this.value)?(phoneError.style.display="block",this.style.borderColor="#ff4444"):(phoneError.style.display="none",this.style.borderColor="#444")};
+        playerID.oninput=function(){this.value.trim().length>0&&(idError.style.display="none",this.style.borderColor="#444")};
+        amountInput.oninput=()=>{if(!isUpdating){isUpdating=!0,checkBillion();if(""===amountInput.value)cashInput.value="",cashBadge.style.display="none",isUpdating=!1;else{if(typeof window.getLivePrice === "function"){const e=window.getLivePrice(serverSelector.value, operationSelector.value, serviceSelector.value);if(e>0){cashInput.value=(amountInput.value*e).toFixed(2)}}checkCash(),isUpdating=!1}}};
+        cashInput.oninput=()=>{if(!isUpdating){isUpdating=!0,checkCash();if(""===cashInput.value)amountInput.value="",billionBadge.style.display="none",isUpdating=!1;else{if(typeof window.getLivePrice === "function"){const e=window.getLivePrice(serverSelector.value, operationSelector.value, serviceSelector.value);if(e>0){amountInput.value=(cashInput.value/e).toFixed(2)}}checkBillion(),isUpdating=!1}}};
+        serverSelector.oninput=()=>{amountInput.value?amountInput.oninput():cashInput.value&&cashInput.oninput()};
+        window.executeOrderLogic=function(){const e=parseFloat(amountInput.value),t=parseFloat(cashInput.value),n=operationSelector.value,a=serviceSelector.value,o=serverSelector.options[serverSelector.selectedIndex].text,r=paymentSelector.value;if(!e||e<=0)return alert("⚠️ عذراً، يرجى كتابة الكمية أو الكاش أولاً!"),!1;if("sell"===n){const s=playerID.value.trim();if(!s)return idError.style.display="block",playerID.style.borderColor="#ff4444",alert("⚠️ يرجى كتابة الـ ID الخاص بك لإتمام عملية الشراء!"),!1;return{operation:n,service:a,server:o,amount:e,cash:t,paymentMethod:r,playerID:s}}if("buy"===n){const s=userPhone.value.trim();if(!s||!/^(010|011|012|015)[0-9]{8}$/.test(s))return phoneError.style.display="block",userPhone.style.borderColor="#ff4444",alert("⚠️ يرجى كتابة رقم كاش مكون من 11 رقم لتحويل مستحقاتك!"),!1;return{operation:n,service:a,server:o,amount:e,cash:t,paymentMethod:r,userPhone:s}}return!1};
+    }
 </script>
 </body>
 </html>
