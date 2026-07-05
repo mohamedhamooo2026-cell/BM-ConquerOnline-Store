@@ -2,27 +2,41 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>BMSTORE</title>
+    <style>
+        body { font-family: sans-serif; background: #f4f4f4; text-align: center; padding: 20px; }
+        .container { background: white; padding: 20px; border-radius: 10px; max-width: 400px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        select, input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; }
+        h2 { color: #333; }
+    </style>
 </head>
 <body>
 
-    <div id="loading">جاري التحميل...</div>
-    
-    <div id="mainStore" style="display:none;">
-        <select id="serviceSelector">
-            <option value="cps">CPs | سبس</option>
-            <option value="gold">Gold | ملايين</option>
-        </select>
+    <div class="container">
+        <h2>BMSTORE ⚡</h2>
+        <div id="loading">جاري تحميل البيانات...</div>
         
-        <select id="serverSelector"></select>
-        
-        <select id="operationSelector">
-            <option value="sell">شراء</option>
-            <option value="buy">بيع</option>
-        </select>
-        
-        <input type="number" id="amountInput" placeholder="الكمية">
-        <input type="text" id="cashInput" readonly placeholder="الإجمالي">
+        <div id="mainStore" style="display:none;">
+            <label>اختر الخدمة</label>
+            <select id="serviceSelector">
+                <option value="cps">CPs | سبس</option>
+                <option value="gold">Gold | ملايين</option>
+            </select>
+            
+            <label>اختر السيرفر</label>
+            <select id="serverSelector"></select>
+            
+            <label>العملية</label>
+            <select id="operationSelector">
+                <option value="sell">بيع (أنت تبيع لنا)</option>
+                <option value="buy">شراء (أنت تشتري منا)</option>
+            </select>
+            
+            <label>الكمية</label>
+            <input type="number" id="amountInput" placeholder="أدخل الكمية هنا">
+            
+            <label>الإجمالي (بالجنيه)</label>
+            <input type="text" id="cashInput" readonly style="background:#eee; font-weight:bold;">
+        </div>
     </div>
 
     <script type="module">
@@ -50,40 +64,16 @@
         function updateDropdown() {
             const service = document.getElementById("serviceSelector").value;
             const data = globalData[service] || {};
-            buildServerDropdown(data);
-            calculatePrice();
-        }
-
-        function buildServerDropdown(data) {
             const select = document.getElementById("serverSelector");
             select.innerHTML = "";
-            const order = ['main', 'new', 'classic', 'other'];
-            const groups = {
-                'main': { label: '⚡ MAIN SERVERS ⚡', elements: [] },
-                'new': { label: '🔥 NEW SERVERS 🔥', elements: [] },
-                'classic': { label: '⚔ CLASSIC SERVERS ⚔', elements: [] },
-                'other': { label: '🌐 OTHER SERVERS 🌐', elements: [] }
-            };
-
+            
             for (const [key, info] of Object.entries(data)) {
-                const cat = info.category && groups[info.category] ? info.category : 'other';
-                groups[cat].elements.push({ key, name: info.name || key });
+                const opt = document.createElement("option");
+                opt.value = key;
+                opt.textContent = info.name;
+                select.appendChild(opt);
             }
-
-            order.forEach(catKey => {
-                const group = groups[catKey];
-                if (group && group.elements.length > 0) {
-                    const optgroup = document.createElement("optgroup");
-                    optgroup.label = group.label;
-                    group.elements.forEach(el => {
-                        const opt = document.createElement("option");
-                        opt.value = el.key;
-                        opt.textContent = el.name;
-                        optgroup.appendChild(opt);
-                    });
-                    select.appendChild(optgroup);
-                }
-            });
+            calculatePrice();
         }
 
         function calculatePrice() {
@@ -94,7 +84,7 @@
             
             if(globalData && globalData[service] && globalData[service][server]) {
                 const price = globalData[service][server][op] || 0;
-                document.getElementById("cashInput").value = (amount * price).toFixed(2);
+                document.getElementById("cashInput").value = (amount * price).toFixed(2) + " جنيه";
             }
         }
 
