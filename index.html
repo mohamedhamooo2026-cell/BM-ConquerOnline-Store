@@ -1,69 +1,88 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<div id="bm-app" style="width:100%; max-width:450px; margin:0 auto; background:#111; color:#fff; padding:20px; border-radius:20px; border:2px solid gold; font-family:tahoma; direction:rtl;">
-    <h1 style="color:gold; text-align:center;">BMSTORE 👑</h1>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BMSTORE | Official</title>
+    <style>
+        body { background: #050505; color: #fff; font-family: Tahoma; margin: 0; padding: 20px; }
+        .container { max-width: 450px; margin: 0 auto; background: #111; padding: 25px; border-radius: 25px; border: 2px solid gold; box-shadow: 0 0 20px rgba(255,215,0,0.1); }
+        .logo { font-size: 35px; font-weight: 900; text-align: center; background: linear-gradient(45deg, #FFD700, #FF8C00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 5px; }
+        .contact { text-align: center; color: #888; font-size: 14px; margin-bottom: 20px; }
+        select, input { width: 100%; padding: 12px; margin: 8px 0; background: #000; color: white; border: 1px solid #444; border-radius: 10px; box-sizing: border-box; }
+        button { width: 100%; padding: 15px; margin-top: 15px; background: linear-gradient(45deg, #FFD700, #FF8C00); border: none; border-radius: 10px; font-weight: bold; cursor: pointer; color: black; font-size: 16px; }
+        .footer { margin-top: 25px; text-align: center; color: gold; font-weight: bold; border-top: 1px solid #333; padding-top: 15px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="logo">BMSTORE</div>
+    <div class="contact">BABA MAZZIKA | الخدمات الاحترافية</div>
     
-    <label>العملية</label>
-    <select id="o" onchange="calc()" style="width:100%; padding:10px; margin:5px 0 10px; background:#000; color:white; border:1px solid #444;">
-        <option value="sell">شراء من المتجر</option>
-        <option value="buy">بيع للمتجر</option>
-    </select>
-
+    <label>نوع العملية</label>
+    <select id="o" onchange="calc()"><option value="sell">شراء من المتجر</option><option value="buy">بيع للمتجر</option></select>
+    
     <label>الخدمة</label>
-    <select id="p" onchange="updateS()" style="width:100%; padding:10px; margin:5px 0 10px; background:#000; color:white; border:1px solid #444;">
-        <option value="cps">CPs (سبس)</option>
-        <option value="gold">Gold (ملايين)</option>
-    </select>
-
+    <select id="p" onchange="updateS()"><option value="cps">CPs (سبس)</option><option value="gold">Gold (ملايين)</option></select>
+    
     <label>السيرفر</label>
-    <select id="s" onchange="calc()" style="width:100%; padding:10px; margin:5px 0 10px; background:#000; color:white; border:1px solid #444;"></select>
-
+    <select id="s" onchange="calc()"></select>
+    
     <label>الكمية</label>
-    <input type="number" id="amt" oninput="calc()" placeholder="0" style="width:100%; padding:10px; margin:5px 0 10px; background:#000; color:white; border:1px solid #444;">
-
-    <label>المبلغ</label>
-    <input type="number" id="total" oninput="calcRev()" placeholder="0" style="width:100%; padding:10px; margin:5px 0 10px; background:#000; color:white; border:1px solid #444;">
-
-    <button onclick="send()" style="width:100%; padding:15px; background:gold; border:none; font-weight:bold; cursor:pointer; border-radius:5px;">إتمام الطلب واتساب 🚀</button>
+    <input type="number" id="amt" oninput="calc()" placeholder="أدخل الكمية">
+    
+    <label>المبلغ (EGP)</label>
+    <input type="number" id="total" oninput="calcRev()" placeholder="المبلغ المطلوب">
+    
+    <button onclick="send()">إتمام الطلب عبر واتساب 🚀</button>
+    
+    <div class="footer">
+        📞 للتواصل: 01097583583
+    </div>
 </div>
 
-<script>
-    const data = {
-        cps: { light: {n:"Lightning ⚡", s:0.5349, b:0.4651}, storm: {n:"Storm 🌪", s:0.5349, b:0.4651}, fatalblow: {n:"FatalBlow", s:0.5349, b:0.4419} },
-        gold: { light: {n:"Lightning ⚡", s:3.0, b:2.7}, storm: {n:"Storm 🌪", s:2.95, b:2.65}, fatalblow: {n:"FatalBlow", s:2.75, b:2.25} }
-    };
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+    import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+    
+    const db = getDatabase(initializeApp({databaseURL: "https://bm-store-e1617-default-rtdb.firebaseio.com"}));
+    let storeData = {};
 
-    function updateS() {
-        const s = document.getElementById('s');
+    get(ref(db, 'prices')).then(snap => {
+        storeData = snap.val();
+        updateS();
+    });
+
+    window.updateS = function() {
         const p = document.getElementById('p').value;
+        const s = document.getElementById('s');
         s.innerHTML = '';
-        for (let k in data[p]) {
-            s.innerHTML += '<option value="'+k+'">'+data[p][k].n+'</option>';
+        for (let k in storeData[p]) {
+            s.innerHTML += `<option value="${k}">${storeData[p][k].name}</option>`;
         }
         calc();
     }
 
-    function calc() {
-        const p = document.getElementById('p').value;
-        const s = document.getElementById('s').value;
-        const o = document.getElementById('o').value;
-        const amt = document.getElementById('amt').value;
-        const price = (o == 'sell') ? data[p][s].s : data[p][s].b;
-        document.getElementById('total').value = (amt * price).toFixed(2);
+    window.calc = function() {
+        const p = document.getElementById('p').value, s = document.getElementById('s').value, o = document.getElementById('o').value, amt = document.getElementById('amt').value;
+        if(storeData[p] && storeData[p][s]) {
+            document.getElementById('total').value = (amt * storeData[p][s][o]).toFixed(2);
+        }
+    }
+    
+    window.calcRev = function() {
+        const p = document.getElementById('p').value, s = document.getElementById('s').value, o = document.getElementById('o').value, total = document.getElementById('total').value;
+        if(storeData[p] && storeData[p][s]) {
+            document.getElementById('amt').value = (total / storeData[p][s][o]).toFixed(2);
+        }
     }
 
-    function calcRev() {
-        const p = document.getElementById('p').value;
-        const s = document.getElementById('s').value;
-        const o = document.getElementById('o').value;
-        const total = document.getElementById('total').value;
-        const price = (o == 'sell') ? data[p][s].s : data[p][s].b;
-        document.getElementById('amt').value = (total / price).toFixed(2);
-    }
-
-    function send() {
-        const msg = "طلب جديد: " + document.getElementById('o').value + " - " + document.getElementById('p').value + " - " + document.getElementById('s').value + " - الكمية: " + document.getElementById('amt').value;
+    window.send = function() {
+        const msg = `طلب جديد BMSTORE: ${document.getElementById('o').value} | الخدمة: ${document.getElementById('p').value} | السيرفر: ${document.getElementById('s').value} | الكمية: ${document.getElementById('amt').value} | المبلغ: ${document.getElementById('total').value} EGP`;
         window.open('https://wa.me/201097583583?text=' + encodeURIComponent(msg), '_blank');
     }
-
-    updateS();
 </script>
+
+</body>
+</html>
