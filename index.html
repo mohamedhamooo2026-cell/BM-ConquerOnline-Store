@@ -2,84 +2,89 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BMSTORE | Official</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMSTORE | BABA MAZZIKA</title>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+        
+        const firebaseConfig = { databaseURL: "https://bm-store-e1617-default-rtdb.firebaseio.com" };
+        const db = getDatabase(initializeApp(firebaseConfig));
+        
+        let storeData = {};
+        // جلب البيانات عند فتح الصفحة
+        get(ref(db, 'prices')).then(snap => {
+            storeData = snap.val();
+            renderServers();
+        });
+
+        window.renderServers = function() {
+            const p = document.getElementById('p').value;
+            const s = document.getElementById('s');
+            s.innerHTML = '';
+            for (let k in storeData[p]) {
+                s.innerHTML += `<option value="${k}">${storeData[p][k].name}</option>`;
+            }
+            calc();
+        }
+
+        window.calc = function() {
+            const p = document.getElementById('p').value;
+            const s = document.getElementById('s').value;
+            const o = document.getElementById('o').value;
+            const amt = document.getElementById('amount').value;
+            if(storeData[p] && storeData[p][s]) {
+                document.getElementById('cash').value = (amt * storeData[p][s][o]).toFixed(2);
+            }
+        }
+        
+        window.calcRev = function() {
+            const p = document.getElementById('p').value;
+            const s = document.getElementById('s').value;
+            const o = document.getElementById('o').value;
+            const cash = document.getElementById('cash').value;
+            if(storeData[p] && storeData[p][s]) {
+                document.getElementById('amount').value = (cash / storeData[p][s][o]).toFixed(2);
+            }
+        }
+    </script>
     <style>
-        body { background: #050505; color: #fff; font-family: Tahoma; margin: 0; padding: 20px; }
-        .container { max-width: 450px; margin: 0 auto; background: #111; padding: 25px; border-radius: 25px; border: 2px solid gold; box-shadow: 0 0 20px rgba(255,215,0,0.1); }
-        .logo { font-size: 35px; font-weight: 900; text-align: center; background: linear-gradient(45deg, #FFD700, #FF8C00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 5px; }
-        .contact { text-align: center; color: #888; font-size: 14px; margin-bottom: 20px; }
-        select, input { width: 100%; padding: 12px; margin: 8px 0; background: #000; color: white; border: 1px solid #444; border-radius: 10px; box-sizing: border-box; }
-        button { width: 100%; padding: 15px; margin-top: 15px; background: linear-gradient(45deg, #FFD700, #FF8C00); border: none; border-radius: 10px; font-weight: bold; cursor: pointer; color: black; font-size: 16px; }
-        .footer { margin-top: 25px; text-align: center; color: gold; font-weight: bold; border-top: 1px solid #333; padding-top: 15px; }
+        /* نفس التنسيقات الفخمة الخاصة بك */
+        body { background: #000; color: white; font-family: Tahoma; padding: 20px; }
+        .container { max-width: 500px; margin: auto; background: #111; padding: 20px; border-radius: 20px; border: 2px solid gold; }
+        .btn-fb { display: block; text-align: center; background: #1877f2; color: white; padding: 15px; margin-top: 15px; border-radius: 10px; text-decoration: none; font-weight: bold; }
+        select, input { width: 100%; padding: 12px; margin: 8px 0; background: #222; color: white; border: 1px solid #444; border-radius: 10px; }
+        button { width: 100%; padding: 15px; background: gold; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="logo">BMSTORE</div>
-    <div class="contact">BABA MAZZIKA | الخدمات الاحترافية</div>
+    <h1 style="color:gold; text-align:center;">BMSTORE 👑</h1>
     
-    <label>نوع العملية</label>
+    <label>العملية</label>
     <select id="o" onchange="calc()"><option value="sell">شراء من المتجر</option><option value="buy">بيع للمتجر</option></select>
     
     <label>الخدمة</label>
-    <select id="p" onchange="updateS()"><option value="cps">CPs (سبس)</option><option value="gold">Gold (ملايين)</option></select>
+    <select id="p" onchange="renderServers()"><option value="cps">CPs</option><option value="gold">Gold</option></select>
     
     <label>السيرفر</label>
     <select id="s" onchange="calc()"></select>
     
     <label>الكمية</label>
-    <input type="number" id="amt" oninput="calc()" placeholder="أدخل الكمية">
+    <input type="number" id="amount" oninput="calc()" placeholder="الكمية">
     
     <label>المبلغ (EGP)</label>
-    <input type="number" id="total" oninput="calcRev()" placeholder="المبلغ المطلوب">
+    <input type="number" id="cash" oninput="calcRev()" placeholder="المبلغ">
     
-    <button onclick="send()">إتمام الطلب عبر واتساب 🚀</button>
+    <button onclick="send()">إتمام الطلب واتساب 🚀</button>
     
-    <div class="footer">
-        📞 للتواصل: 01097583583
-    </div>
+    <a href="https://www.facebook.com/mhmd.ghfr.allh.lh.902854" class="btn-fb" target="_blank">تابعنا على فيسبوك 📘</a>
 </div>
 
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-    import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
-    
-    const db = getDatabase(initializeApp({databaseURL: "https://bm-store-e1617-default-rtdb.firebaseio.com"}));
-    let storeData = {};
-
-    get(ref(db, 'prices')).then(snap => {
-        storeData = snap.val();
-        updateS();
-    });
-
-    window.updateS = function() {
-        const p = document.getElementById('p').value;
-        const s = document.getElementById('s');
-        s.innerHTML = '';
-        for (let k in storeData[p]) {
-            s.innerHTML += `<option value="${k}">${storeData[p][k].name}</option>`;
-        }
-        calc();
-    }
-
-    window.calc = function() {
-        const p = document.getElementById('p').value, s = document.getElementById('s').value, o = document.getElementById('o').value, amt = document.getElementById('amt').value;
-        if(storeData[p] && storeData[p][s]) {
-            document.getElementById('total').value = (amt * storeData[p][s][o]).toFixed(2);
-        }
-    }
-    
-    window.calcRev = function() {
-        const p = document.getElementById('p').value, s = document.getElementById('s').value, o = document.getElementById('o').value, total = document.getElementById('total').value;
-        if(storeData[p] && storeData[p][s]) {
-            document.getElementById('amt').value = (total / storeData[p][s][o]).toFixed(2);
-        }
-    }
-
-    window.send = function() {
-        const msg = `طلب جديد BMSTORE: ${document.getElementById('o').value} | الخدمة: ${document.getElementById('p').value} | السيرفر: ${document.getElementById('s').value} | الكمية: ${document.getElementById('amt').value} | المبلغ: ${document.getElementById('total').value} EGP`;
+<script>
+    function send() {
+        const msg = `طلب جديد: ${document.getElementById('o').value} - الخدمة: ${document.getElementById('p').value} - السيرفر: ${document.getElementById('s').value} - الكمية: ${document.getElementById('amount').value} - المبلغ: ${document.getElementById('cash').value} EGP`;
         window.open('https://wa.me/201097583583?text=' + encodeURIComponent(msg), '_blank');
     }
 </script>
