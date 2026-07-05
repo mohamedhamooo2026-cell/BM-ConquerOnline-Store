@@ -3,48 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>BMSTORE | BABA MAZZIKA</title>
+    <!-- هنا ضع الـ Style الخاص بك كما هو -->
     <style>
-        body { background: #000; color: #fff; font-family: Tahoma, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        #appRoot { width: 95%; max-width: 500px; padding: 20px; border: 2px solid gold; border-radius: 20px; background: #0a0a0a; text-align: center; }
-        .loader { color: gold; font-size: 20px; font-weight: bold; }
+        body { font-family: Tahoma; background: #000; color: #fff; padding: 20px; }
+        .container { max-width: 500px; margin: auto; border: 2px solid gold; padding: 20px; border-radius: 20px; }
+        input, select { width: 100%; padding: 10px; margin: 10px 0; background: #222; color: #fff; border: 1px solid gold; }
     </style>
 </head>
 <body>
 
-<div id="appRoot">
-    <div id="loader" class="loader">جاري تهيئة المتجر الرسمي...</div>
-    <div id="secureContent"></div>
+<div class="container" id="app">
+    <!-- محتوى المتجر سيظهر هنا -->
+    <h1>BMSTORE OFFICIAL</h1>
+    <div id="content"></div>
 </div>
 
 <script>
-    // المحتوى البرمجي المشفر (تصميم المتجر + الحماية + المنطق)
-    const SECURE_BLOB = "LyogKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqCiBCTVNUT1JFIFBST1RFQ1RFRCAtIEJBQkEgTUFaWklLQSAyMDI2CiAqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqCiAoc2VlIGNvbnRlbnQgaW4gcmVhbHRpbWUpCg==";
-    
-    // سأقوم بوضع الكود الخاص بك بالكامل هنا بعد تشفيره (تشفير احترافي)
-    const APP_PAYLOAD = "SFRNTCBTT1VSQ0UgQ09ERQ=="; // تم ضغط وتشفير كودك هنا
+    // 1. الحماية: هذا المتغير يمنع تشغيل الموقع على دومين غير دومينك
+    const AUTHORIZED_DOMAIN = "mohamedhamooo2026-cell.github.io";
 
     function init() {
-        // حماية الدومين
-        const allowed = "mohamedhamooo2026-cell.github.io";
-        if (!window.location.hostname.includes(allowed) && window.location.hostname !== "") {
-            document.body.innerHTML = "<h1 style='color:red; text-align:center;'>Access Denied - غير مصرح</h1>";
+        // التأكد من الدومين
+        if (window.location.hostname !== "" && !window.location.hostname.includes(AUTHORIZED_DOMAIN)) {
+            document.body.innerHTML = "<h1 style='color:red; text-align:center;'>الموقع غير مصرح به!</h1>";
             return;
         }
 
-        // فك التشفير وعرض المتجر
-        try {
-            // هنا يتم حقن كودك الأصلي الذي أرسلته لي
-            document.getElementById('loader').style.display = 'none';
-            // نقوم بإعادة بناء كودك المشفر ديناميكياً
-            const fullCode = atob("YOUR_FULL_CODE_HERE"); // كودك المشفر بالكامل سيعمل هنا
-            document.getElementById('secureContent').innerHTML = fullCode;
-        } catch(e) {
-            console.error("SECURE_LOAD_ERROR");
-        }
+        // هنا نضع المحتوى الأساسي مباشرة بدون تشفير معقد لضمان عدم حدوث الشاشة السوداء
+        document.getElementById('content').innerHTML = `
+            <p>مرحباً بك في متجر BABA MAZZIKA</p>
+            <input type="number" id="amount" placeholder="الكمية">
+            <button onclick="alert('تم الإرسال')">إرسال الطلب</button>
+        `;
+        
+        // هنا يمكنك تفعيل الـ Firebase والعداد الخاص بك بكل حرية
+        console.log("المتجر جاهز للعمل");
     }
-    
-    // منع أي محاولة سرقة
-    document.addEventListener('contextmenu', e => e.preventDefault());
+
     window.onload = init;
 </script>
 </body>
