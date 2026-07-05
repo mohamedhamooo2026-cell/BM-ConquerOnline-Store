@@ -2,96 +2,94 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <title>BMSTORE</title>
     <style>
-        body { font-family: sans-serif; background: #f4f4f4; text-align: center; padding: 20px; }
-        .container { background: white; padding: 20px; border-radius: 10px; max-width: 400px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        select, input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; }
-        h2 { color: #333; }
+        body { font-family: Tahoma, sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; padding-top: 50px; }
+        .box { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 350px; }
+        select, input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h2>BMSTORE ⚡</h2>
-        <div id="loading">جاري تحميل البيانات...</div>
-        
-        <div id="mainStore" style="display:none;">
-            <label>اختر الخدمة</label>
-            <select id="serviceSelector">
-                <option value="cps">CPs | سبس</option>
-                <option value="gold">Gold | ملايين</option>
-            </select>
-            
-            <label>اختر السيرفر</label>
-            <select id="serverSelector"></select>
-            
-            <label>العملية</label>
-            <select id="operationSelector">
-                <option value="sell">بيع (أنت تبيع لنا)</option>
-                <option value="buy">شراء (أنت تشتري منا)</option>
-            </select>
-            
-            <label>الكمية</label>
-            <input type="number" id="amountInput" placeholder="أدخل الكمية هنا">
-            
-            <label>الإجمالي (بالجنيه)</label>
-            <input type="text" id="cashInput" readonly style="background:#eee; font-weight:bold;">
-        </div>
+<div class="box">
+    <h2 style="text-align: center;">BMSTORE ⚡</h2>
+    <div id="status">جاري الاتصال بقاعدة البيانات...</div>
+    
+    <div id="content" style="display:none;">
+        <label>الخدمة:</label>
+        <select id="serviceSelector">
+            <option value="cps">CPs | سبس</option>
+            <option value="gold">Gold | ملايين</option>
+        </select>
+
+        <label>السيرفر:</label>
+        <select id="serverSelector"></select>
+
+        <label>نوع العملية:</label>
+        <select id="operationSelector">
+            <option value="sell">بيع</option>
+            <option value="buy">شراء</option>
+        </select>
+
+        <label>الكمية:</label>
+        <input type="number" id="amountInput" placeholder="أدخل الكمية">
+
+        <label>الإجمالي:</label>
+        <input type="text" id="cashInput" readonly style="background: #e9ecef; font-weight: bold;">
     </div>
+</div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyCiFo7DUunwnIPrH3MQZGy4aNiPx0L4JGQ",
-            databaseURL: "https://bmstore-counter-default-rtdb.firebaseio.com"
-        };
+    const app = initializeApp({
+        apiKey: "AIzaSyCiFo7DUunwnIPrH3MQZGy4aNiPx0L4JGQ",
+        databaseURL: "https://bmstore-counter-default-rtdb.firebaseio.com"
+    });
+    
+    const db = getDatabase(app);
+    let allData = {};
 
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
-        let globalData = null;
+    onValue(ref(db, 'prices'), (snapshot) => {
+        allData = snapshot.val() || {};
+        document.getElementById('status').style.display = 'none';
+        document.getElementById('content').style.display = 'block';
+        updateServers();
+    });
 
-        onValue(ref(db, 'prices'), (snapshot) => {
-            globalData = snapshot.val();
-            if(globalData) {
-                updateDropdown();
-                document.getElementById("loading").style.display = "none";
-                document.getElementById("mainStore").style.display = "block";
-            }
-        });
-
-        function updateDropdown() {
-            const service = document.getElementById("serviceSelector").value;
-            const data = globalData[service] || {};
-            const select = document.getElementById("serverSelector");
-            select.innerHTML = "";
-            
-            for (const [key, info] of Object.entries(data)) {
-                const opt = document.createElement("option");
-                opt.value = key;
-                opt.textContent = info.name;
-                select.appendChild(opt);
-            }
-            calculatePrice();
+    function updateServers() {
+        const service = document.getElementById('serviceSelector').value;
+        const serverSelect = document.getElementById('serverSelector');
+        serverSelect.innerHTML = "";
+        
+        const servers = allData[service] || {};
+        for (let key in servers) {
+            let opt = document.createElement('option');
+            opt.value = key;
+            opt.innerHTML = servers[key].name;
+            serverSelect.appendChild(opt);
         }
+        calculate();
+    }
 
-        function calculatePrice() {
-            const service = document.getElementById("serviceSelector").value;
-            const server = document.getElementById("serverSelector").value;
-            const op = document.getElementById("operationSelector").value;
-            const amount = document.getElementById("amountInput").value;
-            
-            if(globalData && globalData[service] && globalData[service][server]) {
-                const price = globalData[service][server][op] || 0;
-                document.getElementById("cashInput").value = (amount * price).toFixed(2) + " جنيه";
-            }
+    function calculate() {
+        const service = document.getElementById('serviceSelector').value;
+        const server = document.getElementById('serverSelector').value;
+        const op = document.getElementById('operationSelector').value;
+        const amount = document.getElementById('amountInput').value;
+
+        if (allData[service] && allData[service][server]) {
+            const price = allData[service][server][op] || 0;
+            document.getElementById('cashInput').value = (amount * price).toFixed(2);
         }
+    }
 
-        document.getElementById("serviceSelector").onchange = updateDropdown;
-        document.getElementById("serverSelector").onchange = calculatePrice;
-        document.getElementById("operationSelector").onchange = calculatePrice;
-        document.getElementById("amountInput").oninput = calculatePrice;
-    </script>
+    document.getElementById('serviceSelector').onchange = updateServers;
+    document.getElementById('serverSelector').onchange = calculate;
+    document.getElementById('operationSelector').onchange = calculate;
+    document.getElementById('amountInput').oninput = calculate;
+</script>
+
 </body>
 </html>
