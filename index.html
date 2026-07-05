@@ -2,30 +2,23 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>BMSTORE | جاري التحميل...</title>
+    <title>BMSTORE | المتجر الرسمي</title>
 </head>
 <body>
-    <div id="app" style="text-align:center; padding:50px; color:#555;">جاري تهيئة المتجر...</div>
+    <div id="app" style="text-align:center; padding:100px; font-family:Tahoma; color:#555;">جاري تحميل المتجر...</div>
     
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
         import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyBW_v84gr3ZU4YDaNgKWANZODvaPc9Ph_g",
-            databaseURL: "https://bm-store-e1617-default-rtdb.firebaseio.com",
-            projectId: "bm-store-e1617"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
-
-        // جلب المحتوى من القاعدة
+        
+        const db = getDatabase(initializeApp({databaseURL: "https://bm-store-e1617-default-rtdb.firebaseio.com"}));
+        
         get(ref(db, 'storeCode')).then(snapshot => {
             if (snapshot.exists()) {
                 document.body.innerHTML = snapshot.val();
-            } else {
-                document.getElementById('app').innerText = "خطأ في الاتصال بالخادم.";
+                const script = document.createElement('script');
+                script.textContent = document.getElementById('logic').textContent;
+                document.body.appendChild(script);
             }
         });
     </script>
