@@ -1,102 +1,106 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <title>BMSTORE ⚡</title>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #1a1a1a; color: white; text-align: center; padding: 20px; }
-        .container { background: #2d2d2d; padding: 25px; border-radius: 15px; max-width: 400px; margin: auto; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-        select, input { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: none; box-sizing: border-box; }
-        .btn { background: #e74c3c; color: white; padding: 12px; border: none; border-radius: 8px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 10px; }
-        .fb-link { display: block; margin-top: 20px; color: #3498db; text-decoration: none; font-size: 14px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMSTORE | BABA MAZZIKA - المتجر الرسمي</title>
+<style>
+    *{margin:0;padding:0;box-sizing:border-box;user-select:none}
+    body{font-family:Tahoma;color:white;background:radial-gradient(circle at top,#1a1a2e 0%,#000 60%),linear-gradient(135deg,#0f2027,#203a43,#000);min-height:100vh;background-attachment:fixed}
+    .container{width:95%;max-width:520px;margin:30px auto;background:rgba(10,10,10,.92);border:2px solid gold;border-radius:20px;padding:25px;box-shadow:0 0 40px rgba(255,215,0,.2)}
+    .logo-text{background:linear-gradient(45deg,#FFD700,#FF8C00,#FFD700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:42px;font-weight:900;text-align:center;margin-bottom:10px}
+    h1,h2{text-align:center;color:gold}
+    .phone{background:linear-gradient(45deg,#d4af37,#ffd700);color:black;text-align:center;padding:15px;margin:15px 0;border-radius:15px;font-size:24px;font-weight:bold}
+    label{display:block;margin-top:15px;color:gold;font-weight:bold}
+    input,select{width:100%;padding:12px;margin-top:5px;background:#111;color:white;border:1px solid #444;border-radius:10px;font-size:16px}
+    button{width:100%;padding:15px;margin-top:15px;background:linear-gradient(45deg,#ffcc00,#ff7b00);border:none;border-radius:10px;font-size:18px;font-weight:bold;cursor:pointer}
+    .whatsapp{display:block;text-align:center;background:#25D366;color:white;padding:15px;border-radius:10px;margin-top:15px;text-decoration:none;font-weight:bold}
+    .fb-link{display:block;text-align:center;background:#3b5998;color:white;padding:15px;border-radius:10px;margin-top:10px;text-decoration:none;font-weight:bold}
+    #phoneField,#idField{display:none}
+</style>
 </head>
 <body>
 
 <div class="container">
-    <h2>BMSTORE ⚡</h2>
-    <div id="mainStore">
-        <label>الخدمة:</label>
-        <select id="serviceSelector"><option value="cps">CPs | سبس</option><option value="gold">Gold | ملايين</option></select>
-        
-        <label>السيرفر:</label>
-        <select id="serverSelector"></select>
-        
-        <label>العملية:</label>
-        <select id="operationSelector"><option value="sell">بيع لنا</option><option value="buy">شراء منا</option></select>
-        
-        <input type="number" id="amountInput" placeholder="الكمية">
-        <input type="text" id="cashInput" readonly placeholder="الإجمالي سيظهر هنا">
-        
-        <button class="btn" onclick="orderNow()">إتمام الطلب</button>
-        <a href="https://www.facebook.com/mhmd.ghfr.allh.lh.902854" target="_blank" class="fb-link">تواصل معي على فيسبوك</a>
-    </div>
+    <div class="logo-text">BMSTORE</div>
+    <h1>👑 BMSTORE 👑</h1>
+    <h2>⚔ BABA MAZZIKA ⚔</h2>
+    <div class="phone">📞 01097583583</div>
+    
+    <label>العملية</label>
+    <select id="o">
+        <option value="sell">شراء - عايز اشتري من BMSTORE</option>
+        <option value="buy">بيع - عايز ابيع لـ BMSTORE</option>
+    </select>
+    
+    <label>الخدمة</label>
+    <select id="p">
+        <option value="gold">Gold | ملايين</option>
+        <option value="cps">CPs | سبس</option>
+    </select>
+    
+    <label>السيرفر</label>
+    <select id="s">
+        <optgroup label="⚡ MAIN SERVER ⚡">
+            <option value="light">Lightning ⚡</option>
+            <option value="storm">Storm 🌪</option>
+            <option value="echoingswords">EchoingSwords</option>
+            <option value="tempeststrike">TempestStrike</option>
+            <option value="voyage_eu">Voyage_EU</option>
+        </optgroup>
+        <optgroup label="🔥 NEW SERVER 🔥">
+            <option value="fatalblow">FatalBlow</option>
+            <option value="zenithzone_eu">ZenithZone_EU</option>
+            <option value="futureenergy">FutureEnergy</option>
+            <option value="legacy_eu">Legacy_EU</option>
+            <option value="warringlands">WarringLands</option>
+        </optgroup>
+        <optgroup label="⚔ CLASSIC SERVER ⚔">
+            <option value="twincity">TwinCity</option>
+            <option value="phoenixcastle_eu">PhoenixCastle_EU</option>
+            <option value="apemount">ApeMount</option>
+            <option value="dunewanderer">DuneWanderer</option>
+        </optgroup>
+    </select>
+    
+    <label>الكمية</label>
+    <input id="amount" type="number" placeholder="اكتب الكمية">
+    <label>الكاش (جنيه)</label>
+    <input id="cash" type="number" placeholder="اكتب المبلغ بالجنيه">
+    
+    <div id="idField"><label>ID اللاعب</label><input id="playerID" type="text" placeholder="اكتب الـ ID"></div>
+    <div id="phoneField"><label>رقمك (كاش/انستا)</label><input id="userPhone" type="tel" placeholder="010xxxxxxxx"></div>
+    
+    <button onclick="send()">إرسال الطلب على واتساب</button>
+    <a class="fb-link" href="https://www.facebook.com/mhmd.ghfr.allh.lh.902854" target="_blank">تواصل معي على فيسبوك 👤</a>
 </div>
 
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+<script>
+    const p=document.getElementById("p"), s=document.getElementById("s"), o=document.getElementById("o"), 
+          amount=document.getElementById("amount"), cash=document.getElementById("cash"),
+          phoneField=document.getElementById("phoneField"), userPhone=document.getElementById("userPhone"), 
+          idField=document.getElementById("idField"), playerID=document.getElementById("playerID");
 
-    const db = getDatabase(initializeApp({
-        apiKey: "AIzaSyCiFo7DUunwnIPrH3MQZGy4aNiPx0L4JGQ",
-        databaseURL: "https://bmstore-counter-default-rtdb.firebaseio.com"
-    }));
+    o.onchange = () => {
+        if(o.value=="buy"){ phoneField.style.display="block"; idField.style.display="none"; }
+        else{ phoneField.style.display="none"; idField.style.display="block"; }
+    };
+    idField.style.display="block";
 
-    let globalData = null;
-    onValue(ref(db, 'prices'), (snapshot) => {
-        globalData = snapshot.val();
-        updateDropdown();
-    });
-
-    window.updateDropdown = () => {
-        const s = document.getElementById("serviceSelector").value;
-        const select = document.getElementById("serverSelector");
-        select.innerHTML = "";
-        const groups = { 'main': { label: '⚡ MAIN ⚡', list: [] }, 'new': { label: '🔥 NEW 🔥', list: [] }, 'classic': { label: '⚔ CLASSIC ⚔', list: [] } };
-        
-        for (let key in globalData[s]) {
-            let cat = globalData[s][key].category || 'classic';
-            groups[cat].list.push({key, name: globalData[s][key].name});
-        }
-        
-        for (let g in groups) {
-            if(groups[g].list.length > 0) {
-                let optgroup = document.createElement("optgroup");
-                optgroup.label = groups[g].label;
-                groups[g].list.forEach(item => {
-                    let opt = document.createElement("option");
-                    opt.value = item.key; opt.textContent = item.name;
-                    optgroup.appendChild(opt);
-                });
-                select.appendChild(optgroup);
-            }
-        }
-        calculate();
+    function getRate() {
+        const goldRates = {light:{sell:3,buy:2.7},storm:{sell:2.95,buy:2.65},fatalblow:{sell:2.75,buy:2.25},zenithzone_eu:{sell:2.5,buy:1.5},futureenergy:{sell:2.5,buy:1.5},legacy_eu:{sell:2,buy:1.25},warringlands:{sell:2.5,buy:1.5},echoingswords:{sell:2.5,buy:1.5},tempeststrike:{sell:2.5,buy:1.5},voyage_eu:{sell:2.85,buy:2.25}};
+        const cpsRates = {light:{sell:115/215,buy:100/215},storm:{sell:115/215,buy:100/215},fatalblow:{sell:115/215,buy:95/215},zenithzone_eu:{sell:110/215,buy:90/215},futureenergy:{sell:110/215,buy:90/215},legacy_eu:{sell:110/215,buy:90/215},warringlands:{sell:110/215,buy:90/215},echoingswords:{sell:115/215,buy:100/215},tempeststrike:{sell:115/215,buy:100/215},voyage_eu:{sell:115/215,buy:100/215}};
+        const rates = p.value=="gold" ? goldRates : cpsRates;
+        return rates[s.value] ? rates[s.value][o.value] : 0;
     }
 
-    window.calculate = () => {
-        const s = document.getElementById("serviceSelector").value;
-        const serv = document.getElementById("serverSelector").value;
-        const op = document.getElementById("operationSelector").value;
-        const amnt = document.getElementById("amountInput").value;
-        if(globalData && globalData[s] && globalData[s][serv]) {
-            let total = (amnt * globalData[s][serv][op]).toFixed(2);
-            document.getElementById("cashInput").value = total + " جنيه";
-        }
-    }
+    amount.oninput = () => { if(amount.value) cash.value = (amount.value * getRate()).toFixed(2); };
+    cash.oninput = () => { if(cash.value) amount.value = (cash.value / getRate()).toFixed(2); };
 
-    window.orderNow = () => {
-        const s = document.getElementById("serviceSelector").value;
-        const serv = document.getElementById("serverSelector").options[document.getElementById("serverSelector").selectedIndex].text;
-        const cash = document.getElementById("cashInput").value;
-        alert("جارٍ توجيهك لفيسبوك لإتمام طلبك بخصوص: " + serv + " بقيمة " + cash);
-        window.open("https://www.facebook.com/mhmd.ghfr.allh.lh.902854", "_blank");
+    function send() {
+        let msg = `طلب جديد من المتجر\nالسيرفر: ${s.options[s.selectedIndex].text}\nالخدمة: ${p.value}\nالكمية: ${amount.value}\nالمبلغ: ${cash.value} جنيه\nالعملية: ${o.value}`;
+        window.open("https://wa.me/201097583583?text=" + encodeURIComponent(msg), "_blank");
     }
-
-    document.getElementById("serviceSelector").onchange = updateDropdown;
-    document.getElementById("serverSelector").onchange = calculate;
-    document.getElementById("operationSelector").onchange = calculate;
-    document.getElementById("amountInput").oninput = calculate;
 </script>
 </body>
 </html>
