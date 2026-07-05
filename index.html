@@ -3,16 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المتجر الرسمي</title>
+    <meta name="author" content="BMSTORE">
+    <meta name="description" content="متجر رسمي لبيع وشراء Gold و CPs في Conquer Online">
+    <title>BMSTORE | المتجر الرسمي</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
         body {
-            font-family: Tahoma, Geneva, sans-serif; color: white;
+            font-family: Tahoma, Geneva, sans-serif;
+            color: white;
             background: radial-gradient(circle at top, #1a1a2e 0%, #000 60%), linear-gradient(135deg, #0f2027, #203a43, #000);
-            min-height: 100vh; background-attachment: fixed;
+            min-height: 100vh;
+            background-attachment: fixed;
         }
         body:before {
-            content: ""; position: fixed; inset: 0;
+            content: "";
+            position: fixed; inset: 0;
             background: radial-gradient(circle at 20% 20%, rgba(255, 215, 0,.08), transparent 40%),
                         radial-gradient(circle at 80% 70%, rgba(255, 120, 0,.06), transparent 40%);
             pointer-events: none;
@@ -27,7 +32,7 @@
             background: linear-gradient(45deg, #FFD700, #FF8C00, #FFD700);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             font-size: 42px; font-weight: 900; text-align: center;
-            letter-spacing: 2px;
+            letter-spacing: 2px; text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
         }
         h1, h2 { text-align: center; color: gold; }
         h1 { font-size: 22px; margin-top: 5px; }
@@ -42,9 +47,14 @@
             color: #00ff00; text-align: center; padding: 10px;
             border-radius: 10px; margin: 10px 0; font-weight: bold; font-size: 14px;
         }
-       .loading { text-align: center; color: gold; padding: 20px; font-size: 18px; }
         label { display: block; margin-top: 15px; color: gold; font-weight: bold; }
        .small-en { font-size: 12px; color: #aaa; }
+       .billion-badge {
+            display: inline-block; background: linear-gradient(45deg, #FFD700, #FF8C00);
+            color: #000; padding: 2px 8px; border-radius: 5px; font-size: 11px;
+            font-weight: bold; margin-right: 5px; animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
         input, select {
             width: 100%; padding: 12px; margin-top: 5px; background: #111;
             color: white; border: 1px solid #444; border-radius: 10px;
@@ -54,6 +64,8 @@
             outline: none; border-color: #FFD700;
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
         }
+        optgroup { color: gold; font-weight: bold; background: #000; }
+        option { color: white; background: #111; }
         button {
             width: 100%; padding: 15px; margin-top: 15px;
             background: linear-gradient(45deg, #ffcc00, #ff7b00);
@@ -82,6 +94,12 @@
             padding: 8px 20px; border-radius: 8px;
             font-weight: bold; cursor: pointer; margin-top: 5px;
         }
+       .coming-soon-msg {
+            background: rgba(255, 100, 0, 0.2); border: 2px solid #ff6400;
+            color: #ff6400; padding: 10px; border-radius: 8px;
+            text-align: center; margin: 10px 0; display: none;
+            font-weight: bold;
+        }
         footer {
             text-align: center; margin-top: 30px; padding-top: 20px;
             border-top: 1px solid #333; color: #888; font-size: 12px;
@@ -92,262 +110,443 @@
 <body>
 
 <div class="container">
-    <div class="logo-text" id="storeName">جار التحميل...</div>
+    <div class="logo-text" id="storeName">BMSTORE</div>
     <h1>👑 المتجر الرسمي 👑</h1>
-    <h2 id="ownerName">⚔ جار التحميل ⚔</h2>
+    <h2 id="ownerName">⚔ BABA MAZZIKA ⚔</h2>
     <div class="verified-badge">✅ المتجر الرسمي الموثق</div>
 
-    <div class="phone" id="phoneNumber">📞 جار التحميل...</div>
+    <div class="phone" id="phoneNumber">📞 01097583583</div>
 
-    <div id="loading" class="loading">⏳ جاري تحميل البيانات من قاعدة البيانات...</div>
+    <label>العملية <span class="small-en">Operation</span></label>
+    <select id="operationSelector">
+        <option value="sell">شراء - عايز اشتري من المتجر</option>
+        <option value="buy">بيع - عايز ابيع للمتجر</option>
+    </select>
 
-    <div id="mainForm" style="display:none;">
-        <label>العملية <span class="small-en">Operation</span></label>
-        <select id="operationSelector">
-            <option value="sell">شراء - عايز اشتري من المتجر</option>
-            <option value="buy">بيع - عايز ابيع للمتجر</option>
-        </select>
+    <label>الخدمة <span class="small-en">Service</span></label>
+    <select id="serviceSelector">
+        <option value="gold">Gold | ملايين</option>
+        <option value="cps">CPs | سبس</option>
+    </select>
 
-        <label>الخدمة <span class="small-en">Service</span></label>
-        <select id="serviceSelector">
-            <option value="gold">Gold | ملايين</option>
-            <option value="cps">CPs | سبس</option>
-        </select>
+    <label>السيرفر <span class="small-en">Server</span></label>
+    <select id="serverSelector">
+        <option value="">اختر السيرفر</option>
+    </select>
 
-        <label>السيرفر <span class="small-en">Server</span></label>
-        <select id="serverSelector">
-            <option value="">جاري تحميل السيرفرات...</option>
-        </select>
+    <div class="coming-soon-msg" id="comingSoonMsg">⚔ Coming Soon - السيرفر ده لسه مفتحش ⚔</div>
 
-        <label>الكمية <span class="small-en" id="unitLabel">Amount</span></label>
-        <input id="amountInput" type="number" step="any" placeholder="اكتب الكمية">
+    <label>الكمية <span class="small-en" id="unitLabel">Amount (بالملايين)</span>
+        <span id="billionBadge" style="display: none;" class="billion-badge"></span>
+    </label>
+    <input id="amountInput" type="number" step="any" placeholder="اكتب الكمية">
 
-        <label>الكاش <span class="small-en">Cash (EGP)</span></label>
-        <input id="cashInput" type="number" step="any" placeholder="اكتب المبلغ بالجنيه">
+    <label>الكاش <span class="small-en">Cash (EGP)</span>
+        <span id="cashBadge" style="display: none;" class="billion-badge"></span>
+    </label>
+    <input id="cashInput" type="number" step="any" placeholder="اكتب المبلغ بالجنيه">
 
-        <div id="idField">
-            <label>🎮 ID اللاعب <span class="small-en">Player ID</span></label>
-            <input id="playerID" type="text" placeholder="اكتب الـ ID او ايميل الاكونت">
-        </div>
-
-        <label>طريقة الدفع <span class="small-en">Payment Method</span></label>
-        <select id="paymentSelector">
-            <option value="كاش">💳 فودافون كاش</option>
-            <option value="انستا">📱 انستا باي</option>
-        </select>
-
-        <div id="paymentNumberBox">
-            <div style="color:#FFD700;font-size:14px;margin-bottom:8px;" id="payMethodLabel"></div>
-            <div class="pay-number" id="payMethodNumber"></div>
-            <button class="copy-btn" onclick="copyPaymentNumber()">📋 انسخ الرقم</button>
-        </div>
-
-        <div id="phoneField" style="display:none;">
-            <label>📱 رقم الكاش/انستا بتاعك <span class="small-en">Your Number</span></label>
-            <input id="userPhone" type="tel" placeholder="010xxxxxxxx" maxlength="11">
-        </div>
-
-        <button id="sendBtn" onclick="sendOrder()">إرسال الطلب على واتساب</button>
-        <a class="whatsapp" id="whatsappLink" href="#" target="_blank">WhatsApp Direct</a>
+    <div id="idField">
+        <label>🎮 ID اللاعب <span class="small-en">Player ID</span></label>
+        <input id="playerID" type="text" placeholder="اكتب الـ ID او ايميل الاكونت">
     </div>
 
+    <label>طريقة الدفع <span class="small-en">Payment Method</span></label>
+    <select id="paymentSelector">
+        <option value="كاش">💳 فودافون كاش</option>
+        <option value="انستا">📱 انستا باي</option>
+    </select>
+
+    <div id="paymentNumberBox">
+        <div style="color:#FFD700;font-size:14px;margin-bottom:8px;" id="payMethodLabel"></div>
+        <div class="pay-number" id="payMethodNumber"></div>
+        <button class="copy-btn" onclick="copyPaymentNumber()">📋 انسخ الرقم</button>
+        <div style="color:#ccc;font-size:12px;margin-top:8px;">حول المبلغ وابعت سكرين شوت على الواتساب</div>
+    </div>
+
+    <div id="phoneField" style="display:none;">
+        <label>📱 رقم الكاش/انستا بتاعك <span class="small-en">Your Number</span></label>
+        <input id="userPhone" type="tel" placeholder="010xxxxxxxx" maxlength="11">
+    </div>
+
+    <button id="sendBtn" onclick="sendOrder()">إرسال الطلب على واتساب</button>
+    <a class="whatsapp" id="whatsappLink" href="https://wa.me/201097583583" target="_blank">WhatsApp Direct</a>
+
     <footer>
-        <div class="owner" id="footerOwner">👑 ملكية: جار التحميل</div>
+        <div class="owner" id="footerOwner">👑 ملكية: BABA MAZZIKA</div>
         <div>© 2026 - All Rights Reserved</div>
+        <div>المتجر الرسمي الوحيد الموثوق</div>
     </footer>
 </div>
 
-<script type="module">
-    // ===== هتجيب كل حاجة من الـ API/Database بتاعتك هنا =====
-
-    let STORE_DATA = {}; // بيانات المتجر
-    let SERVERS_DATA = {}; // السيرفرات
-    let PRICES_DATA = {}; // الأسعار
-    let currentPaymentNumber = "";
-
-    // ===== غير الفانكشن دي بالـ API بتاعك =====
-    async function loadFromDatabase() {
-        // مثال لو بتستخدم Firebase:
-        // const storeSnap = await getDoc(doc(db, "config", "store"));
-        // STORE_DATA = storeSnap.data();
-
-        // مثال لو بتستخدم API عادي:
-        // const res = await fetch('https://your-api.com/getStoreData');
-        // const data = await res.json();
-        // STORE_DATA = data.store;
-        // SERVERS_DATA = data.servers;
-        // PRICES_DATA = data.prices;
-
-        // دلوقتي هسيبها فاضية وانت املاها
-        console.log('لازم تحط كود جلب البيانات من الـ Database بتاعتك هنا');
-
-        // بعد ما تجيب البيانات، شغل initStore()
-        // initStore();
+<script>
+// ===== غير البيانات دي بس =====
+const STORE_CONFIG = {
+    name: "BMSTORE",
+    owner: "BABA MAZZIKA",
+    phone: "01097583583",
+    whatsapp: "201097583583",
+    paymentNumbers: {
+        كاش: ["01097583583", "01064542987", "01096340085"],
+        انستا: ["01016882571"]
     }
+};
 
-    // ===== دي الفانكشن اللي بتبني الموقع بعد ما البيانات تيجي =====
-    function initStore() {
-        document.getElementById('storeName').innerText = STORE_DATA.name || 'STORE';
-        document.getElementById('ownerName').innerText = `⚔ ${STORE_DATA.owner || 'المالك'} ⚔`;
-        document.getElementById('phoneNumber').innerText = `📞 ${STORE_DATA.phone || '00000000000'}`;
-        document.getElementById('footerOwner').innerText = `👑 ملكية: ${STORE_DATA.owner || 'المالك'}`;
-        document.getElementById('whatsappLink').href = `https://wa.me/${STORE_DATA.whatsapp || '201000000000'}`;
+// ===== الأسعار والسيرفرات اللي بعتهالي =====
+const PRICES = {
+    "cps": {
+        "light": { "name": "Lightning ⚡", "category": "main", "sell": 0.5349, "buy": 0.4651 },
+        "storm": { "name": "Storm 🌪", "category": "main", "sell": 0.5349, "buy": 0.4651 },
+        "fatalblow": { "name": "FatalBlow", "category": "new", "sell": 0.5349, "buy": 0.4419 },
+        "zenithzone_eu": { "name": "ZenithZone_EU", "category": "new", "sell": 0.5116, "buy": 0.4186 },
+        "futureenergy": { "name": "FutureEnergy", "category": "new", "sell": 0.5116, "buy": 0.4186 },
+        "legacy_eu": { "name": "Legacy_EU", "category": "new", "sell": 0.5116, "buy": 0.4186 },
+        "warringlands": { "name": "WarringLands", "category": "new", "sell": 0.5116, "buy": 0.4186 },
+        "echoingswords": { "name": "EchoingSwords", "category": "main", "sell": 0.5349, "buy": 0.4651 },
+        "tempeststrike": { "name": "TempestStrike", "category": "main", "sell": 0.5349, "buy": 0.4651 },
+        "voyage_eu": { "name": "Voyage_EU", "category": "main", "sell": 0.5349, "buy": 0.4651 },
+        "twincity": { "name": "TwinCity", "category": "classic", "sell": 0, "buy": 0 },
+        "phoenixcastle_eu": { "name": "PhoenixCastle_EU", "category": "classic", "sell": 0, "buy": 0 },
+        "apemount": { "name": "ApeMount", "category": "classic", "sell": 0, "buy": 0 },
+        "dunewanderer": { "name": "DuneWanderer", "category": "classic", "sell": 0, "buy": 0 }
+    },
+    "gold": {
+        "light": { "name": "Lightning ⚡", "category": "main", "sell": 3.00, "buy": 2.70 },
+        "storm": { "name": "Storm 🌪", "category": "main", "sell": 2.95, "buy": 2.65 },
+        "fatalblow": { "name": "FatalBlow", "category": "new", "sell": 2.75, "buy": 2.25 },
+        "zenithzone_eu": { "name": "ZenithZone_EU", "category": "new", "sell": 2.50, "buy": 1.50 },
+        "futureenergy": { "name": "FutureEnergy", "category": "new", "sell": 2.50, "buy": 1.50 },
+        "legacy_eu": { "name": "Legacy_EU", "category": "new", "sell": 2.00, "buy": 1.25 },
+        "warringlands": { "name": "WarringLands", "category": "new", "sell": 2.50, "buy": 1.50 },
+        "echoingswords": { "name": "EchoingSwords", "category": "main", "sell": 2.50, "buy": 1.50 },
+        "tempeststrike": { "name": "TempestStrike", "category": "main", "sell": 2.50, "buy": 1.50 },
+        "voyage_eu": { "name": "Voyage_EU", "category": "main", "sell": 2.85, "buy": 2.25 },
+        "twincity": { "name": "TwinCity", "category": "classic", "sell": 0, "buy": 0 },
+        "phoenixcastle_eu": { "name": "PhoenixCastle_EU", "category": "classic", "sell": 0, "buy": 0 },
+        "apemount": { "name": "ApeMount", "category": "classic", "sell": 0, "buy": 0 },
+        "dunewanderer": { "name": "DuneWanderer", "category": "classic", "sell": 0, "buy": 0 }
+    }
+};
 
-        // تحميل السيرفرات
-        const serverSelector = document.getElementById('serverSelector');
-        serverSelector.innerHTML = '<option value="">اختر السيرفر</option>';
+// ===== تحميل البيانات =====
+document.getElementById('storeName').innerText = STORE_CONFIG.name;
+document.getElementById('ownerName').innerText = `⚔ ${STORE_CONFIG.owner} ⚔`;
+document.getElementById('phoneNumber').innerText = `📞 ${STORE_CONFIG.phone}`;
+document.getElementById('footerOwner').innerText = `👑 ملكية: ${STORE_CONFIG.owner}`;
+document.getElementById('whatsappLink').href = `https://wa.me/${STORE_CONFIG.whatsapp}`;
 
-        // السيرفرات هتيجي من SERVERS_DATA
-        Object.keys(SERVERS_DATA).forEach(key => {
+// ترتيب السيرفرات: Lightning و Storm أول حاجة، بعدين main، new، classic
+function loadServers() {
+    const serverSelector = document.getElementById('serverSelector');
+    serverSelector.innerHTML = '<option value="">اختر السيرفر</option>';
+
+    const servers = PRICES.gold;
+    const order = ['light', 'storm'];
+
+    order.forEach(key => {
+        if(servers[key]) {
             const opt = document.createElement('option');
             opt.value = key;
-            opt.textContent = SERVERS_DATA[key].name || key;
+            opt.textContent = servers[key].name;
             serverSelector.appendChild(opt);
-        });
-
-        document.getElementById('loading').style.display = 'none';
-        document.getElementById('mainForm').style.display = 'block';
-    }
-
-    // ===== باقي اللوجيك =====
-    const serviceSelector = document.getElementById("serviceSelector");
-    const serverSelector = document.getElementById("serverSelector");
-    const operationSelector = document.getElementById("operationSelector");
-    const amountInput = document.getElementById("amountInput");
-    const cashInput = document.getElementById("cashInput");
-    const paymentSelector = document.getElementById("paymentSelector");
-    const unitLabel = document.getElementById("unitLabel");
-    const phoneField = document.getElementById("phoneField");
-    const userPhone = document.getElementById("userPhone");
-    const idField = document.getElementById("idField");
-    const playerID = document.getElementById("playerID");
-    const paymentNumberBox = document.getElementById("paymentNumberBox");
-    const payMethodLabel = document.getElementById("payMethodLabel");
-    const payMethodNumber = document.getElementById("payMethodNumber");
-
-    let isUpdating = false;
-
-    function getRandomPaymentNumber(type) {
-        const numbers = STORE_DATA.paymentNumbers?.[type] || ['00000000000'];
-        return numbers[Math.floor(Math.random() * numbers.length)];
-    }
-
-    paymentSelector.onchange = () => {
-        currentPaymentNumber = getRandomPaymentNumber(paymentSelector.value);
-        if(operationSelector.value == "sell"){
-            paymentNumberBox.style.display = "block";
-            payMethodLabel.innerText = `حول على ${paymentSelector.value == 'كاش'? 'فودافون كاش' : 'انستا باي'}:`;
-            payMethodNumber.innerText = currentPaymentNumber;
-        } else {
-            paymentNumberBox.style.display = "none";
         }
-    };
-
-    window.copyPaymentNumber = function(){
-        navigator.clipboard.writeText(currentPaymentNumber);
-        alert('✅ تم نسخ الرقم: ' + currentPaymentNumber);
-    }
-
-    operationSelector.onchange = () => {
-        if(operationSelector.value == "buy"){
-            phoneField.style.display = "block";
-            idField.style.display = "none";
-            paymentNumberBox.style.display = "none";
-        } else {
-            phoneField.style.display = "none";
-            idField.style.display = "block";
-            paymentSelector.onchange();
-        }
-        if(amountInput.value) amountInput.oninput();
-    };
-
-    serviceSelector.addEventListener('change', () => {
-        unitLabel.textContent = serviceSelector.value == "gold"? "Amount (بالملايين)" : "Amount (بالسبس)";
-        if(amountInput.value) amountInput.oninput();
     });
 
-    function getPrice(){
-        const server = serverSelector.value;
-        const service = serviceSelector.value;
-        const op = operationSelector.value;
-        if(!server ||!PRICES_DATA[service]?.[server]) return 0;
-        return PRICES_DATA[service][server][op] || 0;
+    const groups = { main: [], new: [], classic: [] };
+    Object.keys(servers).forEach(key => {
+        if(!order.includes(key)) {
+            groups[servers[key].category].push({key, name: servers[key].name});
+        }
+    });
+
+    if(groups.main.length > 0) {
+        const group = document.createElement('optgroup');
+        group.label = '⚡ MAIN SERVERS ⚡';
+        groups.main.forEach(s => {
+            const opt = document.createElement('option');
+            opt.value = s.key;
+            opt.textContent = s.name;
+            group.appendChild(opt);
+        });
+        serverSelector.appendChild(group);
     }
 
-    amountInput.oninput = () => {
-        if(isUpdating) return;
-        isUpdating = true;
-        if(amountInput.value === ""){
-            cashInput.value = "";
-            isUpdating = false;
-            return;
-        }
-        const price = getPrice();
-        cashInput.value = price > 0? (amountInput.value * price).toFixed(2) : 0;
-        isUpdating = false;
-    };
-
-    cashInput.oninput = () => {
-        if(isUpdating) return;
-        isUpdating = true;
-        if(cashInput.value === ""){
-            amountInput.value = "";
-            isUpdating = false;
-            return;
-        }
-        const price = getPrice();
-        amountInput.value = price > 0? (cashInput.value / price).toFixed(2) : 0;
-        isUpdating = false;
-    };
-
-    serverSelector.onchange = () => {
-        if(amountInput.value) amountInput.oninput();
-    };
-
-    paymentSelector.onchange();
-
-    window.sendOrder = function(){
-        if(!amountInput.value || amountInput.value == 0){
-            alert("اكتب الكمية او الكاش الاول");
-            return;
-        }
-        if(!serverSelector.value){
-            alert("اختر السيرفر الاول");
-            return;
-        }
-        if(operationSelector.value == "sell" &&!playerID.value.trim()){
-            alert("لازم تكتب الـ ID بتاعك عشان التسليم");
-            return;
-        }
-        if(operationSelector.value == "buy" &&!userPhone.value){
-            alert("اكتب رقم الكاش/انستا بتاعك");
-            return;
-        }
-
-        const price = getPrice().toFixed(4);
-        const serviceName = serviceSelector.value == "gold"? "Gold" : "CPs";
-        const serverName = SERVERS_DATA[serverSelector.value]?.name || serverSelector.value;
-        const operationText = operationSelector.value == "sell"? "طلب شراء منك" : "طلب بيع لك";
-        const emoji = operationSelector.value == "sell"? "🔥" : "💵";
-        const paymentMethodText = paymentSelector.value == 'كاش'? 'فودافون كاش' : 'انستا باي';
-
-        let msg = `${emoji} ${operationText} - ${STORE_DATA.name}\n\n⚔ السيرفر: ${serverName}\n📦 الخدمة: ${serviceName}\n🔢 الكمية: ${amountInput.value}\n💵 السعر: ${price} جنيه\n💰 المبلغ المستحق: ${cashInput.value} جنيه\n💳 طريقة الدفع: ${paymentMethodText}`;
-
-        if(operationSelector.value == "sell"){
-            msg += `\n\n📲 حول على: ${currentPaymentNumber}\n🎮 ID اللاعب: ${playerID.value.trim()}`;
-            msg += `\n\nوابعت سكرين التحويل هنا ✅`;
-        }
-        if(operationSelector.value == "buy"){
-            msg += `\n📱 رقم التحويل: ${userPhone.value}\n\n✅ سيتم تحويل المبلغ لحسابك فور التأكيد`;
-        }
-
-        window.open(`https://wa.me/${STORE_DATA.whatsapp}?text=` + encodeURIComponent(msg));
+    if(groups.new.length > 0) {
+        const group = document.createElement('optgroup');
+        group.label = '🔥 NEW SERVERS 🔥';
+        groups.new.forEach(s => {
+            const opt = document.createElement('option');
+            opt.value = s.key;
+            opt.textContent = s.name;
+            group.appendChild(opt);
+        });
+        serverSelector.appendChild(group);
     }
 
-    // ===== شغل تحميل البيانات =====
-    loadFromDatabase();
+    if(groups.classic.length > 0) {
+        const group = document.createElement('optgroup');
+        group.label = '⚔ CLASSIC SERVERS ⚔';
+        groups.classic.forEach(s => {
+            const opt = document.createElement('option');
+            opt.value = s.key;
+            opt.textContent = s.name;
+            group.appendChild(opt);
+        });
+        serverSelector.appendChild(group);
+    }
+}
 
-    document.addEventListener('contextmenu', e => e.preventDefault());
+loadServers();
+
+// ===== اللوجيك =====
+const serviceSelector = document.getElementById("serviceSelector");
+const serverSelector = document.getElementById("serverSelector");
+const operationSelector = document.getElementById("operationSelector");
+const amountInput = document.getElementById("amountInput");
+const cashInput = document.getElementById("cashInput");
+const paymentSelector = document.getElementById("paymentSelector");
+const unitLabel = document.getElementById("unitLabel");
+const phoneField = document.getElementById("phoneField");
+const userPhone = document.getElementById("userPhone");
+const idField = document.getElementById("idField");
+const playerID = document.getElementById("playerID");
+const paymentNumberBox = document.getElementById("paymentNumberBox");
+const payMethodLabel = document.getElementById("payMethodLabel");
+const payMethodNumber = document.getElementById("payMethodNumber");
+const comingSoonMsg = document.getElementById("comingSoonMsg");
+const sendBtn = document.getElementById("sendBtn");
+const billionBadge = document.getElementById("billionBadge");
+const cashBadge = document.getElementById("cashBadge");
+
+let isUpdating = false;
+let currentPaymentNumber = "";
+
+function getRandomPaymentNumber(type) {
+    const numbers = STORE_CONFIG.paymentNumbers[type];
+    return numbers[Math.floor(Math.random() * numbers.length)];
+}
+
+paymentSelector.onchange = () => {
+    currentPaymentNumber = getRandomPaymentNumber(paymentSelector.value);
+    if(operationSelector.value == "sell"){
+        paymentNumberBox.style.display = "block";
+        payMethodLabel.innerText = `حول على ${paymentSelector.value == 'كاش'? 'فودافون كاش' : 'انستا باي'}:`;
+        payMethodNumber.innerText = currentPaymentNumber;
+    } else {
+        paymentNumberBox.style.display = "none";
+    }
+};
+
+function copyPaymentNumber(){
+    navigator.clipboard.writeText(currentPaymentNumber);
+    alert('✅ تم نسخ الرقم: ' + currentPaymentNumber);
+}
+
+operationSelector.onchange = () => {
+    if(operationSelector.value == "buy"){
+        phoneField.style.display = "block";
+        idField.style.display = "none";
+        paymentNumberBox.style.display = "none";
+    } else {
+        phoneField.style.display = "none";
+        idField.style.display = "block";
+        paymentSelector.onchange();
+    }
+    if(amountInput.value) amountInput.oninput();
+};
+
+serviceSelector.addEventListener('change', () => {
+    unitLabel.textContent = serviceSelector.value == "gold"? "Amount (بالملايين)" : "Amount (بالسبس)";
+    if(amountInput.value) amountInput.oninput();
+    checkServerAvailability();
+});
+
+function getPrice(){
+    const server = serverSelector.value;
+    const service = serviceSelector.value;
+    const op = operationSelector.value;
+    if(!server ||!PRICES[service][server]) return 0;
+    return PRICES[service][server][op] || 0;
+}
+
+function checkServerAvailability(){
+    const server = serverSelector.value;
+    const service = serviceSelector.value;
+    if(!server) {
+        comingSoonMsg.style.display = 'none';
+        sendBtn.disabled = false;
+        return;
+    }
+    const price = PRICES[service][server];
+    if(price.sell == 0 && price.buy == 0){
+        comingSoonMsg.style.display = 'block';
+        sendBtn.disabled = true;
+        amountInput.value = '';
+        cashInput.value = '';
+    } else {
+        comingSoonMsg.style.display = 'none';
+        sendBtn.disabled = false;
+    }
+}
+
+function formatBillion(num){
+    const billions = Math.floor(num / 1000);
+    const millions = Math.floor(num % 1000);
+    if(billions > 0 && millions > 0){
+        return `${billions} مليار ${millions} مليون`;
+    } else if(billions > 0){
+        return `${billions} مليار`;
+    } else {
+        return `${num} مليون`;
+    }
+}
+
+function formatCash(num){
+    const millions = Math.floor(num / 1000000);
+    const remainderAfterMillion = num % 1000000;
+    const thousands = Math.floor(remainderAfterMillion / 1000);
+    const remainder = Math.floor(num % 1000);
+    let parts = [];
+    if(millions > 0) parts.push(`${millions} مليون`);
+    if(thousands > 0) parts.push(`${thousands} الف`);
+    if(remainder > 0) parts.push(`${remainder}`);
+    return parts.length > 0? parts.join(' ') + ' جنيه' : `${num} جنيه`;
+}
+
+amountInput.oninput = () => {
+    if(isUpdating) return;
+    isUpdating = true;
+
+    const amountVal = parseFloat(amountInput.value);
+    if(serviceSelector.value == "gold" && amountVal >= 1000){
+        billionBadge.style.display = "inline-block";
+        billionBadge.textContent = `${formatBillion(amountVal)} 💰`;
+    } else {
+        billionBadge.style.display = "none";
+    }
+
+    if(amountInput.value === ""){
+        cashInput.value = "";
+        cashBadge.style.display = "none";
+        isUpdating = false;
+        return;
+    }
+
+    const price = getPrice();
+    cashInput.value = price > 0? (amountInput.value * price).toFixed(2) : 0;
+
+    const cashVal = parseFloat(cashInput.value);
+    if(cashVal >= 1000){
+        cashBadge.style.display = "inline-block";
+        cashBadge.textContent = `${formatCash(cashVal)} 💵`;
+        cashBadge.style.background = cashVal >= 1000000? "linear-gradient(45deg,#00ff00,#00cc00)" : "linear-gradient(45deg,#FFD700,#FF8C00)";
+    } else {
+        cashBadge.style.display = "none";
+    }
+
+    isUpdating = false;
+};
+
+cashInput.oninput = () => {
+    if(isUpdating) return;
+    isUpdating = true;
+
+    const cashVal = parseFloat(cashInput.value);
+    if(cashVal >= 1000){
+        cashBadge.style.display = "inline-block";
+        cashBadge.textContent = `${formatCash(cashVal)} 💵`;
+        cashBadge.style.background = cashVal >= 1000000? "linear-gradient(45deg,#00ff00,#00cc00)" : "linear-gradient(45deg,#FFD700,#FF8C00)";
+    } else {
+        cashBadge.style.display = "none";
+    }
+
+    if(cashInput.value === ""){
+        amountInput.value = "";
+        billionBadge.style.display = "none";
+        isUpdating = false;
+        return;
+    }
+
+    const price = getPrice();
+    amountInput.value = price > 0? (cashInput.value / price).toFixed(2) : 0;
+
+    const amountVal = parseFloat(amountInput.value);
+    if(serviceSelector.value == "gold" && amountVal >= 1000){
+        billionBadge.style.display = "inline-block";
+        billionBadge.textContent = `${formatBillion(amountVal)} 💰`;
+    } else {
+        billionBadge.style.display = "none";
+    }
+
+    isUpdating = false;
+};
+
+serverSelector.onchange = () => {
+    checkServerAvailability();
+    if(amountInput.value) amountInput.oninput();
+};
+
+paymentSelector.onchange();
+
+function sendOrder(){
+    if(!amountInput.value || amountInput.value == 0){
+        alert("اكتب الكمية او الكاش الاول");
+        return;
+    }
+    if(!serverSelector.value){
+        alert("اختر السيرفر الاول");
+        return;
+    }
+    if(operationSelector.value == "sell" &&!playerID.value.trim()){
+        alert("لازم تكتب الـ ID بتاعك عشان التسليم");
+        return;
+    }
+    if(operationSelector.value == "buy" &&!userPhone.value){
+        alert("اكتب رقم الكاش/انستا بتاعك");
+        return;
+    }
+
+    const price = getPrice().toFixed(4);
+    const serviceName = serviceSelector.value == "gold"? "Gold" : "CPs";
+    const serverName = PRICES[serviceSelector.value][serverSelector.value].name;
+    const operationText = operationSelector.value == "sell"? "طلب شراء منك" : "طلب بيع لك";
+    const emoji = operationSelector.value == "sell"? "🔥" : "💵";
+    const paymentMethodText = paymentSelector.value == 'كاش'? 'فودافون كاش' : 'انستا باي';
+
+    let amountText = amountInput.value;
+    let cashText = cashInput.value;
+
+    if(serviceSelector.value == "gold" && parseFloat(amountInput.value) >= 1000){
+        amountText = `${amountInput.value} مليون (${formatBillion(parseFloat(amountInput.value))})`;
+    }
+
+    const cashVal = parseFloat(cashInput.value);
+    if(cashVal >= 1000){
+        cashText = `${cashInput.value} جنيه (${formatCash(cashVal)})`;
+    } else {
+        cashText = `${cashInput.value} جنيه`;
+    }
+
+    let msg = `${emoji} ${operationText} - ${STORE_CONFIG.name}\n\n⚔ السيرفر: ${serverName}\n📦 الخدمة: ${serviceName}\n🔢 الكمية: ${amountText}\n💵 السعر: ${price} جنيه\n💰 المبلغ المستحق: ${cashText}\n💳 طريقة الدفع: ${paymentMethodText}`;
+
+    if(operationSelector.value == "sell"){
+        msg += `\n\n📲 حول على: ${currentPaymentNumber}\n🎮 ID اللاعب: ${playerID.value.trim()}`;
+        msg += `\n\nوابعت سكرين التحويل هنا ✅\nالتسليم فوري بعد التأكيد ⚡`;
+    }
+    if(operationSelector.value == "buy"){
+        msg += `\n📱 رقم التحويل: ${userPhone.value}\n\n✅ سيتم تحويل المبلغ لحسابك فور التأكيد`;
+    }
+
+    window.open(`https://wa.me/${STORE_CONFIG.whatsapp}?text=` + encodeURIComponent(msg));
+}
+
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+    if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73) || (e.ctrlKey && e.keyCode === 85)) {
+        e.preventDefault();
+        return false;
+    }
+});
 </script>
 
 </body>
