@@ -1,81 +1,83 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+<script type="module">
+    // انسخ كل الكود البرمجي الذي أرسلته لك وضعه هنا في هذا المكان
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyCiFo7DUunwnIPrH3MQZGy4aNiPx0L4JGQ",
-    databaseURL: "https://bmstore-counter-default-rtdb.firebaseio.com"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-let globalData = null;
-
-// جلب البيانات بالكامل (Gold و CPs)
-onValue(ref(db, 'prices'), (snapshot) => {
-    globalData = snapshot.val();
-    if(globalData) {
-        updateDropdown();
-        document.getElementById("loading").style.display = "none";
-        document.getElementById("mainStore").style.display = "block";
-    }
-});
-
-// دالة تحديث القائمة بناءً على الخدمة المختارة
-function updateDropdown() {
-    const service = document.getElementById("serviceSelector").value;
-    const data = globalData[service] || {};
-    buildServerDropdown(data);
-    calculatePrice(); // تحديث السعر فوراً عند تغيير الخدمة
-}
-
-function buildServerDropdown(data) {
-    const select = document.getElementById("serverSelector");
-    select.innerHTML = "";
-    
-    const order = ['main', 'new', 'classic', 'other'];
-    const groups = {
-        'main': { label: '⚡ MAIN SERVERS ⚡', elements: [] },
-        'new': { label: '🔥 NEW SERVERS 🔥', elements: [] },
-        'classic': { label: '⚔ CLASSIC SERVERS ⚔', elements: [] },
-        'other': { label: '🌐 OTHER SERVERS 🌐', elements: [] }
+    const firebaseConfig = {
+        apiKey: "AIzaSyCiFo7DUunwnIPrH3MQZGy4aNiPx0L4JGQ",
+        databaseURL: "https://bmstore-counter-default-rtdb.firebaseio.com"
     };
 
-    for (const [key, info] of Object.entries(data)) {
-        const cat = info.category && groups[info.category] ? info.category : 'other';
-        groups[cat].elements.push({ key, name: info.name || key });
-    }
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    let globalData = null;
 
-    order.forEach(catKey => {
-        const group = groups[catKey];
-        if (group && group.elements.length > 0) {
-            const optgroup = document.createElement("optgroup");
-            optgroup.label = group.label;
-            group.elements.forEach(el => {
-                const opt = document.createElement("option");
-                opt.value = el.key;
-                opt.textContent = el.name;
-                optgroup.appendChild(opt);
-            });
-            select.appendChild(optgroup);
+    onValue(ref(db, 'prices'), (snapshot) => {
+        globalData = snapshot.val();
+        if(globalData) {
+            updateDropdown();
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("mainStore").style.display = "block";
         }
     });
-}
 
-function calculatePrice() {
-    const service = document.getElementById("serviceSelector").value;
-    const server = document.getElementById("serverSelector").value;
-    const op = document.getElementById("operationSelector").value;
-    const amount = document.getElementById("amountInput").value;
-    
-    if(globalData && globalData[service] && globalData[service][server]) {
-        const price = globalData[service][server][op] || 0;
-        // ملاحظة: الـ CPs مخزن كـ "سعر الحبة"، لذا الحساب تلقائي وصحيح
-        document.getElementById("cashInput").value = (amount * price).toFixed(2);
+    function updateDropdown() {
+        const serviceSelector = document.getElementById("serviceSelector");
+        if (!serviceSelector) return;
+        const service = serviceSelector.value;
+        const data = globalData[service] || {};
+        buildServerDropdown(data);
+        calculatePrice();
     }
-}
 
-// ربط الأحداث للتحديث التلقائي
-document.getElementById("serviceSelector").onchange = updateDropdown;
-document.getElementById("serverSelector").onchange = calculatePrice;
-document.getElementById("operationSelector").onchange = calculatePrice;
-document.getElementById("amountInput").oninput = calculatePrice;
+    function buildServerDropdown(data) {
+        const select = document.getElementById("serverSelector");
+        if (!select) return;
+        select.innerHTML = "";
+        
+        const order = ['main', 'new', 'classic', 'other'];
+        const groups = {
+            'main': { label: '⚡ MAIN SERVERS ⚡', elements: [] },
+            'new': { label: '🔥 NEW SERVERS 🔥', elements: [] },
+            'classic': { label: '⚔ CLASSIC SERVERS ⚔', elements: [] },
+            'other': { label: '🌐 OTHER SERVERS 🌐', elements: [] }
+        };
+
+        for (const [key, info] of Object.entries(data)) {
+            const cat = info.category && groups[info.category] ? info.category : 'other';
+            groups[cat].elements.push({ key, name: info.name || key });
+        }
+
+        order.forEach(catKey => {
+            const group = groups[catKey];
+            if (group && group.elements.length > 0) {
+                const optgroup = document.createElement("optgroup");
+                optgroup.label = group.label;
+                group.elements.forEach(el => {
+                    const opt = document.createElement("option");
+                    opt.value = el.key;
+                    opt.textContent = el.name;
+                    optgroup.appendChild(opt);
+                });
+                select.appendChild(optgroup);
+            }
+        });
+    }
+
+    function calculatePrice() {
+        const service = document.getElementById("serviceSelector").value;
+        const server = document.getElementById("serverSelector").value;
+        const op = document.getElementById("operationSelector").value;
+        const amount = document.getElementById("amountInput").value;
+        
+        if(globalData && globalData[service] && globalData[service][server]) {
+            const price = globalData[service][server][op] || 0;
+            document.getElementById("cashInput").value = (amount * price).toFixed(2);
+        }
+    }
+
+    document.getElementById("serviceSelector").onchange = updateDropdown;
+    document.getElementById("serverSelector").onchange = calculatePrice;
+    document.getElementById("operationSelector").onchange = calculatePrice;
+    document.getElementById("amountInput").oninput = calculatePrice;
+</script>
