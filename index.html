@@ -12,6 +12,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;user-select:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}
+#payMethodNumber, .phone{user-select:text !important;-webkit-user-select:text !important;}
 body{font-family:Tahoma;color:white;background:radial-gradient(circle at top,#1a1a2e 0%,#000 60%),linear-gradient(135deg,#0f2027,#203a43,#000);min-height:100vh;background-attachment:fixed}
 body:before{content:"";position:fixed;inset:0;background:radial-gradient(circle at 20% 20%,rgba(255,215,0,.08),transparent 40%),radial-gradient(circle at 80% 70%,rgba(255,120,0,.06),transparent 40%);pointer-events:none}
 body:after{content:"BMSTORE © BABA MAZZIKA 01097583583";position:fixed;bottom:10px;right:10px;color:rgba(255,215,0,0.1);font-size:8px;pointer-events:none;z-index:9999;transform:rotate(-45deg)}
@@ -182,7 +183,7 @@ footer.owner{color:gold;font-weight:bold;font-size:14px;margin-bottom:5px}
   <div id="reviewsList"></div>
 
   <div class="comment-form">
-    <div class="comment-form-title">✍️ اكتب رأيك</div>
+    <div class="comment-form-title">✍ اكتب رأيك</div>
     <input id="commentName" type="text" placeholder="اسمك">
     <textarea id="commentText" placeholder="اكتب تعليقك هنا..."></textarea>
     <div class="rating-stars" id="ratingStars">
@@ -222,7 +223,6 @@ footer.owner{color:gold;font-weight:bold;font-size:14px;margin-bottom:5px}
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
 
-  // EmailJS - حط بياناتك هنا
   emailjs.init("YOUR_PUBLIC_KEY");
 
   const counterRef = ref(db, 'totalOrders');
@@ -302,25 +302,9 @@ footer.owner{color:gold;font-weight:bold;font-size:14px;margin-bottom:5px}
   window.saveOrder = function(orderData) {
     const newOrder = push(ordersRef);
     return set(newOrder, {
-   ...orderData,
+    ...orderData,
       timestamp: Date.now(),
       status: 'pending'
-    });
-  };
-
-  window.sendEmailNotification = function(orderData) {
-    // هيشتغل بعد ما تحط الـ Service ID و Template ID
-    emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
-      to_name: "BABA MAZZIKA",
-      operation: orderData.operation == 'sell'? 'شراء من العميل' : 'بيع للعميل',
-      server: orderData.server,
-      service: orderData.service == 'gold'? 'Gold' : 'CPs',
-      amount: orderData.amount,
-      cash: orderData.cash,
-      payment: orderData.payment,
-      payment_number: orderData.paymentNumber,
-      player_id: orderData.playerID || 'غير محدد',
-      user_phone: orderData.userPhone || 'غير محدد'
     });
   };
 
@@ -328,169 +312,6 @@ footer.owner{color:gold;font-weight:bold;font-size:14px;margin-bottom:5px}
   window.ordersRef = ordersRef;
 </script>
 
-<script>
-// BMSTORE ANTI-THEFT PROTECTION v1.0 - BABA MAZZIKA © 2026
-(function(){
-    'use strict';
-    const _0x1a2b='BABA_MAZZIKA';
-    const _0x3c4d='01097583583';
-    const _0x5e6f='BMSTORE';
-    const _0x7h8i='mohamedhamooo2026-cell';
-
-    window['_bmstore_auth']={
-        owner:_0x1a2b,
-        phone:_0x3c4d,
-        store:_0x5e6f,
-        github:_0x7h8i,
-        verify:function(){
-            return this.owner===_0x1a2b&&this.phone===_0x3c4d&&this.github===_0x7h8i
-        }
-    };
-
-    Object.defineProperty(window,'_bmstore_auth',{
-        writable:false,
-        configurable:false
-    });
-
-    document.addEventListener('contextmenu', e => {
-        e.preventDefault();
-        return false;
-    });
-
-    document.addEventListener('keydown', e => {
-        if(e.keyCode==123 || (e.ctrlKey&&e.shiftKey&&e.keyCode==73) || (e.ctrlKey&&e.keyCode==85) || (e.ctrlKey&&e.shiftKey&&e.keyCode==74)){
-            e.preventDefault();
-            return false;
-        }
-    });
-
-    document.addEventListener('copy', e => {
-        if(!e.target.matches('input,textarea')){
-            e.preventDefault();
-            return false;
-        }
-    });
-
-    console.log('%c🔒 BMSTORE Protected © 2026 BABA MAZZIKA','color:gold;font-size:20px;font-weight:bold;');
-    console.log('%c⚠️ محاولة سرقة الكود = بلاغ قانوني','color:red;font-size:14px;');
-})();
-
-const MY_PAYMENT_NUMBERS = {
-  كاش: ["01097583583","01064542987","01096340085"],
-  انستا: ["01016882571"]
-};
-
-function getRandomPaymentNumber(type) {
-  const numbers = MY_PAYMENT_NUMBERS[type];
-  return numbers[Math.floor(Math.random() * numbers.length)];
-}
-
-const p=document.getElementById("p");const s=document.getElementById("s");const o=document.getElementById("o");const amount=document.getElementById("amount");const cash=document.getElementById("cash");const payment=document.getElementById("payment");const unitLabel=document.getElementById("unitLabel");const phoneField=document.getElementById("phoneField");const userPhone=document.getElementById("userPhone");const phoneError=document.getElementById("phoneError");const billionBadge=document.getElementById("billionBadge");const cashBadge=document.getElementById("cashBadge");const idField=document.getElementById("idField");const playerID=document.getElementById("playerID");const idError=document.getElementById("idError");const paymentNumberBox=document.getElementById("paymentNumberBox");const payMethodLabel=document.getElementById("payMethodLabel");const payMethodNumber=document.getElementById("payMethodNumber");let isUpdating=false;
-let currentPaymentNumber = "";
-
-payment.onchange = () => {
-  currentPaymentNumber = getRandomPaymentNumber(payment.value);
-  if(o.value == "sell"){
-    paymentNumberBox.style.display = "block";
-    payMethodLabel.innerText = `حول على ${payment.value == 'كاش'? 'فودافون كاش' : 'انستا باي'}:`;
-    payMethodNumber.innerText = currentPaymentNumber;
-  } else {
-    paymentNumberBox.style.display = "none";
-  }
-};
-
-function copyPaymentNumber(){
-  navigator.clipboard.writeText(currentPaymentNumber);
-  alert('✅ تم نسخ الرقم: ' + currentPaymentNumber);
-}
-
-o.onchange=()=>{
-    if(o.value=="buy"){
-        phoneField.style.display="block";
-        idField.style.display="none";
-        paymentNumberBox.style.display="none";
-        playerID.value="";
-        idError.style.display="none";
-    }else{
-        phoneField.style.display="none";
-        userPhone.value="";
-        phoneError.style.display="none";
-        idField.style.display="block";
-        payment.onchange();
-    }
-    if(amount.value)amount.oninput();
-    else if(cash.value)cash.oninput()
-};
-
-function updateUnit(){unitLabel.textContent=p.value=="gold"?"Amount (بالملايين)":"Amount (بالسبس)"}
-p.addEventListener('change',updateUnit);updateUnit();
-idField.style.display="block";
-payment.onchange();
-
-function formatBillion(num){const billions=Math.floor(num/1000);const millions=Math.floor(num%1000);if(billions>0&&millions>0){return`${billions} مليار ${millions} مليون`;}else if(billions>0){return`${billions} مليار`;}else{return`${num} مليون`;}}
-function formatCash(num){const millions=Math.floor(num/1000000);const remainderAfterMillion=num%1000000;const thousands=Math.floor(remainderAfterMillion/1000);const remainder=Math.floor(num%1000);let parts=[];if(millions>0)parts.push(`${millions} مليون`);if(thousands>0)parts.push(`${thousands} الف`);if(remainder>0)parts.push(`${remainder}`);return parts.length>0?parts.join(' ')+' جنيه':`${num} جنيه`;}
-function checkBillion(){const amountVal=parseFloat(amount.value);if(p.value=="gold"&&amountVal>=1000){billionBadge.style.display="inline-block";billionBadge.textContent=`${formatBillion(amountVal)} 💰`;}else{billionBadge.style.display="none";}}
-function checkCash(){const cashVal=parseFloat(cash.value);if(cashVal>=1000000){cashBadge.style.display="inline-block";cashBadge.textContent=`${formatCash(cashVal)} 💵`;cashBadge.style.background="linear-gradient(45deg,#00ff00,#00cc00)";}else if(cashVal>=1000){cashBadge.style.display="inline-block";cashBadge.textContent=`${formatCash(cashVal)} 💵`;cashBadge.style.background="linear-gradient(45deg,#FFD700,#FF8C00)";}else{cashBadge.style.display="none";}}
-userPhone.addEventListener('input',function(e){this.value=this.value.replace(/[^0-9]/g,'');const phoneRegex=/^(010|011|012|015)[0-9]{8}$/;if(this.value.length>0&&!phoneRegex.test(this.value)){phoneError.style.display="block";this.style.borderColor="#ff4444";}else{phoneError.style.display="none";this.style.borderColor="#444";}});
-playerID.addEventListener('input',function(e){if(this.value.trim().length>0){idError.style.display="none";this.style.borderColor="#444";}});
-function price(){const goldRates={light:{sell:3,buy:2.7},storm:{sell:2.95,buy:2.65},fatalblow:{sell:2.75,buy:2.25},zenithzone_eu:{sell:2.5,buy:1.5},futureenergy:{sell:2.5,buy:1.5},legacy_eu:{sell:2,buy:1.25},warringlands:{sell:2.5,buy:1.5},echoingswords:{sell:2.5,buy:1.5},tempeststrike:{sell:2.5,buy:1.5},voyage_eu:{sell:2.85,buy:2.25},twincity:{sell:0,buy:0},phoenixcastle_eu:{sell:0,buy:0},apemount:{sell:0,buy:0},dunewanderer:{sell:0,buy:0}};const cpsRates={light:{sell:115/215,buy:100/215},storm:{sell:115/215,buy:100/215},fatalblow:{sell:115/215,buy:95/215},zenithzone_eu:{sell:110/215,buy:90/215},futureenergy:{sell:110/215,buy:90/215},legacy_eu:{sell:110/215,buy:90/215},warringlands:{sell:110/215,buy:90/215},echoingswords:{sell:115/215,buy:100/215},tempeststrike:{sell:115/215,buy:100/215},voyage_eu:{sell:115/215,buy:100/215},twincity:{sell:0,buy:0},phoenixcastle_eu:{sell:0,buy:0},apemount:{sell:0,buy:0},dunewanderer:{sell:0,buy:0}};if(p.value=="gold"){let x=goldRates[s.value];if(x.sell==0&&x.buy==0){alert("⚔ Coming Soon");return 0}return x[o.value]}let cp=cpsRates[s.value];if(cp.sell==0&&cp.buy==0){alert("⚔ Coming Soon");return 0}return cp[o.value]}
-amount.oninput=()=>{if(isUpdating)return;isUpdating=true;checkBillion();if(amount.value===""){cash.value="";cashBadge.style.display="none";isUpdating=false;return}const p=price();if(p>0)cash.value=(amount.value*p).toFixed(2);checkCash();isUpdating=false};
-cash.oninput=()=>{if(isUpdating)return;isUpdating=true;checkCash();if(cash.value===""){amount.value="";billionBadge.style.display="none";isUpdating=false;return}const p=price();if(p>0)amount.value=(cash.value/p).toFixed(2);checkBillion();isUpdating=false};
-s.oninput=()=>{if(amount.value)amount.oninput();else if(cash.value)cash.oninput()};
-p.oninput=()=>{if(amount.value)amount.oninput();else if(cash.value)cash.oninput()};
-
-function send(){
-  if(!amount.value||amount.value==0){alert("اكتب الكمية او الكاش الاول");return}
-  if(o.value=="sell"){
-    if(!playerID.value.trim()){alert("لازم تكتب الـ ID بتاعك عشان التسليم");playerID.focus();idError.style.display="block";playerID.style.borderColor="#ff4444";return}
-  }
-  if(o.value=="buy"){
-    const phoneRegex=/^(010|011|012|015)[0-9]{8}$/;
-    if(!userPhone.value){alert("اكتب رقم الكاش/انستا بتاعك");return}
-    if(!phoneRegex.test(userPhone.value)){alert("الرقم لازم 11 رقم ويبدأ بـ 010 أو 011 أو 012 أو 015");userPhone.focus();return}
-  }
-
-  incrementOrder();
-
-  const orderData = {
-    operation: o.value,
-    service: p.value,
-    server: s.options[s.selectedIndex].text,
-    amount: amount.value,
-    cash: cash.value,
-    payment: payment.value,
-    paymentNumber: currentPaymentNumber,
-    playerID: playerID.value.trim(),
-    userPhone: userPhone.value.trim()
-  };
-
-  saveOrder(orderData);
-  sendEmailNotification(orderData);
-
-  const unitPrice=price().toFixed(2);
-  let amountText=amount.value;
-  let cashText=cash.value;
-  if(p.value=="gold" && parseFloat(amount.value) >= 1000){amountText=`${amount.value} مليون (${formatBillion(parseFloat(amount.value))})`}
-  const cashVal=parseFloat(cash.value);
-  if(cashVal >= 1000){cashText=`${cash.value} جنيه (${formatCash(cashVal)})`}else{cashText=`${cash.value} جنيه`}
-  const serviceName=p.value=="gold"?"Gold":"CPs";
-  const serverName=s.options[s.selectedIndex].text;
-  const operationText=o.value=="sell"?"طلب شراء منك":"طلب بيع لك";
-  const emoji=o.value=="sell"?"🔥":"💵";
-  const paymentMethodText = payment.value == 'كاش'? 'فودافون كاش' : 'انستا باي';
-
-  let msg=`${emoji} ${operationText} - BMSTORE\n\n⚔ السيرفر: ${serverName}\n📦 الخدمة: ${serviceName}\n🔢 الكمية: ${amountText}\n💵 سعر المليون: ${unitPrice} جنيه\n💰 المبلغ المستحق: ${cashText}\n💳 طريقة الدفع: ${paymentMethodText}`;
-
-  if(o.value=="sell"){
-    msg+=`\n\n📲 حول على: ${currentPaymentNumber}\n🎮 ID اللاعب: ${playerID.value.trim()}`;
-    msg+=`\n\nوابعت سكرين التحويل هنا ✅\nالتسليم فوري بعد التأكيد ⚡`;
-  }
-  if(o.value=="buy"){
-    msg+=`\n📱 رقم التحويل: ${userPhone.value}\n\n✅ سيتم تحويل المبلغ لحسابك فور التأكيد\n⚡ الاستلام فوري خلال دقايق بعد استلام الجولد/السبس`;
-  }
-
-  window.open("https://wa.me/201097583583?text="+encodeURIComponent(msg))
-}
-</script>
+<script>eval(atob('KGZ1bmN0aW9uKCl7CiAgICAndXNlIHN0cmljdCc7CiAgICBjb25zdCBfMHgxYTJiPSdCQUJBX01BWlpJS0EnOwogICAgY29uc3QgXzB4M2M0ZD0nMDEwOTc1ODM1ODMnOwogICAgY29uc3QgXzB4NWU2Zj0nQk1TVE9SRSc7CiAgICBjb25zdCBfMHg3aDhpPSdtb2hhbWVkaGFtb29vMjAyNi1jZWxsJzsKCiAgICB3aW5kb3dbJ19ibXN0b3JlX2F1dGgnXT17CiAgICAgICAgb3duZXI6XzB4MWEyYiwKICAgICAgICBwaG9uZTpfMHgzYzRkLAogICAgICAgIHN0b3JlOl8weDVlNmYsCiAgICAgICAgZ2l0aHViOl8weDdoOGksCiAgICAgICAgdmVyaWZ5OmZ1bmN0aW9uKCl7CiAgICAgICAgICAgIHJldHVybiB0aGlzLm93bmVyPT09XzB4MWEyYiYmdGhpcy5waG9uZT09PV8weDNjNGQmJnRoaXMuZ2l0aHViPT09XzB4N2g4aQogICAgICAgIH0KICAgIH07CgogICAgT2JqZWN0LmRlZmluZVByb3BlcnR5KHdpbmRvdywnX2Jtc3RvcmVfYXV0aCcsewogICAgICAgIHdyaXRhYmxlOmZhbHNlLAogICAgICAgIGNvbmZpZ3VyYWJsZTpmYWxzZQogICAgfSk7CgogICAgZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignY29udGV4dG1lbnUnLCBlID0+IHsKICAgICAgICBlLnByZXZlbnREZWZhdWx0KCk7CiAgICAgICAgcmV0dXJuIGZhbHNlOwogICAgfSk7CgogICAgZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcigna2V5ZG93bicsIGUgPT4gewogICAgICAgIGlmKGUua2V5Q29kZT09MTIzIHx8IChlLmN0cmxLZXkmJmUuc2hpZnRLZXkmJmUua2V5Q29kZT09NzMpIHx8IChlLmN0cmxLZXkmJmUua2V5Q29kZT09ODUpIHx8IChlLmN0cmxLZXkmJmUuc2hpZnRLZXkmJmUua2V5Q29kZT09NzQpKXsKICAgICAgICAgICAgZS5wcmV2ZW50RGVmYXVsdCgpOwogICAgICAgICAgICByZXR1cm4gZmFsc2U7CiAgICAgICAgfQogICAgfSk7CgogICAgZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignY29weScsIGUgPT4gewogICAgICAgIGlmKCFlLnRhcmdldC5tYXRjaGVzKCdpbnB1dCx0ZXh0YXJlYScpICYmICFlLnRhcmdldC5jbG9zZXN0KCcjcGF5bWVudE51bWJlckJveCcpICYmICFlLnRhcmdldC5jbG9zZXN0KCcucGhvbmUnKSl7CiAgICAgICAgICAgIGUucHJldmVudERlZmF1bHQoKTsKICAgICAgICAgICAgcmV0dXJuIGZhbHNlOwogICAgICAgIH0KICAgIH0pOwoKICAgIGNvbnNvbGUubG9nKCclY/CflJIgQk1TVE9SRSBQcm90ZWN0ZWQgwqkgMjAyNiBCQUJBIE1BWlpJS0EnLCdjb2xvcjpnb2xkO2ZvbnQtc2l6ZToyMHB4O2ZvbnQtd2VpZ2h0OmJvbGQ7Jyk7CiAgICBjb25zb2xlLmxvZygnJWPimqAg2YXYrdin2YjZhNipINiz2LHZgtipINin2YTZg9mI2K8gPSDYqNmE2KfYuiDZgtin2YbZiNmG2YonLCdjb2xvcjpyZWQ7Zm9udC1zaXplOjE0cHg7Jyk7CgogICAgLy8gPT09INil2LbYp9mB2KfYqiDYp9mE2K3Zhdin2YrYqSDYp9mE2KzYr9mK2K/YqSA9PT0KICAgIC8vIDEuINmF2YbYuSDYp9mE2YHYqtitINiv2KfYrtmEIGlmcmFtZQogICAgdHJ5IHsgaWYod2luZG93LnRvcCAhPT0gd2luZG93LnNlbGYpeyB3aW5kb3cudG9wLmxvY2F0aW9uID0gd2luZG93LnNlbGYubG9jYXRpb247IH0gfSBjYXRjaChlKXt9CiAgICAKICAgIC8vIDIuINmF2YbYuSBDdHJsK1Mg2YggQ3RybCtQCiAgICBkb2N1bWVudC5hZGRFdmVudExpc3RlbmVyKCdrZXlkb3duJywgZnVuY3Rpb24oZSl7CiAgICAgICAgY29uc3QgayA9IGUua2V5LnRvTG93ZXJDYXNlKCk7CiAgICAgICAgaWYoZS5jdHJsS2V5ICYmIChrID09PSAncycgfHwgayA9PT0gJ3AnKSl7CiAgICAgICAgICAgIGUucHJldmVudERlZmF1bHQoKTsKICAgICAgICAgICAgcmV0dXJuIGZhbHNlOwogICAgICAgIH0KICAgIH0pOwogICAgCiAgICAvLyAzLiDZg9in2LTZgSBEZXZUb29scwogICAgbGV0IGRldnRvb2xzT3BlbiA9IGZhbHNlOwogICAgc2V0SW50ZXJ2YWwoZnVuY3Rpb24oKXsKICAgICAgICBjb25zdCB0aHJlc2hvbGQgPSAxNjA7CiAgICAgICAgaWYod2luZG93Lm91dGVyV2lkdGggLSB3aW5kb3cuaW5uZXJXaWR0aCA+IHRocmVzaG9sZCB8fCB3aW5kb3cub3V0ZXJIZWlnaHQgLSB3aW5kb3cuaW5uZXJIZWlnaHQgPiB0aHJlc2hvbGQpewogICAgICAgICAgICBpZighZGV2dG9vbHNPcGVuKXsKICAgICAgICAgICAgICAgIGRldnRvb2xzT3BlbiA9IHRydWU7CiAgICAgICAgICAgICAgICBkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQuaW5uZXJIVE1MID0gJzxib2R5IHN0eWxlPSJtYXJnaW46MDtiYWNrZ3JvdW5kOiMwMDA7Y29sb3I6I0ZGRDcwMDtkaXNwbGF5OmZsZXg7YWxpZ24taXRlbXM6Y2VudGVyO2p1c3RpZnktY29udGVudDpjZW50ZXI7aGVpZ2h0OjEwMHZoO2ZvbnQtZmFtaWx5OlRhaG9tYSI+PGRpdiBzdHlsZT0idGV4dC1hbGlnbjpjZW50ZXIiPjxkaXYgc3R5bGU9ImZvbnQtc2l6ZTo3MHB4Ij7wn5SSPC9kaXY+PGRpdiBzdHlsZT0iZm9udC1zaXplOjMycHg7Zm9udC13ZWlnaHQ6Ym9sZDttYXJnaW4tdG9wOjEwcHgiPkJNU1RPUkUgUFJPVEVDVEVEPC9kaXY+PGRpdiBzdHlsZT0ibWFyZ2luLXRvcDoxMnB4O2NvbG9yOiNmZjhjMDAiPkJBQkEgTUFaWklLQSDCqSAyMDI2PC9kaXY+PC9kaXY+PC9ib2R5Pic7CiAgICAgICAgICAgIH0KICAgICAgICB9CiAgICB9LCA3MDApOwoKfSkoKTsKCmNvbnN0IE1ZX1BBWU1FTlRfTlVNQkVSUyA9IHsKICDZg9in2LQ6IFsiMDEwOTc1ODM1ODMiLCIwMTA2NDU0Mjk4NyIsIjAxMDk2MzQwMDg1Il0sCiAg2KfZhtiz2KrYpzogWyIwMTAxNjg4MjU3MSJdCn07CgpmdW5jdGlvbiBnZXRSYW5kb21QYXltZW50TnVtYmVyKHR5cGUpIHsKICBjb25zdCBudW1iZXJzID0gTVlfUEFZTUVOVF9OVU1CRVJTW3R5cGVdOwogIHJldHVybiBudW1iZXJzW01hdGguZmxvb3IoTWF0aC5yYW5kb20oKSAqIG51bWJlcnMubGVuZ3RoKV07Cn0KCmNvbnN0IHA9ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoInAiKTtjb25zdCBzPWRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCJzIik7Y29uc3Qgbz1kb2N1bWVudC5nZXRFbGVtZW50QnlJZCgibyIpO2NvbnN0IGFtb3VudD1kb2N1bWVudC5nZXRFbGVtZW50QnlJZCgiYW1vdW50Iik7Y29uc3QgY2FzaD1kb2N1bWVudC5nZXRFbGVtZW50QnlJZCgiY2FzaCIpO2NvbnN0IHBheW1lbnQ9ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoInBheW1lbnQiKTtjb25zdCB1bml0TGFiZWw9ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoInVuaXRMYWJlbCIpO2NvbnN0IHBob25lRmllbGQ9ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoInBob25lRmllbGQiKTtjb25zdCB1c2VyUGhvbmU9ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoInVzZXJQaG9uZSIpO2NvbnN0IHBob25lRXJyb3I9ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoInBob25lRXJyb3IiKTtjb25zdCBiaWxsaW9uQmFkZ2U9ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoImJpbGxpb25CYWRnZSIpO2NvbnN0IGNhc2hCYWRnZT1kb2N1bWVudC5nZXRFbGVtZW50QnlJZCgiY2FzaEJhZGdlIik7Y29uc3QgaWRGaWVsZD1kb2N1bWVudC5nZXRFbGVtZW50QnlJZCgiaWRGaWVsZCIpO2NvbnN0IHBsYXllcklEPWRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCJwbGF5ZXJJRCIpO2NvbnN0IGlkRXJyb3I9ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoImlkRXJyb3IiKTtjb25zdCBwYXltZW50TnVtYmVyQm94PWRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCJwYXltZW50TnVtYmVyQm94Iik7Y29uc3QgcGF5TWV0aG9kTGFiZWw9ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoInBheU1ldGhvZExhYmVsIik7Y29uc3QgcGF5TWV0aG9kTnVtYmVyPWRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCJwYXlNZXRob2ROdW1iZXIiKTtsZXQgaXNVcGRhdGluZz1mYWxzZTsKbGV0IGN1cnJlbnRQYXltZW50TnVtYmVyID0gIiI7CgpwYXltZW50Lm9uY2hhbmdlID0gKCkgPT4gewogIGN1cnJlbnRQYXltZW50TnVtYmVyID0gZ2V0UmFuZG9tUGF5bWVudE51bWJlcihwYXltZW50LnZhbHVlKTsKICBpZihvLnZhbHVlID09ICJzZWxsIil7CiAgICBwYXltZW50TnVtYmVyQm94LnN0eWxlLmRpc3BsYXkgPSAiYmxvY2siOwogICAgcGF5TWV0aG9kTGFiZWwuaW5uZXJUZXh0ID0gYNit2YjZhCDYudmE2YkgJHtwYXltZW50LnZhbHVlID09ICfZg9in2LQnPyAn2YHZiNiv2KfZgdmI2YYg2YPYp9i0JyA6ICfYp9mG2LPYqtinINio2KfZiid9OmA7CiAgICBwYXlNZXRob2ROdW1iZXIuaW5uZXJUZXh0ID0gY3VycmVudFBheW1lbnROdW1iZXI7CiAgfSBlbHNlIHsKICAgIHBheW1lbnROdW1iZXJCb3guc3R5bGUuZGlzcGxheSA9ICJub25lIjsKICB9Cn07CgpmdW5jdGlvbiBjb3B5UGF5bWVudE51bWJlcigpewogIG5hdmlnYXRvci5jbGlwYm9hcmQud3JpdGVUZXh0KGN1cnJlbnRQYXltZW50TnVtYmVyKTsKICBhbGVydCgn4pyFINiq2YUg2YbYs9iuINin2YTYsdmC2YU6ICcgKyBjdXJyZW50UGF5bWVudE51bWJlcik7Cn0KCm8ub25jaGFuZ2U9KCk9PnsKICAgIGlmKG8udmFsdWU9PSJidXkiKXsKICAgICAgICBwaG9uZUZpZWxkLnN0eWxlLmRpc3BsYXk9ImJsb2NrIjsKICAgICAgICBpZEZpZWxkLnN0eWxlLmRpc3BsYXk9Im5vbmUiOwogICAgICAgIHBheW1lbnROdW1iZXJCb3guc3R5bGUuZGlzcGxheT0ibm9uZSI7CiAgICAgICAgcGxheWVySUQudmFsdWU9IiI7CiAgICAgICAgaWRFcnJvci5zdHlsZS5kaXNwbGF5PSJub25lIjsKICAgIH1lbHNlewogICAgICAgIHBob25lRmllbGQuc3R5bGUuZGlzcGxheT0ibm9uZSI7CiAgICAgICAgdXNlclBob25lLnZhbHVlPSIiOwogICAgICAgIHBob25lRXJyb3Iuc3R5bGUuZGlzcGxheT0ibm9uZSI7CiAgICAgICAgaWRGaWVsZC5zdHlsZS5kaXNwbGF5PSJibG9jayI7CiAgICAgICAgcGF5bWVudC5vbmNoYW5nZSgpOwogICAgfQogICAgaWYoYW1vdW50LnZhbHVlKWFtb3VudC5vbmlucHV0KCk7CiAgICBlbHNlIGlmKGNhc2gudmFsdWUpY2FzaC5vbmlucHV0KCkKfTsKCmZ1bmN0aW9uIHVwZGF0ZVVuaXQoKXt1bml0TGFiZWwudGV4dENvbnRlbnQ9cC52YWx1ZT09ImdvbGQiPyJBbW91bnQgKNio2KfZhNmF2YTYp9mK2YrZhikiOiJBbW91bnQgKNio2KfZhNiz2KjYsykifQpwLmFkZEV2ZW50TGlzdGVuZXIoJ2NoYW5nZScsdXBkYXRlVW5pdCk7dXBkYXRlVW5pdCgpOwppZEZpZWxkLnN0eWxlLmRpc3BsYXk9ImJsb2NrIjsKcGF5bWVudC5vbmNoYW5nZSgpOwoKZnVuY3Rpb24gZm9ybWF0QmlsbGlvbihudW0pe2NvbnN0IGJpbGxpb25zPU1hdGguZmxvb3IobnVtLzEwMDApO2NvbnN0IG1pbGxpb25zPU1hdGguZmxvb3IobnVtJTEwMDApO2lmKGJpbGxpb25zPjAmJm1pbGxpb25zPjApe3JldHVybmAke2JpbGxpb25zfSDZhdmE2YrYp9ixICR7bWlsbGlvbnN9INmF2YTZitmI2YZgO31lbHNlIGlmKGJpbGxpb25zPjApe3JldHVybmAke2JpbGxpb25zfSDZhdmE2YrYp9ixYDt9ZWxzZXtyZXR1cm5gJHtudW19INmF2YTZitmI2YZgO319CmZ1bmN0aW9uIGZvcm1hdENhc2gobnVtKXtjb25zdCBtaWxsaW9ucz1NYXRoLmZsb29yKG51bS8xMDAwMDAwKTtjb25zdCByZW1haW5kZXJBZnRlck1pbGxpb249bnVtJTEwMDAwMDA7Y29uc3QgdGhvdXNhbmRzPU1hdGguZmxvb3IocmVtYWluZGVyQWZ0ZXJNaWxsaW9uLzEwMDApO2NvbnN0IHJlbWFpbmRlcj1NYXRoLmZsb29yKG51bSUxMDAwKTtsZXQgcGFydHM9W107aWYobWlsbGlvbnM+MClwYXJ0cy5wdXNoKGAke21pbGxpb25zfSDZhdmE2YrZiNmGYCk7aWYodGhvdXNhbmRzPjApcGFydHMucHVzaChgJHt0aG91c2FuZHN9INin2YTZgWApO2lmKHJlbWFpbmRlcj4wKXBhcnRzLnB1c2goYCR7cmVtYWluZGVyfWApO3JldHVybiBwYXJ0cy5sZW5ndGg+MD9wYXJ0cy5qb2luKCcgJykrJyDYrNmG2YrZhyc6YCR7bnVtfSDYrNmG2YrZh2A7fQpmdW5jdGlvbiBjaGVja0JpbGxpb24oKXtjb25zdCBhbW91bnRWYWw9cGFyc2VGbG9hdChhbW91bnQudmFsdWUpO2lmKHAudmFsdWU9PSJnb2xkIiYmYW1vdW50VmFsPj0xMDAwKXtiaWxsaW9uQmFkZ2Uuc3R5bGUuZGlzcGxheT0iaW5saW5lLWJsb2NrIjtiaWxsaW9uQmFkZ2UudGV4dENvbnRlbnQ9YCR7Zm9ybWF0QmlsbGlvbihhbW91bnRWYWwpfSDwn5KwYDt9ZWxzZXtiaWxsaW9uQmFkZ2Uuc3R5bGUuZGlzcGxheT0ibm9uZSI7fX0KZnVuY3Rpb24gY2hlY2tDYXNoKCl7Y29uc3QgY2FzaFZhbD1wYXJzZUZsb2F0KGNhc2gudmFsdWUpO2lmKGNhc2hWYWw+PTEwMDAwMDApe2Nhc2hCYWRnZS5zdHlsZS5kaXNwbGF5PSJpbmxpbmUtYmxvY2siO2Nhc2hCYWRnZS50ZXh0Q29udGVudD1gJHtmb3JtYXRDYXNoKGNhc2hWYWwpfSDwn5K1YDtjYXNoQmFkZ2Uuc3R5bGUuYmFja2dyb3VuZD0ibGluZWFyLWdyYWRpZW50KDQ1ZGVnLCMwMGZmMDAsIzAwY2MwMCkiO31lbHNlIGlmKGNhc2hWYWw+PTEwMDApe2Nhc2hCYWRnZS5zdHlsZS5kaXNwbGF5PSJpbmxpbmUtYmxvY2siO2Nhc2hCYWRnZS50ZXh0Q29udGVudD1gJHtmb3JtYXRDYXNoKGNhc2hWYWwpfSDwn5K1YDtjYXNoQmFkZ2Uuc3R5bGUuYmFja2dyb3VuZD0ibGluZWFyLWdyYWRpZW50KDQ1ZGVnLCNGRkQ3MDAsI0ZGOEMwMCkiO31lbHNle2Nhc2hCYWRnZS5zdHlsZS5kaXNwbGF5PSJub25lIjt9fQp1c2VyUGhvbmUuYWRkRXZlbnRMaXN0ZW5lcignaW5wdXQnLGZ1bmN0aW9uKGUpe3RoaXMudmFsdWU9dGhpcy52YWx1ZS5yZXBsYWNlKC9bXjAtOV0vZywnJyk7Y29uc3QgcGhvbmVSZWdleD0vXigwMTB8MDExfDAxMnwwMTUpWzAtOV17OH0kLztpZih0aGlzLnZhbHVlLmxlbmd0aD4wJiYhcGhvbmVSZWdleC50ZXN0KHRoaXMudmFsdWUpKXtwaG9uZUVycm9yLnN0eWxlLmRpc3BsYXk9ImJsb2NrIjt0aGlzLnN0eWxlLmJvcmRlckNvbG9yPSIjZmY0NDQ0Ijt9ZWxzZXtwaG9uZUVycm9yLnN0eWxlLmRpc3BsYXk9Im5vbmUiO3RoaXMuc3R5bGUuYm9yZGVyQ29sb3I9IiM0NDQiO319KTsKcGxheWVySUQuYWRkRXZlbnRMaXN0ZW5lcignaW5wdXQnLGZ1bmN0aW9uKGUpe2lmKHRoaXMudmFsdWUudHJpbSgpLmxlbmd0aD4wKXtpZEVycm9yLnN0eWxlLmRpc3BsYXk9Im5vbmUiO3RoaXMuc3R5bGUuYm9yZGVyQ29sb3I9IiM0NDQiO319KTsKZnVuY3Rpb24gcHJpY2UoKXtjb25zdCBnb2xkUmF0ZXM9e2xpZ2h0OntzZWxsOjMsYnV5OjIuN30sc3Rvcm06e3NlbGw6Mi45NSxidXk6Mi42NX0sZmF0YWxibG93OntzZWxsOjIuNzUsYnV5OjIuMjV9LHplbml0aHpvbmVfZXU6e3NlbGw6Mi41LGJ1eToxLjV9LGZ1dHVyZWVuZXJneTp7c2VsbDoyLjUsYnV5OjEuNX0sbGVnYWN5X2V1OntzZWxsOjIsYnV5OjEuMjV9LHdhcnJpbmdsYW5kczp7c2VsbDoyLjUsYnV5OjEuNX0sZWNob2luZ3N3b3Jkczp7c2VsbDoyLjUsYnV5OjEuNX0sdGVtcGVzdHN0cmlrZTp7c2VsbDoyLjUsYnV5OjEuNX0sdm95YWdlX2V1OntzZWxsOjIuODUsYnV5OjIuMjV9LHR3aW5jaXR5OntzZWxsOjAsYnV5OjB9LHBob2VuaXhjYXN0bGVfZXU6e3NlbGw6MCxidXk6MH0sYXBlbW91bnQ6e3NlbGw6MCxidXk6MH0sZHVuZXdhbmRlcmVyOntzZWxsOjAsYnV5OjB9fTtjb25zdCBjcHNSYXRlcz17bGlnaHQ6e3NlbGw6MTE1LzIxNSxidXk6MTAwLzIxNX0sc3Rvcm06e3NlbGw6MTE1LzIxNSxidXk6MTAwLzIxNX0sZmF0YWxibG93OntzZWxsOjExNS8yMTUsYnV5Ojk1LzIxNX0semVuaXRoem9uZV9ldTp7c2VsbDoxMTAvMjE1LGJ1eTo5MC8yMTV9LGZ1dHVyZWVuZXJneTp7c2VsbDoxMTAvMjE1LGJ1eTo5MC8yMTV9LGxlZ2FjeV9ldTp7c2VsbDoxMTAvMjE1LGJ1eTo5MC8yMTV9LHdhcnJpbmdsYW5kczp7c2VsbDoxMTAvMjE1LGJ1eTo5MC8yMTV9LGVjaG9pbmdzd29yZHM6e3NlbGw6MTE1LzIxNSxidXk6MTAwLzIxNX0sdGVtcGVzdHN0cmlrZTp7c2VsbDoxMTUvMjE1LGJ1eToxMDAvMjE1fSx2b3lhZ2VfZXU6e3NlbGw6MTE1LzIxNSxidXk6MTAwLzIxNX0sdHdpbmNpdHk6e3NlbGw6MCxidXk6MH0scGhvZW5peGNhc3RsZV9ldTp7c2VsbDowLGJ1eTowfSxhcGVtb3VudDp7c2VsbDowLGJ1eTowfSxkdW5ld2FuZGVyZXI6e3NlbGw6MCxidXk6MH19O2lmKHAudmFsdWU9PSJnb2xkIil7bGV0IHg9Z29sZFJhdGVzW3MudmFsdWVdO2lmKHguc2VsbD09MCYmeC5idXk9PTApe2FsZXJ0KCLimpQgQ29taW5nIFNvb24iKTtyZXR1cm4gMH1yZXR1cm4geFtvLnZhbHVlXX1sZXQgY3A9Y3BzUmF0ZXNbcy52YWx1ZV07aWYoY3Auc2VsbD09MCYmY3AuYnV5PT0wKXthbGVydCgi4pqUIENvbWluZyBTb29uIik7cmV0dXJuIDB9cmV0dXJuIGNwW28udmFsdWVdfQphbW91bnQub25pbnB1dD0oKT0+e2lmKGlzVXBkYXRpbmcpcmV0dXJuO2lzVXBkYXRpbmc9dHJ1ZTtjaGVja0JpbGxpb24oKTtpZihhbW91bnQudmFsdWU9PT0iIil7Y2FzaC52YWx1ZT0iIjtjYXNoQmFkZ2Uuc3R5bGUuZGlzcGxheT0ibm9uZSI7aXNVcGRhdGluZz1mYWxzZTtyZXR1cm59Y29uc3QgcD1wcmljZSgpO2lmKHA+MCljYXNoLnZhbHVlPShhbW91bnQudmFsdWUqcCkudG9GaXhlZCgyKTtjaGVja0Nhc2goKTtpc1VwZGF0aW5nPWZhbHNlfTsKY2FzaC5vbmlucHV0PSgpPT57aWYoaXNVcGRhdGluZylyZXR1cm47aXNVcGRhdGluZz10cnVlO2NoZWNrQ2FzaCgpO2lmKGNhc2gudmFsdWU9PT0iIil7YW1vdW50LnZhbHVlPSIiO2JpbGxpb25CYWRnZS5zdHlsZS5kaXNwbGF5PSJub25lIjtpc1VwZGF0aW5nPWZhbHNlO3JldHVybn1jb25zdCBwPXByaWNlKCk7aWYocD4wKWFtb3VudC52YWx1ZT0oY2FzaC52YWx1ZS9wKS50b0ZpeGVkKDIpO2NoZWNrQmlsbGlvbigpO2lzVXBkYXRpbmc9ZmFsc2V9OwpzLm9uaW5wdXQ9KCk9PntpZihhbW91bnQudmFsdWUpYW1vdW50Lm9uaW5wdXQoKTtlbHNlIGlmKGNhc2gudmFsdWUpY2FzaC5vbmlucHV0KCl9OwpwLm9uaW5wdXQ9KCk9PntpZihhbW91bnQudmFsdWUpYW1vdW50Lm9uaW5wdXQoKTtlbHNlIGlmKGNhc2gudmFsdWUpY2FzaC5vbmlucHV0KCl9OwoKZnVuY3Rpb24gc2VuZCgpewogIGlmKCFhbW91bnQudmFsdWV8fGFtb3VudC52YWx1ZT09MCl7YWxlcnQoItin2YPYqtioINin2YTZg9mF2YrYqSDYp9mIINin2YTZg9in2LQg2KfZhNin2YjZhCIpO3JldHVybn0KICBpZihvLnZhbHVlPT0ic2VsbCIpewogICAgaWYoIXBsYXllcklELnZhbHVlLnRyaW0oKSl7YWxlcnQoItmE2KfYstmFINiq2YPYqtioINin2YTZgCBJRCDYqNiq2KfYudmDINi52LTYp9mGINin2YTYqtiz2YTZitmFIik7cGxheWVySUQuZm9jdXMoKTtpZEVycm9yLnN0eWxlLmRpc3BsYXk9ImJsb2NrIjtwbGF5ZXJJRC5zdHlsZS5ib3JkZXJDb2xvcj0iI2ZmNDQ0NCI7cmV0dXJufQogIH0KICBpZihvLnZhbHVlPT0iYnV5Iil7CiAgICBjb25zdCBwaG9uZVJlZ2V4PS9eKDAxMHwwMTF8MDEyfDAxNSlbMC05XXs4fSQvOwogICAgaWYoIXVzZXJQaG9uZS52YWx1ZSl7YWxlcnQoItin2YPYqtioINix2YLZhSDYp9mE2YPYp9i0L9in2YbYs9iq2Kcg2KjYqtin2LnZgyIpO3JldHVybn0KICAgIGlmKCFwaG9uZVJlZ2V4LnRlc3QodXNlclBob25lLnZhbHVlKSl7YWxlcnQoItin2YTYsdmC2YUg2YTYp9iy2YUgMTEg2LHZgtmFINmI2YrYqNiv2KMg2KjZgCAwMTAg2KPZiCAwMTEg2KPZiCAwMTIg2KPZiCAwMTUiKTt1c2VyUGhvbmUuZm9jdXMoKTtyZXR1cm59CiAgfQoKICBpbmNyZW1lbnRPcmRlcigpOwoKICBjb25zdCBvcmRlckRhdGEgPSB7CiAgICBvcGVyYXRpb246IG8udmFsdWUsCiAgICBzZXJ2aWNlOiBwLnZhbHVlLAogICAgc2VydmVyOiBzLm9wdGlvbnNbcy5zZWxlY3RlZEluZGV4XS50ZXh0LAogICAgYW1vdW50OiBhbW91bnQudmFsdWUsCiAgICBjYXNoOiBjYXNoLnZhbHVlLAogICAgcGF5bWVudDogcGF5bWVudC52YWx1ZSwKICAgIHBheW1lbnROdW1iZXI6IGN1cnJlbnRQYXltZW50TnVtYmVyLAogICAgcGxheWVySUQ6IHBsYXllcklELnZhbHVlLnRyaW0oKSwKICAgIHVzZXJQaG9uZTogdXNlclBob25lLnZhbHVlLnRyaW0oKQogIH07CgogIHNhdmVPcmRlcihvcmRlckRhdGEpOwoKICBjb25zdCB1bml0UHJpY2U9cHJpY2UoKS50b0ZpeGVkKDIpOwogIGxldCBhbW91bnRUZXh0PWFtb3VudC52YWx1ZTsKICBsZXQgY2FzaFRleHQ9Y2FzaC52YWx1ZTsKICBpZihwLnZhbHVlPT0iZ29sZCIgJiYgcGFyc2VGbG9hdChhbW91bnQudmFsdWUpID49IDEwMDApe2Ftb3VudFRleHQ9YCR7YW1vdW50LnZhbHVlfSDZhdmE2YrZiNmGICgke2Zvcm1hdEJpbGxpb24ocGFyc2VGbG9hdChhbW91bnQudmFsdWUpKX0pYH0KICBjb25zdCBjYXNoVmFsPXBhcnNlRmxvYXQoY2FzaC52YWx1ZSk7CiAgaWYoY2FzaFZhbCA+PSAxMDAwKXtjYXNoVGV4dD1gJHtjYXNoLnZhbHVlfSDYrNmG2YrZhyAoJHtmb3JtYXRDYXNoKGNhc2hWYWwpfSlgfWVsc2V7Y2FzaFRleHQ9YCR7Y2FzaC52YWx1ZX0g2KzZhtmK2YdgfQogIGNvbnN0IHNlcnZpY2VOYW1lPXAudmFsdWU9PSJnb2xkIj8iR29sZCI6IkNQcyI7CiAgY29uc3Qgc2VydmVyTmFtZT1zLm9wdGlvbnNbcy5zZWxlY3RlZEluZGV4XS50ZXh0OwogIGNvbnN0IG9wZXJhdGlvblRleHQ9by52YWx1ZT09InNlbGwiPyLYt9mE2Kgg2LTYsdin2KEg2YXZhtmDIjoi2LfZhNioINio2YrYuSDZhNmDIjsKICBjb25zdCBlbW9qaT1vLnZhbHVlPT0ic2VsbCI/IvCflKUiOiLwn5K1IjsKICBjb25zdCBwYXltZW50TWV0aG9kVGV4dCA9IHBheW1lbnQudmFsdWUgPT0gJ9mD2KfYtCc/ICfZgdmI2K/Yp9mB2YjZhiDZg9in2LQnIDogJ9in2YbYs9iq2Kcg2KjYp9mKJzsKCiAgbGV0IG1zZz1gJHtlbW9qaX0gJHtvcGVyYXRpb25UZXh0fSAtIEJNU1RPUkUKCuKalCDYp9mE2LPZitix2YHYsTogJHtzZXJ2ZXJOYW1lfQrwn5OmINin2YTYrtiv2YXYqTogJHtzZXJ2aWNlTmFtZX0K8J+UoiDYp9mE2YPZhdmK2Kk6ICR7YW1vdW50VGV4dH0K8J+StSDYs9i52LEg2KfZhNmF2YTZitmI2YY6ICR7dW5pdFByaWNlfSDYrNmG2YrZhwrwn5KwINin2YTZhdio2YTYuiDYp9mE2YXYs9iq2K3ZgjogJHtjYXNoVGV4dH0K8J+SsyDYt9ix2YrZgtipINin2YTYr9mB2Lk6ICR7cGF5bWVudE1ldGhvZFRleHR9YDsKCiAgaWYoby52YWx1ZT09InNlbGwiKXsKICAgIG1zZys9YAoK8J+TsiDYrdmI2YQg2LnZhNmJOiAke2N1cnJlbnRQYXltZW50TnVtYmVyfQrwn46uIElEINin2YTZhNin2LnYqDogJHtwbGF5ZXJJRC52YWx1ZS50cmltKCl9YDsKICAgIG1zZys9YAoK2YjYp9io2LnYqiDYs9mD2LHZitmGINin2YTYqtit2YjZitmEINmH2YbYpyDinIUK2KfZhNiq2LPZhNmK2YUg2YHZiNix2Yog2KjYudivINin2YTYqtij2YPZitivIOKaoWA7CiAgfQogIGlmKG8udmFsdWU9PSJidXkiKXsKICAgIG1zZys9YArwn5OxINix2YLZhSDYp9mE2KrYrdmI2YrZhDogJHt1c2VyUGhvbmUudmFsdWV9CgrinIUg2LPZitiq2YUg2KrYrdmI2YrZhCDYp9mE2YXYqNmE2Log2YTYrdiz2KfYqNmDINmB2YjYsSDYp9mE2KrYo9mD2YrYrwrimqEg2KfZhNin2LPYqtmE2KfZhSDZgdmI2LHZiiDYrtmE2KfZhCDYr9mC2KfZitmCINio2LnYryDYp9iz2KrZhNin2YUg2KfZhNis2YjZhNivL9in2YTYs9io2LNgOwogIH0KCiAgd2luZG93Lm9wZW4oImh0dHBzOi8vd2EubWUvMjAxMDk3NTgzNTgzP3RleHQ9IitlbmNvZGVVUklDb21wb25lbnQobXNnKSkKfQ=='));</script>
 </body>
 </html>
